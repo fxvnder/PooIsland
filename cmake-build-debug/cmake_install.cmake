@@ -1,4 +1,4 @@
-# Install script for directory: Z:/FXVNDER/Documents/ISEC/2_ANO/POO/TP/PooIsland
+# Install script for directory: C:/Users/yeshe/Documents/2021/ISEC/POO/Trabalho/PooIsland
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "Z:/FXVNDER/Documents/ISEC/2_ANO/POO/TP/PooIsland/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/yeshe/Documents/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
