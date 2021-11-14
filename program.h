@@ -6,11 +6,12 @@ using std::vector;
 class island{
 private:
     int lines, columns;
+    // vector<vector<int>> vect;
     vector<int> vec;
-    
+
 public:
     island(int l,int c) : lines(l), columns(c) {
-
+        
     };
 };
 
