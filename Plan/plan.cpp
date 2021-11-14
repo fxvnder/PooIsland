@@ -1,17 +1,8 @@
 /*
-UI UI SEXO
-Era bom
-
-Faz-se tudo em inglês founder bora?
-
-MIngW install:
-C
-C++
-DEv Tools
-
 
 Utilizar Framework Qt (valoriza-se)
--ILHA:
+
+ -ILHA:
 	-Geração:
 	    quadrada, feita por quadriculas(zonas)
 		tamanho init definido pelo utilizador, minimo 3*3, max 8*16
@@ -184,3 +175,17 @@ Meta 2 – Prazo: 16 de janeiro
 	
 			
 */
+
+
+/*
+ -funcao run
+    -chama class da ilha
+        - criar vetor de vetores de classes tile
+    -days()
+ -funcao days
+    while (gameover != true){
+        print_island()
+
+    }
+
+ */

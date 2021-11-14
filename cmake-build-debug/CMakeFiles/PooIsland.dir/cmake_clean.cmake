@@ -1,9 +1,11 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PooIsland.dir/main.cpp.obj"
-  "PooIsland.exe"
-  "PooIsland.exe.manifest"
+  "CMakeFiles/PooIsland_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/PooIsland_autogen.dir/ParseCache.txt"
+  "PooIsland_autogen"
+  "CMakeFiles/PooIsland.dir/PooIsland_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/PooIsland.dir/main.cpp.o"
+  "PooIsland"
   "PooIsland.pdb"
-  "libPooIsland.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

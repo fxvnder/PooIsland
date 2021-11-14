@@ -2,5 +2,17 @@ cmake_minimum_required(VERSION 3.20)
 project(PooIsland)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-add_executable(PooIsland main.cpp)
+
+find_package(Qt5 COMPONENTS
+        Core
+        REQUIRED)
+
+add_executable(PooIsland main.cpp main.cpp)
+target_link_libraries(PooIsland
+        Qt5::Core
+        )
+

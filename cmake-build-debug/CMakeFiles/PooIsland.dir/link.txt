@@ -1,3 +1,1 @@
-"C:\Program Files\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\PooIsland.dir/objects.a
-C:\MinGW\bin\ar.exe cr CMakeFiles\PooIsland.dir/objects.a @CMakeFiles\PooIsland.dir\objects1.rsp
-C:\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\PooIsland.dir/objects.a -Wl,--no-whole-archive -o PooIsland.exe -Wl,--out-implib,libPooIsland.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\PooIsland.dir\linklibs.rsp
+/usr/bin/c++ -g CMakeFiles/PooIsland.dir/PooIsland_autogen/mocs_compilation.cpp.o CMakeFiles/PooIsland.dir/main.cpp.o -o PooIsland  /usr/lib/libQt5Core.so.5.15.2 
