@@ -9,14 +9,10 @@
 /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/main.cpp
 iostream
 -
-program.h
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h
 QCoreApplication
 -
 QDebug
 -
-
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h
 
 /usr/include/qt/QtCore/QCoreApplication
 qcoreapplication.h
