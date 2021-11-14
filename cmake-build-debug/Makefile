@@ -190,6 +190,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PooIsland.dir/build.make CMakeFiles/PooIsland.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+program.o: program.cpp.o
+.PHONY : program.o
+
+# target to build an object file
+program.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PooIsland.dir/build.make CMakeFiles/PooIsland.dir/program.cpp.o
+.PHONY : program.cpp.o
+
+program.i: program.cpp.i
+.PHONY : program.i
+
+# target to preprocess a source file
+program.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PooIsland.dir/build.make CMakeFiles/PooIsland.dir/program.cpp.i
+.PHONY : program.cpp.i
+
+program.s: program.cpp.s
+.PHONY : program.s
+
+# target to generate assembly for a file
+program.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PooIsland.dir/build.make CMakeFiles/PooIsland.dir/program.cpp.s
+.PHONY : program.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,6 +230,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... program.o"
+	@echo "... program.i"
+	@echo "... program.s"
 .PHONY : help
 
 

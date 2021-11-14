@@ -5,6 +5,7 @@ CMakeFiles/PooIsland.dir/PooIsland_autogen/mocs_compilation.cpp.o
  /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/PooIsland_autogen/mocs_compilation.cpp
 CMakeFiles/PooIsland.dir/main.cpp.o
  /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/main.cpp
+ /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h
  /usr/include/qt/QtCore/QCoreApplication
  /usr/include/qt/QtCore/QDebug
  /usr/include/qt/QtCore/qalgorithms.h
@@ -73,3 +74,6 @@ CMakeFiles/PooIsland.dir/main.cpp.o
  /usr/include/qt/QtCore/qvarlengtharray.h
  /usr/include/qt/QtCore/qvector.h
  /usr/include/qt/QtCore/qversiontagging.h
+CMakeFiles/PooIsland.dir/program.cpp.o
+ /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.cpp
+ /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h

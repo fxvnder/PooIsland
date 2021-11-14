@@ -47,7 +47,15 @@
 	"CMAKE_SOURCE_DIR" : "/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h",
+			"MU",
+			"EWIEGA46WW/moc_program.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/PooIsland_autogen/include",
 	"MOC_COMPILATION_FILE" : "/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/PooIsland_autogen/mocs_compilation.cpp",
@@ -98,6 +106,11 @@
 	[
 		[
 			"/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.cpp",
 			"MU",
 			null
 		]

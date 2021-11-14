@@ -185,7 +185,12 @@ Meta 2 – Prazo: 16 de janeiro
  -funcao days
     while (gameover != true){
         print_island()
-
+        amanhecer()
+        jogador_joga()
+        anoitecer()
     }
 
+    class tile{
+
+    }
  */

@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "PooIsland_autogen"
   "CMakeFiles/PooIsland.dir/PooIsland_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/PooIsland.dir/main.cpp.o"
+  "CMakeFiles/PooIsland.dir/program.cpp.o"
   "PooIsland"
   "PooIsland.pdb"
 )

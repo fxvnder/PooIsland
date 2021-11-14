@@ -1,9 +1,18 @@
-//
-// Created by yeshey on 14/11/21.
-//
-
 #ifndef POOISLAND_PROGRAM_H
 #define POOISLAND_PROGRAM_H
+#include <vector>
+using std::vector;
+
+class island{
+private:
+    int lines, columns;
+    vector<int> vec;
+    
+public:
+    island(int l,int c) : lines(l), columns(c) {
+
+    };
+};
 
 int run();
 

@@ -108,6 +108,12 @@
 		<Unit filename="/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/main.cpp">
 			<Option target="PooIsland"/>
 		</Unit>
+		<Unit filename="/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.cpp">
+			<Option target="PooIsland"/>
+		</Unit>
+		<Unit filename="/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h">
+			<Option target="PooIsland"/>
+		</Unit>
 		<Unit filename="/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
