@@ -4,7 +4,7 @@ Utilizar Framework Qt (valoriza-se)
 
  -ILHA:
 	-Geração:
-	    quadrada, feita por quadriculas(zonas)
+	    retangular, feita por quadriculas(zonas)
 		tamanho init definido pelo utilizador, minimo 3*3, max 8*16
 		Pelo menos 1 zona de cada tipo
 		distribuição de tipos de zona equilibrada

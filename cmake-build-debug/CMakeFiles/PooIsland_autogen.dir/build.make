@@ -53,10 +53,10 @@ RM = /var/lib/snapd/snap/clion/169/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland
+CMAKE_SOURCE_DIR = /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug
+CMAKE_BINARY_DIR = /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug
 
 # Utility rule file for PooIsland_autogen.
 
@@ -67,8 +67,8 @@ include CMakeFiles/PooIsland_autogen.dir/compiler_depend.make
 include CMakeFiles/PooIsland_autogen.dir/progress.make
 
 CMakeFiles/PooIsland_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target PooIsland"
-	/var/lib/snapd/snap/clion/169/bin/cmake/linux/bin/cmake -E cmake_autogen /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland_autogen.dir/AutogenInfo.json Debug
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target PooIsland"
+	/var/lib/snapd/snap/clion/169/bin/cmake/linux/bin/cmake -E cmake_autogen /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland_autogen.dir/AutogenInfo.json Debug
 
 PooIsland_autogen: CMakeFiles/PooIsland_autogen
 PooIsland_autogen: CMakeFiles/PooIsland_autogen.dir/build.make
@@ -83,6 +83,6 @@ CMakeFiles/PooIsland_autogen.dir/clean:
 .PHONY : CMakeFiles/PooIsland_autogen.dir/clean
 
 CMakeFiles/PooIsland_autogen.dir/depend:
-	cd /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug /media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/PooIsland_autogen.dir/depend
 

@@ -1,9 +1,12 @@
 #include <iostream>
 #include "program.h"
 
-tiles::tiles() : type("forest") {};
+/*
+island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {
 
-island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {};
+};
+*/
+
 string island::showGuts() const {
     ostringstream oss;
     oss << "lets go " << vec[0];

@@ -2,26 +2,29 @@
 #define POOISLAND_PROGRAM_H
 #include <vector>
 #include <sstream>
-using std::vector;
-using std::string;
-using std::ostringstream;
 
 class tiles{
 private:
-    string type;
+    std::string type;
 public:
-    tiles();
-    string operator<< (const tiles& type) const {return "nope"; }; //?
+    tiles() : type("forest") {};
+    std::string operator<< (const tiles& type) const {return "nope"; };
 };
 
 class island{
 private:
     int lines, columns;
     //vector<vector<tiles>> vec;
-    vector<int> vec;
+    std::vector<tiles> vec;
 public:
-    island(int l,int c);
-    string showGuts() const;
+    island(int l,int c) : lines(l), columns(c) {
+        for (int i = 0; i < l; ++i) {
+            for (int j = 0; j < c; ++j) {
+                vec.push_back()
+            }
+        }
+    };
+    std::string showGuts() const;
 };
 
 int run();

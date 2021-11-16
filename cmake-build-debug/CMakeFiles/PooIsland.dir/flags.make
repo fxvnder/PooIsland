@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DQT_CORE_LIB
 
-CXX_INCLUDES = -I/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/PooIsland_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++
+CXX_INCLUDES = -I/media/sf_DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/PooIsland_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++
 
 CXX_FLAGS = -g -fPIC -std=gnu++14
 
