@@ -1,4 +1,0 @@
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland.dir
-/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/cmake-build-debug/CMakeFiles/PooIsland_autogen.dir
