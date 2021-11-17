@@ -20,7 +20,8 @@ public:
     island(int l,int c) : lines(l), columns(c) {
         for (int i = 0; i < l; ++i) {
             for (int j = 0; j < c; ++j) {
-                vec.push_back()
+                tiles moist;
+                vec.push_back(moist);
             }
         }
     };
