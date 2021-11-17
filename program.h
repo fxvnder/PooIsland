@@ -27,7 +27,7 @@ public:
         for (int i = 0; i < l; ++i) {
             vecvec.push_back(std::vector<tile>());
             for (int j = 0; j < c; ++j) {
-                tile newTile;                      // todo: find a better way, maybe use new
+                tile newTile;                       // todo: find a better way, maybe use new
                 vecvec[i].push_back(newTile);
             }
         }
