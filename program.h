@@ -40,14 +40,6 @@ public:
                 oss << x.showInfoTile() << " ";
             oss << std::endl;
             }
-        /*
-        for (int i = 0; i < vecvec.size(); i++){
-            for (int j = 0; j < vecvec[i].size(); j++){
-                oss << vecvec[i][j].showInfoTile() << " ";
-            }
-            oss << std::endl;
-        }
-         */
         return oss.str();
     };
 };

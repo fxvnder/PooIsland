@@ -12,7 +12,6 @@ std::ostream& operator<<(std::ostream& os, const tile& recievedTile){
 //class island
 /*
 island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {
-
 };
 */
 
