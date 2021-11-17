@@ -1,6 +1,8 @@
 #include <iostream>
 #include "interface.h"
-using std::cin, std::cout, std::string;
+using std::cin;
+using std::cout;
+using std::string;
 
 void welcome(){
     std::cout << "Welcome to POOIsland" << std::endl;
