@@ -6,13 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+find_package(Qt5 COMPONENTS Core REQUIRED)
 
-find_package(Qt5 COMPONENTS
-        Core
-        REQUIRED)
-
-add_executable(PooIsland main.cpp program.cpp interface.cpp interface.h ficheiros.cpp ficheiros.h)
-target_link_libraries(PooIsland
-        Qt5::Core
-        )
+add_executable(PooIsland main.cpp program.cpp interface.cpp interface.h files.cpp files.h objects.cpp objects.h)
+target_link_libraries(PooIsland Qt5::Core)
 

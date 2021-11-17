@@ -1,6 +1,6 @@
 #include <iostream>
 #include "interface.h"
-using namespace std;
+using std::cin, std::cout, std::string;
 
 void welcome(){
     std::cout << "Welcome to POOIsland" << std::endl;
@@ -12,14 +12,14 @@ void chooseDimensions() {
     bool success = false;
     // Lets player choose island dimensions
     do{
-        std::cout << "Choose the island size: 1/2 ";
-        std::cin >> dim[0];
-        std::cout << "\nSize 2/2: ";
-        std::cin >> dim[1];
+        cout << "Choose the island size: 1/2 ";
+        cin >> dim[0];
+        cout << "\nSize 2/2: ";
+        cin >> dim[1];
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16)
             success = true;
         else {
-            std::cout << "\nInvalid data recieved, try again" << std::endl;
+            cout << "\nInvalid data recieved, try again" << std::endl;
         }
     } while (!success);
     dim[0] = 6 ; dim[1] = 6;
@@ -27,8 +27,8 @@ void chooseDimensions() {
 }
 
 void plays(island world){
-    std::string command = "",firstWord;
-    std::string error_msg;
+    string command = "",firstWord;
+    string error_msg;
     do{
         if (error_msg != "")
             std::cout << error_msg << std::endl;

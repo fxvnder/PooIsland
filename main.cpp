@@ -6,13 +6,15 @@
 #include <iostream>
 #include <vector>
 
+using std::cin, std::cout, std::string, std::endl;
+
 int main(int argc, char *argv[]) {
     //QCoreApplication a(argc, argv);
     //qDebug() << "Hello World";
     //return QCoreApplication::exec();
 
     welcome();
-    std::cout << "terminating successfuly" << std::endl;
+    cout << "terminating successfuly" << endl;
     return 0;
 }
 
