@@ -14,7 +14,7 @@ public:
         oss << type;
         return oss.str();
     };
-    friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
+    //friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
 class island{
@@ -37,7 +37,7 @@ public:
         oss << "Showing Island Info" << std::endl;
         for (std::vector<tile> vec : vecvec){
             for (tile x : vec)
-                oss << x << " ";
+                oss << x.showInfoTile() << " ";
             oss << std::endl;
             }
         /*

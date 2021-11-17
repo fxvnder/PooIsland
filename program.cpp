@@ -2,10 +2,12 @@
 #include "program.h"
 
 // classe tile
+/*
 std::ostream& operator<<(std::ostream& os, const tile& recievedTile){
     os << recievedTile.type;
     return os;
 }
+ */
 
 //class island
 /*
