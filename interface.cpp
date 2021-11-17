@@ -1,5 +1,6 @@
 #include <iostream>
 #include "interface.h"
+using namespace std;
 
 void welcome(){
     std::cout << "Welcome to POOIsland" << std::endl;
@@ -24,3 +25,35 @@ void chooseDimensions() {
     dim[0] = 6 ; dim[1] = 6;
     run(dim);
 }
+
+void plays(island world){
+    std::string command = "",firstWord;
+    std::string error_msg;
+    do{
+        if (error_msg != "")
+            std::cout << error_msg << std::endl;
+        error_msg = "";
+
+        std::string error_msg = "";
+        do{
+            if (command != "")
+                std::cout << "\nInvalid command, try again" << std::endl;
+            command = "";
+            getline(cin, command);
+            firstWord = command.substr(0, command.find(" "));
+            std::cout << "first word: " << firstWord << std::endl;
+        } while (
+                firstWord != "list" &&
+                firstWord != "exec" &&
+                firstWord != "cons"
+                //...
+                );
+
+        error_msg = treatCommand(command,world);
+    } while (error_msg != "");
+};
+
+std::string treatCommand(std::string command, island world){
+
+    return "";
+};
