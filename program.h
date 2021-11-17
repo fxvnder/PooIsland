@@ -14,7 +14,7 @@ public:
         oss << type;
         return oss.str();
     };
-    //std::string operator<< (const tile& type) const {return "nope"; };
+    friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
 class island{
@@ -35,22 +35,23 @@ public:
     std::string showInfoIsland() const {
         std::ostringstream oss;
         oss << "Showing Island Info" << std::endl;
+        for (std::vector<tile> vec : vecvec){
+            for (tile x : vec)
+                oss << x << " ";
+            oss << std::endl;
+            }
         /*
-        for (std::vector<int> vec : vecvec)
-            for (int x : vec)
-                oss << x;
-        */
         for (int i = 0; i < vecvec.size(); i++){
             for (int j = 0; j < vecvec[i].size(); j++){
                 oss << vecvec[i][j].showInfoTile() << " ";
             }
             oss << std::endl;
         }
-        oss << std::endl;
+         */
         return oss.str();
     };
 };
 
-int run();
+void run(int * dim);
 
 #endif //POOISLAND_PROGRAM_H

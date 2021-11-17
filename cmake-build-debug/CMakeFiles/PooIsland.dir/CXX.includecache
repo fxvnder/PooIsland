@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
+/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/interface.cpp
+iostream
+-
+interface.h
 /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/interface.h
+
+/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/interface.h
+program.h
+/mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/program.h
 
 /mnt/DataDisk/PersonalFiles/2021/ISEC/POO/Trabalho/PooIsland/main.cpp
 program.h

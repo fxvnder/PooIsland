@@ -12,7 +12,8 @@ int main(int argc, char *argv[]) {
     //return QCoreApplication::exec();
 
     welcome();
-    run();
+    std::cout << "terminating successfuly" << std::endl;
+    return 0;
 }
 
 /*

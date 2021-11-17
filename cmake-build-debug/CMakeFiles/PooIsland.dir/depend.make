@@ -5,7 +5,8 @@ CMakeFiles/PooIsland.dir/PooIsland_autogen/mocs_compilation.cpp.o: \
  PooIsland_autogen/mocs_compilation.cpp
 CMakeFiles/PooIsland.dir/interface.cpp.o: \
  ../interface.cpp \
- ../interface.h
+ ../interface.h \
+ ../program.h
 CMakeFiles/PooIsland.dir/main.cpp.o: \
  ../interface.h \
  ../main.cpp \
