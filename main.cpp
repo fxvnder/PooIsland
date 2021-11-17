@@ -17,6 +17,18 @@ int main(int argc, char *argv[]) {
 }
 
 /*
+int main(){
+    Jogo j; // Dados
+    UserInt ui(j); // user interface (comandos)
+    ui.run();
+
+    //professor diz que é preciso separar a parte dos dados e da ui
+
+    // meta 1
+    // desmanchar a linha de texto em varios parametros
+}*/
+
+/*
  * perguntar ao prof:
  *
  * -se deve meter os construtores no .h? e funções da classe

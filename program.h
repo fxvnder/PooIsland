@@ -14,7 +14,7 @@ public:
         oss << type;
         return oss.str();
     };
-    //friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
+    //friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
 };
 
 class island{

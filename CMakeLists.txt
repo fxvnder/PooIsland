@@ -11,7 +11,7 @@ find_package(Qt5 COMPONENTS
         Core
         REQUIRED)
 
-add_executable(PooIsland main.cpp program.cpp interface.cpp interface.h)
+add_executable(PooIsland main.cpp program.cpp interface.cpp interface.h ficheiros.cpp ficheiros.h)
 target_link_libraries(PooIsland
         Qt5::Core
         )
