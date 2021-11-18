@@ -1,10 +1,8 @@
-#include "program.h"
 #include "interface.h"
 
 #include <QCoreApplication>
 #include <QDebug>
 #include <iostream>
-#include <vector>
 
 using std::cin;
 using std::cout;

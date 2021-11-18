@@ -35,8 +35,8 @@ string island::showInfoIsland() const {
 
 
 /*
-std::ostream& operator<<(std::ostream& os, const tile& recievedTile){
-    os << recievedTile.type;
+std::ostream& operator<<(std::ostream& os, const tile& receivedTile){
+    os << receivedTile.type;
     return os;
 }
  */
