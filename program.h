@@ -1,5 +1,6 @@
 #ifndef POOISLAND_PROGRAM_H
 #define POOISLAND_PROGRAM_H
+#include "objects.h"
 #include <vector>
 #include <sstream>
 #include <iostream>

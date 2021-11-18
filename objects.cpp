@@ -24,9 +24,9 @@ island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {
     }
 };
 string island::showInfoIsland() const {
-    ostringstream oss;
+    std::ostringstream oss;
     oss << "Showing Island Info" << endl;
-    for (vector<tile> vec : vecvec){
+    for (std::vector<tile> vec : vecvec){
         for (tile x : vec)
             oss << x.showInfoTile() << " ";
         oss << endl;

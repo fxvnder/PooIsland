@@ -2,8 +2,8 @@
 #define POOISLAND_OBJECTS_H
 
 #include <iostream>
+#include <vector>
 using std::string;
-using std::vector;
 using std::endl;
 
 class tile{
@@ -18,11 +18,11 @@ public:
 class island{
 private:
     int lines, columns;
-    vector<vector<tile>> vecvec;
-    vector<tile> vetr;
+    std::vector<std::vector<tile>> vecvec;
+    std::vector<tile> vetr;
 public:
-    island(int l,int c) : lines(l), columns(c);
+    island(int l,int c) : lines(l), columns(c) {};
     string showInfoIsland() const;
-}
+};
 
 #endif //POOISLAND_OBJECTS_H
