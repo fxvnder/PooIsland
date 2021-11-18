@@ -3,7 +3,7 @@
 #include "objects.h"
 
 void run(int * dim){
-    island world(dim[0],dim[1]);
+    island world(dim[0], dim[1]);
     days(world);
 }
 

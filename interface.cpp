@@ -1,5 +1,6 @@
 #include <iostream>
 #include "interface.h"
+#include "objects.h"
 using std::cin;
 using std::cout;
 using std::string;
@@ -29,7 +30,7 @@ void chooseDimensions() {
 }
 
 void plays(island world){
-    string command = "",firstWord;
+    string command = "", firstWord;
     string error_msg;
     do{
         if (error_msg != "")
@@ -56,6 +57,6 @@ void plays(island world){
 };
 
 std::string treatCommand(std::string command, island world){
-
+    
     return "";
 };
