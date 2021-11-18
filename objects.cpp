@@ -3,7 +3,7 @@
 #include <sstream>
 #include <vector>
 
-//class tiles:
+//class tiles
 tile::tile() : type("forest") {};
 string tile::showInfoTile() const {
     std::ostringstream oss;
@@ -11,10 +11,8 @@ string tile::showInfoTile() const {
     return oss.str();
 };
 
-
-
 //class island
-island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {
+island::island(int l,int c) : lines(l), columns(c) {
     for (int i = 0; i < l; ++i) {
         vecvec.push_back(std::vector<tile>());
         for (int j = 0; j < c; ++j) {
@@ -23,11 +21,12 @@ island::island(int l,int c) : lines(l), columns(c), vec(lines,42) {
         }
     }
 };
+
 string island::showInfoIsland() const {
     std::ostringstream oss;
     oss << "Showing Island Info" << endl;
-    for (std::vector<tile> vec : vecvec){
-        for (tile x : vec)
+    for (const std::vector<tile> &vec : vecvec){
+        for (const tile &x : vec)
             oss << x.showInfoTile() << " ";
         oss << endl;
     }

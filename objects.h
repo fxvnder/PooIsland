@@ -21,7 +21,7 @@ private:
     std::vector<std::vector<tile>> vecvec;
     std::vector<tile> vetr;
 public:
-    island(int l,int c) : lines(l), columns(c) {};
+    island(int l,int c);
     string showInfoIsland() const;
 };
 
