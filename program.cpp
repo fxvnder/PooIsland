@@ -7,7 +7,7 @@ void run(int * dim){
     days(world);
 }
 
-void days(const island& world){
+void days(island& world){
     do {
         std::cout << world.showInfoIsland() << std::endl;
         dawn(world);
@@ -16,14 +16,14 @@ void days(const island& world){
     } while (!gameover(world));
 }
 
-void dawn(const island& world){
+void dawn(island& world){
     std::cout << "dawn" << std::endl; //dw founder this is not interface ok mano
 }
 
-void dusk(const island& world){
+void dusk(island& world){
     std::cout << "dusk" << std::endl; //dw founder this is not interface na boa mpt
 }
 
-bool gameover(const island& world){
+bool gameover(island& world){
     return false;
 }

@@ -30,35 +30,35 @@ void chooseDimensions() {
 }
 
 void plays(island world){
-    string command = "", firstWord;
+    string command, firstWord;
     string error_msg;
     do{
-        if (error_msg != "") {
+        if (!error_msg.empty()) {
             std::cout << error_msg << std::endl;
-            do{
-                if (command != "")
-                    std::cout << "\nInvalid command, try again" << std::endl;
-                command = "";
-                getline(cin, command);
-                firstWord = command.substr(0, command.find(" "));
-                std::cout << "first word: " << firstWord << std::endl;
-            } while (
-                    firstWord != "list" &&
-                    firstWord != "exec" &&
-                    firstWord != "cons" &&
-                    firstWord != "exit"
-                //...
-                    );
         }
-        error_msg = "";
-
-        std::string error_msg = "";
+        do{
+            if (!command.empty())
+                std::cout << "\nInvalid command, try again" << std::endl;
+            command = "";
+            getline(cin, command);
+            firstWord = command.substr(0, command.find(" "));
+            std::cout << "first word: " << firstWord << std::endl;
+        } while (
+                firstWord != "list" &&
+                firstWord != "exec" &&
+                firstWord != "cons" &&
+                firstWord != "exit"
+                //...
+                );
 
         error_msg = treatCommand(command,world);
-    } while (error_msg != "");
+    } while (!error_msg.empty());
 };
 
 std::string treatCommand(std::string command, island world){
-    if (command == "exit") { return "saiu"; }
+    if(command == "exit") {
+        cout << "xau";
+        exit(1);
+    }
     return "";
 };
