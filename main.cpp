@@ -1,7 +1,7 @@
 #include "interface.h"
 
 #include <QCoreApplication>
-#include <QDebug>
+// #include <QDebug>
 #include <iostream>
 
 using std::cin;

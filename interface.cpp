@@ -33,30 +33,32 @@ void plays(island world){
     string command = "", firstWord;
     string error_msg;
     do{
-        if (error_msg != "")
+        if (error_msg != "") {
             std::cout << error_msg << std::endl;
+            do{
+                if (command != "")
+                    std::cout << "\nInvalid command, try again" << std::endl;
+                command = "";
+                getline(cin, command);
+                firstWord = command.substr(0, command.find(" "));
+                std::cout << "first word: " << firstWord << std::endl;
+            } while (
+                    firstWord != "list" &&
+                    firstWord != "exec" &&
+                    firstWord != "cons" &&
+                    firstWord != "exit"
+                //...
+                    );
+        }
         error_msg = "";
 
         std::string error_msg = "";
-        do{
-            if (command != "")
-                std::cout << "\nInvalid command, try again" << std::endl;
-            command = "";
-            getline(cin, command);
-            firstWord = command.substr(0, command.find(" "));
-            std::cout << "first word: " << firstWord << std::endl;
-        } while (
-                firstWord != "list" &&
-                firstWord != "exec" &&
-                firstWord != "cons"
-                //...
-                );
 
         error_msg = treatCommand(command,world);
     } while (error_msg != "");
 };
 
 std::string treatCommand(std::string command, island world){
-    
+    if (command == "exit") { return "saiu"; }
     return "";
 };
