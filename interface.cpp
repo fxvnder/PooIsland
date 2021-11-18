@@ -13,16 +13,16 @@ void welcome(){
 void chooseDimensions() {
     int dim[2];
     bool success = false;
-    // Lets player choose island dimensions
+    // player chooses island dimensions
     do{
         cout << "Choose the island size: 1/2 ";
         cin >> dim[0];
         cout << "\nSize 2/2: ";
         cin >> dim[1];
-        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16)
+        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16) // restrictions
             success = true;
         else {
-            cout << "\nInvalid data recieved, try again" << std::endl;
+            cout << "\nInvalid data received, try again" << std::endl;
         }
     } while (!success);
     dim[0] = 6 ; dim[1] = 6;
@@ -41,21 +41,52 @@ void plays(island world){
                 std::cout << "\nInvalid command, try again" << std::endl;
             command = "";
             getline(cin, command);
-            firstWord = command.substr(0, command.find(" "));
+            firstWord = command.substr(0, command.find(' '));
             std::cout << "first word: " << firstWord << std::endl;
         } while (
-                firstWord != "list" &&
-                firstWord != "exec" &&
-                firstWord != "cons" &&
-                firstWord != "exit"
-                //...
+                // LSITA DE COMANDOS
+                firstWord != "exec" && // ex. comandos no ficheiro
+                firstWord != "cons" && // constroi
+                firstWord != "liga" && // liga edificio
+                firstWord != "des" && // desliga edificio
+                firstWord != "move" && // move trabalhador
+                firstWord != "vende" && // vende recursos || vende edificios - CUIDADO COM ESTE
+                firstWord != "cont" && // contrata trabalhador
+                firstWord != "list" && // informacao jogo
+                firstWord != "next" && // termina recolha
+                firstWord != "save" && // grava em memoria
+                firstWord != "load" && // carrega jogo em memoria
+                firstWord != "apaga" && // apaga jogo em memoria
+                firstWord != "config" && // le ficheiro de texto e extrai dados
+                // COMANDOS DEBUG
+                firstWord != "debcash" && // adiciona dinheiro
+                firstWord != "debed" && // adiciona edificio
+                firstWord != "debkill" // remove trabalhador com X ID
                 );
-
         error_msg = treatCommand(command,world);
     } while (!error_msg.empty());
 }
 
 std::string treatCommand(std::string command, island world){
+//    LISTA DE COMANDOS
+//    exec <nomeFicheiro>
+//    cons <tipo> <linha> <coluna>
+//    liga <linha> <coluna>
+//    des <linha> <coluna>
+//    move <id> <linha> <coluna>
+//    vende <tipo> <quanto>
+//    cont <tipo>
+//    list <linha> <coluna>
+//    vende <linha> <coluna>
+//    next
+//    save <nome>
+//    load <nome>
+//    apaga <nome>
+//    config <ficheiro>
+//    debcash <valor>
+//    debed <tipo> <linha> <coluna>
+//    debkill <id>
+
     if(command == "exit") {
         cout << "xau";
         exit(1);
