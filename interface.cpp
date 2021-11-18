@@ -53,7 +53,7 @@ void plays(island world){
 
         error_msg = treatCommand(command,world);
     } while (!error_msg.empty());
-};
+}
 
 std::string treatCommand(std::string command, island world){
     if(command == "exit") {
@@ -61,4 +61,4 @@ std::string treatCommand(std::string command, island world){
         exit(1);
     }
     return "";
-};
+}
