@@ -78,7 +78,9 @@ void plays(island world){
                 // COMANDOS DEBUG
                 firstWord != "debcash" && // adiciona dinheiro
                 firstWord != "debed" && // adiciona edificio
-                firstWord != "debkill" // remove trabalhador com X ID
+                firstWord != "debkill" && // remove trabalhador com X ID
+                // sair
+                firstWord != "exit" // sai
                 );
         error_msg = treatCommand(command,world);
     } while (!error_msg.empty());

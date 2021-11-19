@@ -30,17 +30,17 @@ bool gameover(island& world){
     return false;
 }
 
-std::string treatCommand(std::string command, island world) {
+std::string treatCommand(std::string commands, island world) {
     // manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
+    std::stringstream strStream(commands);
 
     // exec
-    std::stringstream toFile;
     std::ifstream fileSaved;
     std::string lines, op;
 
-    while (toFile >> separateWords) {
+    while (strStream >> separateWords) {
         commandsVec.push_back(separateWords);
     }
 
