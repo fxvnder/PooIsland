@@ -6,7 +6,24 @@ using std::cout;
 using std::string;
 
 void welcome(){
-    std::cout << "Welcome to POOIsland" << std::endl;
+    const char *welcome =
+    "                   ****\n"
+    "                 ********\n"
+    "                **  ******\n"
+    "                *   ******     ******\n"
+    "            **      ******   *********\n"
+    "           *  ****   ****  *****   ***\n"
+    "                ***  ***  ***     ***\n"
+    "                *************      **\n"
+    " ____   ___    __**********____ _   *   ____  ____   ___   \n"
+    "|    \\ /   \\  /   \\*******   _/| |     /    ||    \\ |   \\  \n"
+    "|  o  )     ||     |H****H   \\_| |    |  o  ||  _  ||    \\ \n"
+    "|   _/|  O  ||  O  |H   H\\__  || |___ |     ||  |  ||  D  |\n"
+    "|  |  |     ||     |H-_-H/  \\ ||     ||  _  ||  |  ||     |\n"
+    "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
+    "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
+
+    std::cout << welcome << "\nWelcome to POOIsland" << std::endl;
     chooseDimensions();
 }
 
@@ -34,7 +51,7 @@ void plays(island world){
     string error_msg;
     do{
         if (!error_msg.empty()) {
-            std::cout << error_msg << std::endl;
+            cout << error_msg << std::endl;
         }
         do{
             if (!command.empty())
@@ -65,31 +82,4 @@ void plays(island world){
                 );
         error_msg = treatCommand(command,world);
     } while (!error_msg.empty());
-}
-
-std::string treatCommand(std::string command, island world){
-//    LISTA DE COMANDOS
-//    exec <nomeFicheiro>
-//    cons <tipo> <linha> <coluna>
-//    liga <linha> <coluna>
-//    des <linha> <coluna>
-//    move <id> <linha> <coluna>
-//    vende <tipo> <quanto>
-//    cont <tipo>
-//    list <linha> <coluna>
-//    vende <linha> <coluna>
-//    next
-//    save <nome>
-//    load <nome>
-//    apaga <nome>
-//    config <ficheiro>
-//    debcash <valor>
-//    debed <tipo> <linha> <coluna>
-//    debkill <id>
-
-    if(command == "exit") {
-        cout << "xau";
-        exit(1);
-    }
-    return "";
 }

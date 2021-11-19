@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include "program.h"
+#include "files.h"
 #include "objects.h"
 
 void run(int * dim){
@@ -17,13 +19,64 @@ void days(island& world){
 }
 
 void dawn(island& world){
-    std::cout << "dawn" << std::endl; //dw founder this is not interface ok mano
+    std::cout << "dawn" << std::endl;
 }
 
 void dusk(island& world){
-    std::cout << "dusk" << std::endl; //dw founder this is not interface na boa mpt
+    std::cout << "dusk" << std::endl;
 }
 
 bool gameover(island& world){
     return false;
 }
+
+std::string treatCommand(std::string command, island world) {
+    // manage commands
+    std::vector<std::string> commandsVec;
+    std::string separateWords;
+
+    // exec
+    std::stringstream toFile;
+    std::ifstream fileSaved;
+    std::string lines, op;
+
+    while (toFile >> separateWords) {
+        commandsVec.push_back(separateWords);
+    }
+
+    if (commandsVec[0] == "exec"){
+        openFile(commandsVec[1]);
+        while (!fileSaved.eof()) {
+            std::cout << lines << std::endl; // prints out everything
+            if (!lines.empty()){
+                op = lines;
+                //treatCommand(op, world);
+            }
+        }
+    } else if (commandsVec[0] == "save") {
+        saveFile("abc");
+    } else if(commandsVec[0] == "exit") {
+        std::cout << "xau" << std::endl;
+        exit(1);
+    }
+    return "error";
+}
+
+//    LISTA DE COMANDOS
+//    exec <nomeFicheiro>
+//    cons <tipo> <linha> <coluna>
+//    liga <linha> <coluna>
+//    des <linha> <coluna>
+//    move <id> <linha> <coluna>
+//    vende <tipo> <quanto>
+//    cont <tipo>
+//    list <linha> <coluna>
+//    vende <linha> <coluna>
+//    next
+//    save <nome>
+//    load <nome>
+//    apaga <nome>
+//    config <ficheiro>
+//    debcash <valor>
+//    debed <tipo> <linha> <coluna>
+//    debkill <id>
