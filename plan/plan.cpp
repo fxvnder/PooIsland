@@ -194,3 +194,15 @@ Meta 2 – Prazo: 16 de janeiro
 
     }
  */
+
+/*
+int main(){
+    Jogo j; // Dados
+    UserInt ui(j); // user interface (comandos)
+    ui.run();
+
+    //professor diz que é preciso separar a parte dos dados e da ui
+}
+ Como se usa e para quê que se usa o new
+
+*/

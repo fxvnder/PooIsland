@@ -5,6 +5,7 @@
 #include "objects.h"
 
 //region Working with the island
+
 void run(int * dim){
     island world(dim[0], dim[1]);
     days(world);
