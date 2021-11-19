@@ -47,7 +47,7 @@ std::string treatCommand(std::string commands) {
     // COMMANDS
 
     if (commandsVec[0] == "exec") { // executes saved file
-        // vars
+        // vars TODO: WHY IS THIS NOT WORKING WHAT THE HELL
         std::string fileName, numlines, opert;
         std::ifstream fileSaved(commandsVec[1] + ".cfg");
 
@@ -64,7 +64,7 @@ std::string treatCommand(std::string commands) {
         } else return "error opening file";
         return "file opened";
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
-        // TODO: meter isto a funcionar no vetor!!! X/Y NAO PODE SER MAIOR QUE O TAMANHO DO VETOR (resolve-se com um if simples)!
+        // TODO: meter isto a funcionar no vetor!!! X/Y NAO PODE SER MAIOR QUE O TAMANHO DO VETOR (resolve-se com um if simples)! Also protecting it from sigseg, of course.
         std::cout << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
         return "built";
     } else if (commandsVec[0] == "cont") { // contrata trabalhador para a area <area> // TODO: VETOR TRABALHADORES!!!

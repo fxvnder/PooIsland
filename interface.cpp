@@ -47,7 +47,7 @@ void chooseDimensions() {
     run(dim);
 }
 
-void plays(){
+void plays(island world){
     string command, firstWord;
     string error_msg;
     do{
