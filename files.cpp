@@ -8,14 +8,14 @@ void saveFile(const std::string& filename) {
 
 void openFile(const std::string& filename) {
     std::string nLines;
-    std::ifstream OpenFile(filename + ".cfg");
+    std::ifstream openFile(filename + ".cfg");
 
-    if (OpenFile.is_open())
+    if (openFile.is_open())
     {
-        while (!OpenFile.eof()) {
-            getline(OpenFile, nLines);
+        while (!openFile.eof()) {
+            getline(openFile, nLines);
         }
-        OpenFile.close();
+        openFile.close();
     }
     else {
         return;

@@ -4,6 +4,7 @@
 #include "files.h"
 #include "objects.h"
 
+//region Working with the island
 void run(int * dim){
     island world(dim[0], dim[1]);
     days(world);
@@ -29,37 +30,62 @@ void dusk(island& world){
 bool gameover(island& world){
     return false;
 }
+//endregion
 
-std::string treatCommand(std::string commands, island world) {
+//region Working with commands
+
+std::string treatCommand(std::string commands) {
     // manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
     std::stringstream strStream(commands);
 
-    // exec
-    std::string fileName, lines, op;
-
     while (strStream >> separateWords) {
-        commandsVec.push_back(separateWords);
+        commandsVec.push_back(separateWords); // separates the words in a vector
     }
 
-    if (commandsVec[0] == "exec"){
-        std::ifstream fileSaved(commandsVec[1]);
-        while (!fileSaved.eof()) {
-            std::cout << lines << std::endl; // prints out everything
-            if (!lines.empty()){
-                op = lines;
-                //treatCommand(op, world);
+    // COMMANDS
+
+    if (commandsVec[0] == "exec") { // executes saved file
+        // vars
+        std::string fileName, numlines, opert;
+        std::ifstream fileSaved(commandsVec[1] + ".cfg");
+
+        if (fileSaved.is_open()) {
+            while (getline(fileSaved, numlines)) {
+                std::cout << numlines << std::endl; // prints out everything
+                if (!numlines.empty()) {
+                    opert = numlines;
+                    treatCommand(opert);
+                }
             }
-        }
+            fileSaved.close();
+            std::cout << "Ficheiro carregado com sucesso!" << std::endl;
+        } else return "error opening file";
+        return "file opened";
+    } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
+        // TODO: meter isto a funcionar no vetor!!! X/Y NAO PODE SER MAIOR QUE O TAMANHO DO VETOR (resolve-se com um if simples)!
+        std::cout << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+        return "built";
+    } else if (commandsVec[0] == "cont") { // contrata trabalhador para a area <area> // TODO: VETOR TRABALHADORES!!!
+        std::cout << "hiring worker to " << commandsVec[1] << std::endl;
+        return "hired";
+    } else if (commandsVec[0] == "list") { // lista eventos, trabalhadores, etc.
+
+        return "list";
     } else if (commandsVec[0] == "save") {
         saveFile("abc");
+        return "file saved";
     } else if(commandsVec[0] == "exit") {
         std::cout << "xau" << std::endl;
         exit(1);
     }
     return "error";
 }
+
+//endregion
+
+//region ExtraInfo
 
 //    LISTA DE COMANDOS
 //    exec <nomeFicheiro>
@@ -79,3 +105,5 @@ std::string treatCommand(std::string commands, island world) {
 //    debcash <valor>
 //    debed <tipo> <linha> <coluna>
 //    debkill <id>
+
+//endregion

@@ -21,7 +21,6 @@ island::island(int l,int c) : lines(l), columns(c) {
         }
     }
 };
-
 string island::showInfoIsland() const {
     std::ostringstream oss;
     oss << "Showing Island Info" << endl;

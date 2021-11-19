@@ -6,6 +6,7 @@ using std::cout;
 using std::string;
 
 void welcome(){
+    // my beautiful palm tree
     const char *welcome =
     "                   ****\n"
     "                 ********\n"
@@ -46,7 +47,7 @@ void chooseDimensions() {
     run(dim);
 }
 
-void plays(island world){
+void plays(){
     string command, firstWord;
     string error_msg;
     do{
@@ -55,13 +56,13 @@ void plays(island world){
         }
         do{
             if (!command.empty())
-                std::cout << "\nInvalid command, try again" << std::endl;
+                std::cout << "\nInvalid command, try again" << std::endl; // TODO: this is appearing even when the command is written right.
             command = "";
             getline(cin, command);
             firstWord = command.substr(0, command.find(' '));
             std::cout << "first word: " << firstWord << std::endl;
         } while (
-                // LSITA DE COMANDOS
+                // LISTA DE COMANDOS
                 firstWord != "exec" && // ex. comandos no ficheiro
                 firstWord != "cons" && // constroi
                 firstWord != "liga" && // liga edificio
@@ -82,9 +83,11 @@ void plays(island world){
                 // sair
                 firstWord != "exit" // sai
                 );
-        error_msg = treatCommand(command,world);
+        error_msg = treatCommand(command);
     } while (!error_msg.empty());
 }
+
+//region for later use
 
 // creditos/ajuda
 //"           %%%%%%%%%%%%                                                         \n"
@@ -98,3 +101,5 @@ void plays(island world){
 //"  %%%%%%%%%            %%%%%%%%%                                               \n"
 //"  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
 //"  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida";
+
+//endregion
