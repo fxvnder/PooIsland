@@ -37,15 +37,14 @@ std::string treatCommand(std::string commands, island world) {
     std::stringstream strStream(commands);
 
     // exec
-    std::ifstream fileSaved;
-    std::string lines, op;
+    std::string fileName, lines, op;
 
     while (strStream >> separateWords) {
         commandsVec.push_back(separateWords);
     }
 
     if (commandsVec[0] == "exec"){
-        openFile(commandsVec[1]);
+        std::ifstream fileSaved(commandsVec[1]);
         while (!fileSaved.eof()) {
             std::cout << lines << std::endl; // prints out everything
             if (!lines.empty()){
