@@ -1,4 +1,6 @@
 
+*conflict*
 *.log
 cmake-build-debug
 .idea
+*.tmp
