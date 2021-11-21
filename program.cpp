@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
+#include <string>
+#include <cerrno>
 #include "program.h"
 #include "files.h"
 #include "objects.h"
@@ -43,39 +46,43 @@ bool gameover(island& world){
 
 //region Working with commands
 
-string treatCommand(string commands) {
-    // manage commands
-    vector<string> commandsVec;
-    string separateWords;
-    stringstream strStream(commands);
-    ostringstream oss;
+string treatCommand(const string& commands) {
+    // vars to manage commands
+    std::vector<std::string> commandsVec;
+    std::string separateWords;
+    std::stringstream strStream(commands);
 
+    // splitting "commands" into separate words
     while (strStream >> separateWords) {
         commandsVec.push_back(separateWords); // separates the words in a vector
     }
 
-    // COMMANDS
-    if (commandsVec[0] == "exec") { // exec <nomeFicheiro>, executes saved file
-        // vars TODO: Founder fix files
-        string fileName, numlines, opert;
-        ifstream fileSaved;
+    // misc vars
+    std::ostringstream oss;
 
-        fileSaved.open(commandsVec[1]+".cfg",std::ios::in);
+    // COMMANDS
+
+    if (commandsVec[0] == "exec") { // executes saved file
+        // vars
+        std::string lineContent;
+        std::ifstream fileSaved(commandsVec[1] + ".cfg");
 
         if (fileSaved.is_open()) {
-            while (getline(fileSaved, numlines)) {
-                cout << numlines << endl; // prints out everything
-                if (!numlines.empty()) {
-                    opert = numlines;
-                    treatCommand(opert);
+            while (getline(fileSaved, lineContent)) {
+                std::cout << lineContent << std::endl; // prints out everything
+                if (!lineContent.empty()) {
+                    treatCommand(lineContent);
                 }
             }
             fileSaved.close();
-            cout << "Ficheiro carregado com sucesso!" << endl;
-        } else return "error opening file";
-        return "file opened";
+        } else {
+            std::cout << "ERROR: " << strerror(errno) << endl;
+            return "Error opening file!";
+        }
 
-    } else  if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
+        return "File opened with success!";
+
+    } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << endl;
         return oss.str();
@@ -150,7 +157,6 @@ string treatCommand(string commands) {
     } else if (commandsVec[0] == "exit") { // exit <id>
         if (commandsVec.size() != 1) return "error: Invalid number of arguments\n";
         exit(1);
-        return "exit\n";
     }
     return "Malformed command, try again\n";
 }

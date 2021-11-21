@@ -13,12 +13,13 @@ tile::tile() {
     vector<string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
     type = v_types[ rand()%(v_types.size()) ];
     // access the island here
-};
+}
+
 string tile::showInfoTile() const {
     ostringstream oss;
     oss << type;
     return oss.str();
-};
+}
 
 
 //class island
@@ -30,7 +31,8 @@ island::island(int l,int c) : lines(l), columns(c) {
             vecvec[i].push_back(newTile);
         }
     }
-};
+}
+
 string island::showInfoIsland() const {
     ostringstream oss;
     oss << "Showing Island Info" << endl;
@@ -79,13 +81,13 @@ string island::showInfoIsland() const {
     putchar('\n');
     //-----Print the island-----
     return oss.str();
-};
+}
 
-
+// random code that might be useful someday (or not)
 
 /*
 std::ostream& operator<<(std::ostream& os, const tile& receivedTile){
     os << receivedTile.type;
     return os;
 }
- */
+*/
