@@ -46,7 +46,6 @@ void chooseDimensions() {
             cout << "\nInvalid data received, try again" << endl;
         }
     } while (!success);
-    dim[0] = 6 ; dim[1] = 6;
     run(dim);
 }
 

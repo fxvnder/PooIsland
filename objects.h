@@ -13,18 +13,17 @@ private:
 public:
     tile();
     string showInfoTile() const;
-    //friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
+    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
 };
 
-class island : public tile { //herança
+class island : public tile { // herança
 private:
     int lines, columns;
     std::vector<std::vector<tile>> vecvec;
 public:
     island(int l,int c);
     string showInfoIsland() const;
-    int getl();
-    int getc();
+    int verificazonas();
 };
 
 #endif //POOISLAND_OBJECTS_H
