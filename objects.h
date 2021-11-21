@@ -16,14 +16,15 @@ public:
     //friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
 };
 
-class island{
+class island : public tile { //herança
 private:
     int lines, columns;
     std::vector<std::vector<tile>> vecvec;
-    std::vector<tile> vetr;
 public:
     island(int l,int c);
     string showInfoIsland() const;
+    int getl();
+    int getc();
 };
 
 #endif //POOISLAND_OBJECTS_H
