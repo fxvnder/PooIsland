@@ -156,7 +156,7 @@ Implementação:
 
 Metas e entregas: 
 Meta1 - Prazo: 23 de novembro
-	● Leitura do ficheiro de configuração.
+    ● Leitura do ficheiro de configuração.
 	● Construção inicial da ilha. Deve ter em atenção que a representação da ilha irá ser melhorada com matéria dada posteriormente e agora só se pretende algo que possa ser representado no ecrã. 
 		● Pode implementar a ilha (apenas na meta 1) através de uma estrutura de dados de tamanho fixo (por exemplo, considerando um tamanho máximo mesmo que depois a ilha seja mais pequena)
 	● Considere uma representação simplificada para as zonas sabendo que vai modificar essa parte da implementação quando for dada mais matéria 
@@ -194,7 +194,7 @@ Meta 2 – Prazo: 16 de janeiro
 
     }
  */
-    chooseDimensions();
+    // chooseDimensions();
 /*
 int main(){
     Jogo j; // Dados

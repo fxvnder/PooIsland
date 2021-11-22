@@ -5,5 +5,6 @@
 
 void welcome();
 void chooseDimensions();
+void showCredits();
 
 #endif //POOISLAND_INTERFACE_H

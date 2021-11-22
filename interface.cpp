@@ -37,7 +37,7 @@ void chooseDimensions() {
         cout << "Choose the island size: 1/2 ";
         cin >> dim[0];
         cin.ignore(1,'\n');
-        cout << "\nSize 2/2: ";
+        cout << "Size 2/2: ";
         cin >> dim[1];
         cin.ignore(1,'\n');
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16) // restrictions
@@ -55,27 +55,25 @@ void plays(island world){
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
+            cout << "\nInsert a command\n> ";
             getline(cin, command);
         } while (command.empty());
-        msg = treatCommand(command);
+        msg = treatCommand(command, world);
         firstWord = msg.substr(0, msg.find(' '));
         cout << msg;
-    } while (firstWord != "continuing...\n");
+    } while (firstWord != "Continuing...\n");
 }
 
-//region for later use
-
-// creditos/ajuda
-//"           %%%%%%%%%%%%                                                         \n"
-//"       %%%%%%%%%%%%%%%%%%%%                                                     \n"
-//"     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
-//"   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
-//"  .%%%%%%%%%          %%%%%%%%%       %%%%  %%%%}       %%%____%%%% %%%%        \n"
-//"  %%%%%%%%%            %%%%%%%%%      %%%%      {%%%%%  %%%         %%%%        \n"
-//"  %%%%%%%%%            %%%%%%%%%      %%%%  #%%%%%%%%%   %%%%%%%%%   %%%%%%%%%. \n"
-//"  %%%%%%%%%            %%%%%%%%%                    2021/2022                   \n"
-//"  %%%%%%%%%            %%%%%%%%%                                                \n"
-//"  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
-//"  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida";
-
-//endregion
+void showCredits(){
+    cout << "           %%%%%%%%%%%%                                                         \n"
+            "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
+            "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
+            "   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
+            "  .%%%%%%%%%          %%%%%%%%%       %%%%  %%%%}       %%%____%%%% %%%%        \n"
+            "  %%%%%%%%%            %%%%%%%%%      %%%%      {%%%%%  %%%         %%%%        \n"
+            "  %%%%%%%%%            %%%%%%%%%      %%%%  #%%%%%%%%%   %%%%%%%%%   %%%%%%%%%. \n"
+            "  %%%%%%%%%            %%%%%%%%%                    2021/2022                   \n"
+            "  %%%%%%%%%            %%%%%%%%%                                                \n"
+            "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
+            "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
+}

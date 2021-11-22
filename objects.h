@@ -10,9 +10,11 @@ using std::endl;
 class tile{
 private:
     string type;
+    string building;
 public:
     tile();
     string showInfoTile() const;
+    std::string cons(std::string cmnd);
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
 };
 
@@ -23,7 +25,7 @@ private:
 public:
     island(int l,int c);
     string showInfoIsland() const;
-    int verificazonas();
+    std::ostringstream cons(std::vector<std::string> commandsVec, island world);
 };
 
 #endif //POOISLAND_OBJECTS_H
