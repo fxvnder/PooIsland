@@ -6,6 +6,7 @@
 
 class tile{
 private:
+    int merda;
     std::string type;
     std::string building;
 public:

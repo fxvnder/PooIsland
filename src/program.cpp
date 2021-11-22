@@ -34,7 +34,7 @@ bool gameover(island& world){
 
 //region Working with commands
 
-std::string treatCommand(std::string& commands, island world, file savegame) {
+std::string treatCommand(std::string& commands, island& world, file savegame) {
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
