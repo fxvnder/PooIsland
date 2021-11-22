@@ -4,7 +4,8 @@
 #include "program.h"
 
 void welcome();
-void chooseDimensions();
+void newGame();
+bool loadGame(const string& filename);
 void showCredits();
 
 #endif //POOISLAND_INTERFACE_H

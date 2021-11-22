@@ -1,28 +1,36 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
+#include <string>
 #include <vector>
+#include "program.h"
 
-void saveFile(const std::string& filename, std::vector<std::string> commands) {
+bool saveFile(const std::string& filename, std::vector<std::string> commands) {
     std::ofstream saveFile;
     saveFile.open(filename + ".cfg", std::ios::out | std::ios_base::app);
     for (int i = 0; i < commands.size(); i++) {
         saveFile << commands[i] << "\n";
     }
     saveFile.close();
+    return true;
 }
 
-void openFile(const std::string& filename) {
+bool openFile(const std::string& filename, const island& world) {
     std::string nLines;
     std::ifstream openFile(filename + ".cfg");
 
-    if (openFile.is_open())
-    {
+    if (openFile.is_open()){
         while (!openFile.eof()) {
-            getline(openFile, nLines);
+            while(getline(openFile, nLines)){
+                if (!nLines.empty()) {
+                    treatCommand(nLines, world);
+                }
+            }
         }
         openFile.close();
-    }
-    else {
-        return;
+        return true;
+    } else {
+        std::cout << "ERROR: " << strerror(errno) << endl;
+        return false;
     }
 }

@@ -1,12 +1,26 @@
 #include <iostream>
+#include "files.h"
 #include "interface.h"
 #include "objects.h"
+
 using std::cin;
 using std::cout;
 using std::string;
 using std::endl;
 
+void createNewWorld(int * dim){
+    island world(dim[0], dim[1]);
+    days(world);
+}
+
+void createLoadedWorld(int * dim){
+    island world(dim[0], dim[1]);
+    days(world);
+}
+
 void welcome(){
+    bool success = false;
+    string userInp, filename;
     // my beautiful palm tree
     const char *welcome =
     "                   ****\n"
@@ -25,31 +39,59 @@ void welcome(){
     "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
     "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
 
-    cout << welcome << "\nWelcome to POOIsland" << endl;
-    chooseDimensions();
+    cout << welcome << "\nWelcome to PooIsland" << endl;
+    do {
+        cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game\n3 - Show Credits\n9 - Exit\n > ";
+        cin >> userInp;
+        if (userInp == "1"){
+            success = true;
+            newGame();
+        } else if (userInp == "2") {
+            cout << "\nWhat is the filename?\n >";
+            cin >> filename;
+            if(loadGame(filename)) {
+                success = true;
+            } else {
+                cout << "\nThat does not seem very right... Try again.";
+            }
+        } else if (userInp == "3") {
+            showCredits();
+        } else if (userInp == "9"){
+            exit(1);
+        } else cout << "\nWell, that's odd... Try out again.";
+    } while (!success);
 }
 
-void chooseDimensions() {
+void newGame() {
     int dim[2];
     bool success = false;
+    std::vector<string> commandsHistory;
+
     // player chooses island dimensions
     do{
-        cout << "Choose the island size: 1/2 ";
+        cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n >";
         cin >> dim[0];
         cin.ignore(1,'\n');
-        cout << "Size 2/2: ";
+        cout << "Size 2/2:\n >";
         cin >> dim[1];
         cin.ignore(1,'\n');
-        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16) // restrictions
+        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
             success = true;
-        else {
-            cout << "\nInvalid data received, try again" << endl;
+        } else {
+            cout << "\nInvalid data received, try again!\n" << endl;
         }
     } while (!success);
-    run(dim);
+    createNewWorld(dim);
 }
 
-void plays(island world){
+bool loadGame(const string& filename){
+    std::vector<string> commandsHistory;
+    if(openFile(filename)){
+        return true;
+    } else return false;
+}
+
+void plays(const island& world){
     string command, firstWord;
     string msg;
     do {

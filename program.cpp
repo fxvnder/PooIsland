@@ -2,7 +2,6 @@
 #include <fstream>
 #include <cstring>
 #include <string>
-#include <cerrno>
 #include "program.h"
 #include "interface.h"
 #include "files.h"
@@ -17,11 +16,6 @@ using std::ifstream;
 using std::ostringstream;
 
 //region Working with the island
-
-void run(int * dim){
-    island world(dim[0], dim[1]);
-    days(world);
-}
 
 void days(island& world){
     do {
@@ -49,7 +43,7 @@ bool gameover(island& world){
 
 string treatCommand(const string& commands, island world) {
     // vars to manage commands
-    std::vector<std::string> commandsVec, commandsHistory;
+    std::vector<std::string> commandsVec;
     std::string separateWords;
     std::stringstream strStream(commands);
 
