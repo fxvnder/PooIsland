@@ -4,16 +4,13 @@
 #include <iostream>
 #include <vector>
 
-using std::string;
-using std::endl;
-
 class tile{
 private:
-    string type;
-    string building;
+    std::string type;
+    std::string building;
 public:
     tile();
-    string showInfoTile() const;
+    std::string showInfoTile() const;
     std::string cons(std::string cmnd);
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
 };

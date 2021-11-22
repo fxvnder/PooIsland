@@ -7,19 +7,11 @@
 #include "files.h"
 #include "objects.h"
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::stringstream;
-using std::vector;
-using std::ifstream;
-using std::ostringstream;
-
 //region Working with the island
 
 void days(island& world){
     do {
-        cout << world.showInfoIsland() << endl;
+        std::cout << world.showInfoIsland() << std::endl;
         dawn(world);
         plays(world);
         dusk(world);
@@ -27,11 +19,11 @@ void days(island& world){
 }
 
 void dawn(island& world){
-    cout << "It's dawn..." << endl;
+    std::cout << "It's dawn..." << std::endl;
 }
 
 void dusk(island& world){
-    cout << "It's dusk..." << endl;
+    std::cout << "It's dusk..." << std::endl;
 }
 
 bool gameover(island& world){
@@ -41,7 +33,7 @@ bool gameover(island& world){
 
 //region Working with commands
 
-string treatCommand(const string& commands, island world) {
+std::string treatCommand(const std::string& commands, island world) {
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
@@ -71,7 +63,7 @@ string treatCommand(const string& commands, island world) {
             }
             fileSaved.close();
         } else {
-            std::cout << "ERROR: " << strerror(errno) << endl;
+            std::cout << "ERROR: " << strerror(errno) << std::endl;
             return "Error opening file!";
         }
         commandsHistory.push_back(commands);
@@ -87,40 +79,40 @@ string treatCommand(const string& commands, island world) {
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
         //liga(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
-        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << endl;
+        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         commandsHistory.push_back(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
-        oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << endl;
+        oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         commandsHistory.push_back(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
-        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << endl;
+        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         commandsHistory.push_back(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
-        oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << endl;
+        oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         commandsHistory.push_back(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area> // TODO: VETOR TRABALHADORES!!!
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        oss << "hiring worker to " << commandsVec[1] << endl;
+        oss << "hiring worker to " << commandsVec[1] << std::endl;
         commandsHistory.push_back(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
-        oss << "list" << commandsVec[1] << endl;
+        oss << "list" << commandsVec[1] << std::endl;
         return oss.str();
 
     } else if (commandsVec[0] == "next") { // next

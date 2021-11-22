@@ -1,4 +1,4 @@
-#include "interface.h"
+#include "src/interface.h"
 
 #include <QCoreApplication>
 // #include <QDebug>

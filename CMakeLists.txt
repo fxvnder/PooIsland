@@ -17,16 +17,16 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
-        objects.cpp
-        objects.h
-        interface.h
-        interface.cpp
-        files.cpp
-        files.h
-        program.cpp
-        program.h
         mainwindow.h
         mainwindow.ui
+        src/objects.cpp
+        src/objects.h
+        src/interface.h
+        src/interface.cpp
+        src/files.cpp
+        src/files.h
+        src/program.cpp
+        src/program.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

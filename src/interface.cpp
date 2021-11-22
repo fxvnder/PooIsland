@@ -3,11 +3,6 @@
 #include "interface.h"
 #include "objects.h"
 
-using std::cin;
-using std::cout;
-using std::string;
-using std::endl;
-
 void createNewWorld(int * dim){
     island world(dim[0], dim[1]);
     days(world);
@@ -39,26 +34,26 @@ void welcome(){
     "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
     "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
 
-    cout << welcome << "\nWelcome to PooIsland" << endl;
+    std::cout << welcome << "\nWelcome to PooIsland" << endl;
     do {
-        cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game\n3 - Show Credits\n9 - Exit\n > ";
-        cin >> userInp;
+        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game\n3 - Show Credits\n9 - Exit\n > ";
+        std::cin >> userInp;
         if (userInp == "1"){
             success = true;
             newGame();
         } else if (userInp == "2") {
-            cout << "\nWhat is the filename?\n >";
-            cin >> filename;
+            std::cout << "\nWhat is the filename?\n >";
+            std::cin >> filename;
             if(loadGame(filename)) {
                 success = true;
             } else {
-                cout << "\nThat does not seem very right... Try again.";
+                std::cout << "\nThat does not seem very right... Try again.";
             }
         } else if (userInp == "3") {
             showCredits();
         } else if (userInp == "9"){
             exit(1);
-        } else cout << "\nWell, that's odd... Try out again.";
+        } else std::cout << "\nWell, that's odd... Try out again.";
     } while (!success);
 }
 
@@ -69,16 +64,16 @@ void newGame() {
 
     // player chooses island dimensions
     do{
-        cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n >";
-        cin >> dim[0];
-        cin.ignore(1,'\n');
-        cout << "Size 2/2:\n >";
-        cin >> dim[1];
-        cin.ignore(1,'\n');
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n >";
+        std::cin >> dim[0];
+        std::cin.ignore(1,'\n');
+        std::cout << "Size 2/2:\n >";
+        std::cin >> dim[1];
+        std::cin.ignore(1,'\n');
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
             success = true;
         } else {
-            cout << "\nInvalid data received, try again!\n" << endl;
+            std::cout << "\nInvalid data received, try again!\n" << endl;
         }
     } while (!success);
     createNewWorld(dim);
@@ -97,17 +92,17 @@ void plays(const island& world){
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
-            cout << "\nInsert a command\n> ";
-            getline(cin, command);
+            std::cout << "\nInsert a command\n> ";
+            getline(std::cin, command);
         } while (command.empty());
         msg = treatCommand(command, world);
         firstWord = msg.substr(0, msg.find(' '));
-        cout << msg;
+        std::cout << msg;
     } while (firstWord != "Continuing...\n");
 }
 
 void showCredits(){
-    cout << "           %%%%%%%%%%%%                                                         \n"
+    std::cout << "           %%%%%%%%%%%%                                                         \n"
             "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
             "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
             "   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
