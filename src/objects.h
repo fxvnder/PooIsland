@@ -22,7 +22,7 @@ private:
 public:
     island(int l,int c);
     std::string showInfoIsland() const;
-    std::ostringstream cons(std::vector<std::string> commandsVec, island world);
+    std::ostringstream cons(std::vector<std::string> commandsVec);
 };
 
 void createNewWorld(int * dim);

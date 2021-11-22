@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <algorithm>
 #include "program.h"
 #include "interface.h"
 #include "files.h"
@@ -33,10 +34,14 @@ bool gameover(island& world){
 
 //region Working with commands
 
-std::string treatCommand(const std::string& commands, island world, file savegame) {
+std::string treatCommand(std::string& commands, island world, file savegame) {
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
+
+    // Convert String to lowercase
+    std::transform(commands.begin(), commands.end(), commands.begin(), ::tolower);
+
     std::stringstream strStream(commands);
 
     // splitting "commands" into separate words
@@ -73,7 +78,7 @@ std::string treatCommand(const std::string& commands, island world, file savegam
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
             savegame.receiveCommand(commands);
-            return world.cons(commandsVec, world).str();
+            return world.cons(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>

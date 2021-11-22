@@ -41,7 +41,7 @@ void welcome(){
             }
         } else if (userInp == "3") {
             showCredits();
-        } else if (userInp == "9"){
+        } else if (userInp == "9") {
             exit(1);
         } else std::cout << "\nWell, that's odd... Try out again.";
     } while (!success);
@@ -76,8 +76,8 @@ bool loadGame(const std::string& filename){
     } else return false;
 }
 
-void plays(const island& world, const file& savegame){
-    std::string command, firstWord;
+void plays(island& world, const file& savegame){
+    std::string command;
     std::string msg;
     do {
         command.clear();
@@ -86,9 +86,8 @@ void plays(const island& world, const file& savegame){
             getline(std::cin, command);
         } while (command.empty());
         msg = treatCommand(command, world, savegame);
-        firstWord = msg.substr(0, msg.find(' '));
         std::cout << msg;
-    } while (firstWord != "Continuing...\n");
+    } while (msg != "Continuing...\n");
 }
 
 void showCredits(){

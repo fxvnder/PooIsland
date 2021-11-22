@@ -19,7 +19,7 @@ void createLoadedWorld(int * dim){
 }
 
 //class tiles
-tile::tile() {
+tile::tile() : building("") {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
     type = v_types[ rand()%(v_types.size()) ];
     // access the island here
@@ -27,7 +27,7 @@ tile::tile() {
 
 std::string tile::showInfoTile() const {
     std::ostringstream oss;
-    oss << type;
+    oss << type << building;
     return oss.str();
 }
 
@@ -36,15 +36,18 @@ std::string tile::cons(std::string command) {
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == v_buildings[i]){
-            if (!building.empty()) {
+            if (!(building.empty())) {
                 oss << "There's a " << building << " here already";
                 return oss.str();
             }
-            building = command;
+            this->building = command;
             return "";
         }
     }
-    return "Wrong specified type";
+    oss << "Wrong specified type, the existing types of buildings are: ";
+    for (std::string str : v_buildings)
+        oss << str << ' ';
+    return oss.str();
 }
 
 
@@ -74,7 +77,7 @@ std::string island::showInfoIsland() const {
     //-----Print the island-----
     oss << "   ";
     for(i=0;i<vecvec.size();i++) // size of columns
-        oss << "   C" << i << "   ";
+        oss << "   C" << i+1 << "   ";
     oss.put('\n');
 
     oss << "   ";
@@ -86,7 +89,7 @@ std::string island::showInfoIsland() const {
     oss << '\n';
 
     for(i=0;i<vecvec[0].size();i++){
-        oss << "L" << i << '|';
+        oss << "L" << i+1 << '|';
         for(j=0;j<vecvec.size()-1;j++){
             oss << "  " << vecvec[i][j].showInfoTile() << " :";
         }
@@ -110,11 +113,11 @@ std::string island::showInfoIsland() const {
     return oss.str();
 }
 
-std::ostringstream island::cons(std::vector<std::string> commandsVec, island world){ // cons <tipo> <linha> <coluna>
+std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
     if (l >= 1 && l <= vecvec.size() && c >= 1 && c <= vecvec[0].size()) { // vecvec.size() size of columns (amount of lines)
-        oss << vecvec[stoi(commandsVec[2])][stoi(commandsVec[3])].cons(commandsVec[1]);
+        oss << vecvec[l][c].cons(commandsVec[1]);
         if (oss.str().empty()) {
             oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
             return oss;
