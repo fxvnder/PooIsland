@@ -31,16 +31,20 @@ std::string tile::showInfoTile() const {
     return oss.str();
 }
 
-std::string tile::cons(std::string cmnd) {
+std::string tile::cons(std::string command) {
     std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
-        if (cmnd == v_buildings[i]){
-            building = cmnd;
+        if (command == v_buildings[i]){
+            if (!building.empty()) {
+                oss << "There's a " << building << " here already";
+                return oss.str();
+            }
+            building = command;
             return "";
         }
     }
-    return "Specified type doesn't exist";
+    return "Wrong specified type";
 }
 
 
@@ -109,10 +113,15 @@ std::string island::showInfoIsland() const {
 std::ostringstream island::cons(std::vector<std::string> commandsVec, island world){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    oss << vecvec[stoi(commandsVec[2])][stoi(commandsVec[3])].cons(commandsVec[1]);
-    if (oss.str().empty()) {
-        oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+    if (l >= 1 && l <= vecvec.size() && c >= 1 && c <= vecvec[0].size()) { // vecvec.size() size of columns (amount of lines)
+        oss << vecvec[stoi(commandsVec[2])][stoi(commandsVec[3])].cons(commandsVec[1]);
+        if (oss.str().empty()) {
+            oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+            return oss;
+        }
+        return oss;
+    } else {
+        oss << "Target zone coordinates fall outside the island!";
         return oss;
     }
-    return oss;
 }
