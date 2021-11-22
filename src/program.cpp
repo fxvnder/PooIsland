@@ -9,11 +9,11 @@
 
 //region Working with the island
 
-void days(island& world){
+void game(island& world, const file& gamefile){
     do {
         std::cout << world.showInfoIsland() << std::endl;
         dawn(world);
-        plays(world);
+        plays(world, gamefile);
         dusk(world);
     } while (!gameover(world));
 }
@@ -33,7 +33,7 @@ bool gameover(island& world){
 
 //region Working with commands
 
-std::string treatCommand(const std::string& commands, island world) {
+std::string treatCommand(const std::string& commands, island world, file savegame) {
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
@@ -58,7 +58,7 @@ std::string treatCommand(const std::string& commands, island world) {
             while (getline(fileSaved, lineContent)) {
                 std::cout << lineContent << std::endl; // prints out everything
                 if (!lineContent.empty()) {
-                    treatCommand(lineContent, world);
+                    treatCommand(lineContent, world, savegame);
                 }
             }
             fileSaved.close();
@@ -66,13 +66,13 @@ std::string treatCommand(const std::string& commands, island world) {
             std::cout << "ERROR: " << strerror(errno) << std::endl;
             return "Error opening file!";
         }
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return "File opened with success!";
 
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
-            commandsHistory.push_back(commands);
+            savegame.receiveCommand(commands);
             return world.cons(commandsVec, world).str();
         }
 
@@ -80,34 +80,34 @@ std::string treatCommand(const std::string& commands, island world) {
         //liga(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(island,commandsVec)
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area> // TODO: VETOR TRABALHADORES!!!
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
         oss << "hiring worker to " << commandsVec[1] << std::endl;
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
@@ -117,12 +117,12 @@ std::string treatCommand(const std::string& commands, island world) {
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "error: Invalid number of arguments\n";
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return "Continuing...\n";
 
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        saveFile(commandsVec[1], commandsHistory);
+        saveFile(commandsVec[1], savegame);
         return "file saved\n";
 
     } else if (commandsVec[0] == "load") { // load <nome>
@@ -131,12 +131,12 @@ std::string treatCommand(const std::string& commands, island world) {
 
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return "apagado\n";
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        commandsHistory.push_back(commands);
+        savegame.receiveCommand(commands);
         return "config file loaded\n";
 
     } else if (commandsVec[0] == "debcash") { // debcash <valor>

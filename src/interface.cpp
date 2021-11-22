@@ -50,7 +50,6 @@ void welcome(){
 void newGame() {
     int dim[2];
     bool success = false;
-    std::vector<std::string> commandsHistory;
 
     // player chooses island dimensions
     do{
@@ -71,14 +70,13 @@ void newGame() {
 
 bool loadGame(const std::string& filename){
     int dim[2];
-    std::vector<std::string> commandsHistory;
     if(openFile(filename)){
         createLoadedWorld(dim);
         return true;
     } else return false;
 }
 
-void plays(const island& world){
+void plays(const island& world, const file& savegame){
     std::string command, firstWord;
     std::string msg;
     do {
@@ -87,7 +85,7 @@ void plays(const island& world){
             std::cout << "\nInsert a command\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msg = treatCommand(command, world);
+        msg = treatCommand(command, world, savegame);
         firstWord = msg.substr(0, msg.find(' '));
         std::cout << msg;
     } while (firstWord != "Continuing...\n");

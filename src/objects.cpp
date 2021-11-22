@@ -2,15 +2,20 @@
 #include <vector>
 #include "program.h"
 #include "objects.h"
+#include "files.h"
 
 void createNewWorld(int * dim){
     island world(dim[0], dim[1]);
-    days(world);
+    file savegame;
+    savegame.receiveDim(dim);
+    game(world, savegame);
 }
 
 void createLoadedWorld(int * dim){
     island world(dim[0], dim[1]);
-    days(world);
+    file savegame;
+    savegame.receiveDim(dim);
+    game(world, savegame);
 }
 
 //class tiles
@@ -35,7 +40,7 @@ std::string tile::cons(std::string cmnd) {
             return "";
         }
     }
-    return "Wrong type";
+    return "Specified type doesn't exist";
 }
 
 
@@ -103,7 +108,8 @@ std::string island::showInfoIsland() const {
 
 std::ostringstream island::cons(std::vector<std::string> commandsVec, island world){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
-    oss << vecvec[stoi(commandsVec[3])][stoi(commandsVec[4])].cons(commandsVec[1]);
+    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
+    oss << vecvec[stoi(commandsVec[2])][stoi(commandsVec[3])].cons(commandsVec[1]);
     if (oss.str().empty()) {
         oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
         return oss;
