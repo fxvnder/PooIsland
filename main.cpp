@@ -1,8 +1,6 @@
-#include "src/interface.h"
-
-#include <QCoreApplication>
+// #include <QCoreApplication>
 // #include <QDebug>
-#include <iostream>
+#include "src/interface.h"
 
 int main() {
     //QCoreApplication a(argc, argv);

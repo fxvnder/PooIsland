@@ -5,7 +5,7 @@
 
 void welcome();
 void newGame();
-bool loadGame(const string& filename);
+bool loadGame(const std::string& filename);
 void showCredits();
 
 #endif //POOISLAND_INTERFACE_H

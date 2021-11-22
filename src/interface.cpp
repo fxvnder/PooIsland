@@ -3,19 +3,9 @@
 #include "interface.h"
 #include "objects.h"
 
-void createNewWorld(int * dim){
-    island world(dim[0], dim[1]);
-    days(world);
-}
-
-void createLoadedWorld(int * dim){
-    island world(dim[0], dim[1]);
-    days(world);
-}
-
 void welcome(){
     bool success = false;
-    string userInp, filename;
+    std::string userInp, filename;
     // my beautiful palm tree
     const char *welcome =
     "                   ****\n"
@@ -34,7 +24,7 @@ void welcome(){
     "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
     "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
 
-    std::cout << welcome << "\nWelcome to PooIsland" << endl;
+    std::cout << welcome << "\nWelcome to PooIsland" << std::endl;
     do {
         std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game\n3 - Show Credits\n9 - Exit\n > ";
         std::cin >> userInp;
@@ -60,7 +50,7 @@ void welcome(){
 void newGame() {
     int dim[2];
     bool success = false;
-    std::vector<string> commandsHistory;
+    std::vector<std::string> commandsHistory;
 
     // player chooses island dimensions
     do{
@@ -73,22 +63,24 @@ void newGame() {
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
             success = true;
         } else {
-            std::cout << "\nInvalid data received, try again!\n" << endl;
+            std::cout << "\nInvalid data received, try again!\n" << std::endl;
         }
     } while (!success);
     createNewWorld(dim);
 }
 
-bool loadGame(const string& filename){
-    std::vector<string> commandsHistory;
+bool loadGame(const std::string& filename){
+    int dim[2];
+    std::vector<std::string> commandsHistory;
     if(openFile(filename)){
+        createLoadedWorld(dim);
         return true;
     } else return false;
 }
 
 void plays(const island& world){
-    string command, firstWord;
-    string msg;
+    std::string command, firstWord;
+    std::string msg;
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
@@ -103,14 +95,14 @@ void plays(const island& world){
 
 void showCredits(){
     std::cout << "           %%%%%%%%%%%%                                                         \n"
-            "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
-            "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
-            "   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
-            "  .%%%%%%%%%          %%%%%%%%%       %%%%  %%%%}       %%%____%%%% %%%%        \n"
-            "  %%%%%%%%%            %%%%%%%%%      %%%%      {%%%%%  %%%         %%%%        \n"
-            "  %%%%%%%%%            %%%%%%%%%      %%%%  #%%%%%%%%%   %%%%%%%%%   %%%%%%%%%. \n"
-            "  %%%%%%%%%            %%%%%%%%%                    2021/2022                   \n"
-            "  %%%%%%%%%            %%%%%%%%%                                                \n"
-            "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
-            "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
+                 "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
+                 "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
+                 "   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
+                 "  .%%%%%%%%%          %%%%%%%%%       %%%%  %%%%}       %%%____%%%% %%%%        \n"
+                 "  %%%%%%%%%            %%%%%%%%%      %%%%      {%%%%%  %%%         %%%%        \n"
+                 "  %%%%%%%%%            %%%%%%%%%      %%%%  #%%%%%%%%%   %%%%%%%%%   %%%%%%%%%. \n"
+                 "  %%%%%%%%%            %%%%%%%%%                    2021/2022                   \n"
+                 "  %%%%%%%%%            %%%%%%%%%                                                \n"
+                 "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
+                 "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
 }

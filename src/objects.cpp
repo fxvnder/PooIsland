@@ -1,7 +1,17 @@
-#include "objects.h"
 #include <iostream>
-#include <sstream>
 #include <vector>
+#include "program.h"
+#include "objects.h"
+
+void createNewWorld(int * dim){
+    island world(dim[0], dim[1]);
+    days(world);
+}
+
+void createLoadedWorld(int * dim){
+    island world(dim[0], dim[1]);
+    days(world);
+}
 
 //class tiles
 tile::tile() {
@@ -19,8 +29,8 @@ std::string tile::showInfoTile() const {
 std::string tile::cons(std::string cmnd) {
     std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
     std::ostringstream oss;
-    for (auto & v_building : v_buildings) {
-        if (cmnd == v_building){
+    for (int i = 0; i < v_buildings.size(); ++i) {
+        if (cmnd == v_buildings[i]){
             building = cmnd;
             return "";
         }
@@ -100,12 +110,3 @@ std::ostringstream island::cons(std::vector<std::string> commandsVec, island wor
     }
     return oss;
 }
-
-// random code that might be useful someday (or not)
-
-/*
-std::ostream& operator<<(std::ostream& os, const tile& receivedTile){
-    os << receivedTile.type;
-    return os;
-}
-*/

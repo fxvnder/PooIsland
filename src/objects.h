@@ -21,8 +21,11 @@ private:
     std::vector<std::vector<tile>> vecvec;
 public:
     island(int l,int c);
-    string showInfoIsland() const;
+    std::string showInfoIsland() const;
     std::ostringstream cons(std::vector<std::string> commandsVec, island world);
 };
+
+void createNewWorld(int * dim);
+void createLoadedWorld(int * dim);
 
 #endif //POOISLAND_OBJECTS_H

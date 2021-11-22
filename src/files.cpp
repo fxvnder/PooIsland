@@ -30,7 +30,7 @@ bool openFile(const std::string& filename, const island& world) {
         openFile.close();
         return true;
     } else {
-        std::cout << "ERROR: " << strerror(errno) << endl;
+        std::cout << "ERROR: " << strerror(errno) << std::endl;
         return false;
     }
 }
