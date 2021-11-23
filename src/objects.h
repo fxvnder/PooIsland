@@ -8,13 +8,14 @@ class tile{
 private:
     std::string type;
     std::string building;
-    // miners lens opers
+    // miner len oper
     int workers[3];
 public:
     tile();
     std::string showInfoTile() const;
     std::string cont(std::string cmnd);
     std::string getType();
+    std::string cons(std::string command);
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
@@ -26,6 +27,7 @@ public:
     island(int l,int c);
     std::string showInfoIsland() const;
     std::ostringstream cont(std::vector<std::string> commandsVec);
+    std::ostringstream cons(std::vector<std::string> commandsVec);
 };
 
 void createNewWorld(int * dim);

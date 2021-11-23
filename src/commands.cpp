@@ -50,9 +50,8 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
-            oss << "hiring worker to " << commandsVec[1] << std::endl;
             savegame.receiveCommand(commands);
-            return oss.str();
+            return world.cons(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
