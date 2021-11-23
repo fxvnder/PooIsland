@@ -14,7 +14,7 @@ public:
     tile();
     std::string showInfoTile() const;
     std::string getType();
-    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); TODO: perguntar ao stor
+    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
 class island : public tile { // herança

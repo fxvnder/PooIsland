@@ -205,5 +205,5 @@ int main(){
 }
 
  Como se usa e para quê que se usa o new
-
+Deve-se fazer as funções de cont e cons nod objetos ou como funções normais que passas o mundo normalmente?
 */
