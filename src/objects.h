@@ -13,6 +13,7 @@ private:
 public:
     tile();
     std::string showInfoTile() const;
+    std::string cont(std::string cmnd);
     std::string getType();
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
@@ -24,6 +25,7 @@ private:
 public:
     island(int l,int c);
     std::string showInfoIsland() const;
+    std::ostringstream cont(std::vector<std::string> commandsVec);
 };
 
 void createNewWorld(int * dim);

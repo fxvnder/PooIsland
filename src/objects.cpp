@@ -23,7 +23,7 @@ void createLoadedWorld(int * dim){
 }
 
 //class tiles
-tile::tile() : building("") {
+tile::tile() : building(""), workers() {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
     type = v_types[random(0,v_types.size() - 1)];
     // access the island here
@@ -35,6 +35,7 @@ std::string tile::showInfoTile() const {
         oss << "";
     else
         oss << building;
+    oss << "> " << workers[0] << '|' << workers[1] << '|' << workers[2];
     return oss.str();
 }
 std::string tile::getType(){
@@ -60,21 +61,21 @@ std::string tile::getType(){
 //    return oss.str();
 //}
 
-//std::string tile::cont(std::string cmnd){
-//    std::ostringstream oss;
-//    std::vector<std::string> v_types = {"miners", "lens", "opers"};
-//    if (type != "pas")
-//        return "Can only do this for tiles of type pas";
-//
-//    for (int i = 0; i < v_types.size(); ++i) {
-//        if (cmnd == v_types[i]){
-//            ++workers[i];
-//            return "";
-//        }
-//    }
-//    oss << "type of worker doesn't exist";
-//    return oss.str();
-//}
+std::string tile::cont(std::string cmnd){
+    std::ostringstream oss;
+    std::vector<std::string> v_types = {"miner", "len", "oper"};
+    if (type != "pas ")
+        return "Can only do this for tiles of type pas";
+
+    for (int i = 0; i < v_types.size(); ++i) {
+        if (cmnd == v_types[i]){
+            ++workers[i];
+            return "";
+        }
+    }
+    oss << "type of worker doesn't exist";
+    return oss.str();
+}
 
 
 //class island TODO: SEGFAULT
@@ -154,28 +155,29 @@ std::string island::showInfoIsland() const {
 //        return oss;
 //    }
 //}
-//
-//std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
-//    std::ostringstream oss;
-//    int counter = 0;
-//
-//    for (int i = 0; i < vecvec.size(); ++i) {
-//        for (int j = 0; j < vecvec[i].size(); ++j) {
-//            if (vecvec[i][j].getType() == "pas ")
-//                ++counter;
-//        }
-//    }
-//    counter = random(0, counter);
-//    for (int i = 0; i < vecvec.size(); ++i) {
-//        for (int j = 0; j < vecvec[i].size(); ++j) {
-//            if (vecvec[i][j].getType() == "pas ")
-//                if (counter == 0) {
-//                    oss << vecvec[i][j].cont(commandsVec[1]);
-//                }
-//            --counter;
-//        }
-//    }
-//    if (oss.str().empty())
-//        oss << "hiring " << commandsVec[1] << std::endl;
-//    return oss;
-//}
+
+    std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
+        std::ostringstream oss;
+        int counter = 0;
+
+        for (int i = 0; i < vecvec.size(); ++i) {
+            for (int j = 0; j < vecvec[i].size(); ++j) {
+                if (vecvec[i][j].getType() == "pas ")
+                    ++counter;
+            }
+        }
+        counter = random(1, counter);
+        for (int i = 0; i < vecvec.size(); ++i) {
+            for (int j = 0; j < vecvec[i].size(); ++j) {
+                if (vecvec[i][j].getType() == "pas ") {
+                    --counter;
+                    if (counter == 0) {
+                        oss << vecvec[i][j].cont(commandsVec[1]);
+                    }
+                }
+            }
+        }
+        if (oss.str().empty())
+            oss << "hiring " << commandsVec[1] << std::endl;
+        return oss;
+    }
