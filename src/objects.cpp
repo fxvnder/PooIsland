@@ -21,7 +21,7 @@ void createLoadedWorld(int * dim){
 //class tiles
 tile::tile() : building("") {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
-    type = v_types[ random(0,v_types.size()) ];
+    // type = v_types[ random(0,v_types.size()) ]; // TODO: FIX RANDOM
     // access the island here
 }
 std::string tile::showInfoTile() const {
@@ -36,48 +36,48 @@ std::string tile::showInfoTile() const {
 std::string tile::getType(){
     return type;
 }
-std::string tile::cons(std::string command) {
-    std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
-    std::ostringstream oss;
-    for (int i = 0; i < v_buildings.size(); ++i) {
-        if (command == v_buildings[i]){
-            if (!(building.empty())) {
-                oss << "There's a " << building << " here already";
-                return oss.str();
-            }
-            //std::cout << "making merda" << merda << "the building " << building;
-            building = command;
-            return "";
-        }
-    }
-    oss << "Wrong specified type, the existing types of buildings are: ";
-    for (std::string str : v_buildings)
-        oss << str << ' ';
-    return oss.str();
-}
-std::string tile::cont(std::string cmnd){
-    std::ostringstream oss;
-    std::vector<std::string> v_types = {"miners", "lens", "opers"};
-    if (type != "pas")
-        return "Can only do this for tiles of type pas";
+//std::string tile::cons(std::string command) {
+//    std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
+//    std::ostringstream oss;
+//    for (int i = 0; i < v_buildings.size(); ++i) {
+//        if (command == v_buildings[i]){
+//            if (!(building.empty())) {
+//                oss << "There's a " << building << " here already";
+//                return oss.str();
+//            }
+//            //std::cout << "making merda" << merda << "the building " << building;
+//            building = command;
+//            return "";
+//        }
+//    }
+//    oss << "Wrong specified type, the existing types of buildings are: ";
+//    for (std::string str : v_buildings)
+//        oss << str << ' ';
+//    return oss.str();
+//}
+//
+//std::string tile::cont(std::string cmnd){
+//    std::ostringstream oss;
+//    std::vector<std::string> v_types = {"miners", "lens", "opers"};
+//    if (type != "pas")
+//        return "Can only do this for tiles of type pas";
+//
+//    for (int i = 0; i < v_types.size(); ++i) {
+//        if (cmnd == v_types[i]){
+//            ++workers[i];
+//            return "";
+//        }
+//    }
+//    oss << "type of worker doesn't exist";
+//    return oss.str();
+//}
 
-    for (int i = 0; i < v_types.size(); ++i) {
-        if (cmnd == v_types[i]){
-            ++workers[i];
-            return "";
-        }
-    }
 
-    oss << "type of worker doesn't exist";
-    return oss.str();
-}
-
-
-//class island
-island::island(int l,int c) : lines(l), columns(c) {
-    for (int i = 0; i < l; ++i) {
+//class island TODO: SEGFAULT
+island::island(int l, int c) : lines(l), columns(c) {
+    for (int i = 0; i < l; i++) {
         vecvec.push_back(std::vector<tile>());
-        for (int j = 0; j < c; ++j) {
+        for (int j = 0; j < c; j++) {
             tile newTile;
             vecvec[i].push_back(newTile);
         }
@@ -135,43 +135,43 @@ std::string island::showInfoIsland() const {
     return oss.str();
 }
 
-std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
-    std::ostringstream oss;
-    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
-        oss << vecvec[l-1][c-1].cons(commandsVec[1]);
-        if (oss.str().empty()) {
-            oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
-            return oss;
-        }
-        return oss;
-    } else {
-        oss << "Target zone coordinates fall outside the island!";
-        return oss;
-    }
-}
-
-std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
-    std::ostringstream oss;
-    int counter = 0;
-
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas ")
-                ++counter;
-        }
-    }
-    counter = random(0, counter);
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas ")
-                if (counter == 0) {
-                    oss << vecvec[i][j].cont(commandsVec[1]);
-                }
-            --counter;
-        }
-    }
-    if (oss.str().empty())
-        oss << "hiring " << commandsVec[1] << std::endl;
-    return oss;
-}
+//std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
+//    std::ostringstream oss;
+//    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
+//    if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
+//        oss << vecvec[l-1][c-1].cons(commandsVec[1]);
+//        if (oss.str().empty()) {
+//            oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+//            return oss;
+//        }
+//        return oss;
+//    } else {
+//        oss << "Target zone coordinates fall outside the island!";
+//        return oss;
+//    }
+//}
+//
+//std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
+//    std::ostringstream oss;
+//    int counter = 0;
+//
+//    for (int i = 0; i < vecvec.size(); ++i) {
+//        for (int j = 0; j < vecvec[i].size(); ++j) {
+//            if (vecvec[i][j].getType() == "pas ")
+//                ++counter;
+//        }
+//    }
+//    counter = random(0, counter);
+//    for (int i = 0; i < vecvec.size(); ++i) {
+//        for (int j = 0; j < vecvec[i].size(); ++j) {
+//            if (vecvec[i][j].getType() == "pas ")
+//                if (counter == 0) {
+//                    oss << vecvec[i][j].cont(commandsVec[1]);
+//                }
+//            --counter;
+//        }
+//    }
+//    if (oss.str().empty())
+//        oss << "hiring " << commandsVec[1] << std::endl;
+//    return oss;
+//}

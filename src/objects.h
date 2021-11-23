@@ -9,14 +9,12 @@ private:
     std::string type;
     std::string building;
     // miners lens opers
-    int workers[3];
+    //int workers[3];
 public:
     tile();
     std::string showInfoTile() const;
-    std::string cons(std::string cmnd);
-    std::string cont(std::string cmnd);
     std::string getType();
-    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); perguntar ao stor
+    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile); TODO: perguntar ao stor
 };
 
 class island : public tile { // herança
@@ -26,8 +24,6 @@ private:
 public:
     island(int l,int c);
     std::string showInfoIsland() const;
-    std::ostringstream cons(std::vector<std::string> commandsVec);
-    std::ostringstream cont(std::vector<std::string> commandsVec);
 };
 
 void createNewWorld(int * dim);

@@ -50,8 +50,9 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
+            oss << "hiring worker to " << commandsVec[1] << std::endl;
             savegame.receiveCommand(commands);
-            return world.cons(commandsVec).str();
+            return oss.str();
         }
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
@@ -85,8 +86,9 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
         else {
+            oss << "hiring worker to " << commandsVec[1] << std::endl;
             savegame.receiveCommand(commands);
-            return world.cont(commandsVec).str();
+            return oss.str();
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
