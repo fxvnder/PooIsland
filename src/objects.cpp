@@ -19,12 +19,11 @@ void createLoadedWorld(int * dim){
 }
 
 //class tiles
-tile::tile() : building("") {
+tile::tile() : building(""), miners(0), lens(0), opers(0) {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
-    type = v_types[ rand()%(v_types.size()) ];
+    type = v_types[ random(0,v_types.size()) ];
     // access the island here
 }
-
 std::string tile::showInfoTile() const {
     std::ostringstream oss;
     oss << type;
@@ -34,7 +33,9 @@ std::string tile::showInfoTile() const {
         oss << building;
     return oss.str();
 }
-
+std::string tile::getType(){
+    return type;
+}
 std::string tile::cons(std::string command) {
     std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
     std::ostringstream oss;
@@ -52,6 +53,13 @@ std::string tile::cons(std::string command) {
     oss << "Wrong specified type, the existing types of buildings are: ";
     for (std::string str : v_buildings)
         oss << str << ' ';
+    return oss.str();
+}
+std::string tile::cont(std::string cmnd){
+    std::ostringstream oss;
+    if (type != "pas ")
+        return "Can only do this for tiles of type pas";
+    
     return oss.str();
 }
 
@@ -132,4 +140,29 @@ std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <
         oss << "Target zone coordinates fall outside the island!";
         return oss;
     }
+}
+
+std::ostringstream island::cont(std::vector<std::string> commandsVec){ // cont <type>
+    std::ostringstream oss;
+    int counter=0;
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[i].size(); ++j) {
+            if (vecvec[i][j].getType() == "pas ")
+                ++counter;
+        }
+    }
+    counter = random(0, counter);
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[i].size(); ++j) {
+            if (vecvec[i][j].getType() == "pas ")
+            if (counter == 0){
+                oss << vecvec[i][j].cont(commandsVec[1]);
+                return oss;
+            }
+            --counter;
+        }
+    }
+    if (oss.str().empty())
+        oss << "hiring worker to " << commandsVec[1] << std::endl;
+    return oss;
 }

@@ -12,6 +12,7 @@ bool gameover(island& world);
 void dawn(island& world);
 void dusk(island& world);
 std::string treatCommand(std::string& command, island& world, file savegame);
+int random (int low, int high);
 
 
 #endif //POOISLAND_PROGRAM_H

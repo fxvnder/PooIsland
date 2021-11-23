@@ -7,6 +7,8 @@ int main() {
     //qDebug() << "Hello World";
     //return QCoreApplication::exec();
 
+
     welcome();
     return 0;
 }
+

@@ -109,11 +109,13 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         savegame.receiveCommand(commands);
         return oss.str();
 
-    } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area> // TODO: VETOR TRABALHADORES!!!
+    } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        oss << "hiring worker to " << commandsVec[1] << std::endl;
-        savegame.receiveCommand(commands);
-        return oss.str();
+        else {
+            savegame.receiveCommand(commands);
+            // oss << "hiring worker to " << commandsVec[1] << std::endl;
+            return world.cont(commandsVec).str();
+        }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
@@ -172,6 +174,11 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
     }
 
     return "Malformed command, try again\n";
+}
+
+int random (int low, int high) {
+    if (low > high) return high;
+    return low + (std::rand() % (high - low + 1));
 }
 
 //endregion
