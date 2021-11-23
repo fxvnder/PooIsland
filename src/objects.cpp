@@ -21,7 +21,7 @@ void createLoadedWorld(int * dim){
 //class tiles
 tile::tile() : building("") {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
-    // type = v_types[ random(0,v_types.size()) ]; // TODO: FIX RANDOM
+    type = v_types[ rand()%(v_types.size()) ];
     // access the island here
 }
 std::string tile::showInfoTile() const {
