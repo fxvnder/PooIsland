@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <random>
 #include "program.h"
 #include "interface.h"
 #include "files.h"
@@ -32,7 +33,10 @@ bool gameover(island& world){
 
 int random (int low, int high) {
     if (low > high) return high;
-    return low + (std::rand() % (high - low + 1));
+    std::random_device rd;
+    std::default_random_engine e{rd()};
+    std::uniform_int_distribution<int> dist{low, high};
+    return dist(e);
 }
 
 //region ExtraInfo

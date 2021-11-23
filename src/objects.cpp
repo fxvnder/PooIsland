@@ -1,8 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 #include "program.h"
 #include "objects.h"
 #include "files.h"
+
+using namespace std;
 
 void createNewWorld(int * dim){
     island world(dim[0], dim[1]);
@@ -21,7 +25,14 @@ void createLoadedWorld(int * dim){
 //class tiles
 tile::tile() : building("") {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
-    type = v_types[ rand()%(v_types.size()) ];
+    int boy = random(0,v_types.size() - 1);
+    type = v_types[rand()%(v_types.size()) ];
+
+    /*
+    std::cout << "rand old: " << rand()%(v_types.size()) << std::endl;
+    std::cout << "arguments given" << v_types.size() << std::endl;
+    std::cout << "rand new: " << random(0,v_types.size()) << std::endl;
+     */
     // access the island here
 }
 std::string tile::showInfoTile() const {

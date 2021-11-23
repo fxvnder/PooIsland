@@ -9,7 +9,7 @@ private:
     std::string type;
     std::string building;
     // miners lens opers
-    //int workers[3];
+    int workers[3];
 public:
     tile();
     std::string showInfoTile() const;
