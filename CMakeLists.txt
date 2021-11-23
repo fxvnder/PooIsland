@@ -27,7 +27,7 @@ set(PROJECT_SOURCES
         src/files.h
         src/program.cpp
         src/program.h
-)
+        src/commands.cpp src/commands.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland
