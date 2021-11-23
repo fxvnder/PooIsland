@@ -61,7 +61,6 @@ std::string tile::cont(std::string cmnd){
     if (type != "pas")
         return "Can only do this for tiles of type pas";
 
-
     for (int i = 0; i < v_types.size(); ++i) {
         if (cmnd == v_types[i]){
             ++workers[i];
@@ -168,13 +167,11 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
             if (vecvec[i][j].getType() == "pas ")
                 if (counter == 0) {
                     oss << vecvec[i][j].cont(commandsVec[1]);
-                    return oss;
                 }
             --counter;
         }
     }
-
     if (oss.str().empty())
-        oss << "hiring worker to " << commandsVec[1] << std::endl;
+        oss << "hiring " << commandsVec[1] << std::endl;
     return oss;
 }
