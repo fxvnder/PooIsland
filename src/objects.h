@@ -8,9 +8,8 @@ class tile{
 private:
     std::string type;
     std::string building;
-    int miners;
-    int lens;
-    int opers;
+    // miners lens opers
+    int workers[3];
 public:
     tile();
     std::string showInfoTile() const;

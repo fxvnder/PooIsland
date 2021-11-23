@@ -113,7 +113,6 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
         else {
             savegame.receiveCommand(commands);
-            // oss << "hiring worker to " << commandsVec[1] << std::endl;
             return world.cont(commandsVec).str();
         }
 

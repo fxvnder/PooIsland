@@ -19,7 +19,7 @@ void createLoadedWorld(int * dim){
 }
 
 //class tiles
-tile::tile() : building(""), miners(0), lens(0), opers(0) {
+tile::tile() : building("") {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
     type = v_types[ random(0,v_types.size()) ];
     // access the island here
@@ -57,9 +57,19 @@ std::string tile::cons(std::string command) {
 }
 std::string tile::cont(std::string cmnd){
     std::ostringstream oss;
-    if (type != "pas ")
+    std::vector<std::string> v_types = {"miners", "lens", "opers"};
+    if (type != "pas")
         return "Can only do this for tiles of type pas";
-    
+
+
+    for (int i = 0; i < v_types.size(); ++i) {
+        if (cmnd == v_types[i]){
+            ++workers[i];
+            return "";
+        }
+    }
+
+    oss << "type of worker doesn't exist";
     return oss.str();
 }
 
@@ -142,9 +152,10 @@ std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <
     }
 }
 
-std::ostringstream island::cont(std::vector<std::string> commandsVec){ // cont <type>
+std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
     std::ostringstream oss;
-    int counter=0;
+    int counter = 0;
+
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
             if (vecvec[i][j].getType() == "pas ")
@@ -155,13 +166,14 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec){ // cont <
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
             if (vecvec[i][j].getType() == "pas ")
-            if (counter == 0){
-                oss << vecvec[i][j].cont(commandsVec[1]);
-                return oss;
-            }
+                if (counter == 0) {
+                    oss << vecvec[i][j].cont(commandsVec[1]);
+                    return oss;
+                }
             --counter;
         }
     }
+
     if (oss.str().empty())
         oss << "hiring worker to " << commandsVec[1] << std::endl;
     return oss;
