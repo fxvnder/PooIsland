@@ -94,15 +94,13 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
-        int l = stoi(commandsVec[1]);
-        int c = stoi(commandsVec[2]);
         if (commandsVec.size() == 1)
             return world.showInfoIsland();
         if (commandsVec.size() != 3)
             return "error: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
-        if (world.isOutOfBounds(l,c))
+        if (world.isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";
-        return world.getTile(l,c).showInfoTile();
+        return world.getTile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "error: Invalid number of arguments\n";
