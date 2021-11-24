@@ -111,7 +111,7 @@ std::string island::showInfoIsland() const {
     //-----Print the island-----
     oss << "     ";
     for(i=0;i<vecvec.size();i++) // size of columns
-        oss << "       C" << i+1 << "          ";
+        oss << "        C" << i+1 << "          ";
     oss.put('\n');
 
     oss << "    ";
@@ -156,19 +156,12 @@ std::string island::showInfoIsland() const {
 std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    //if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
         oss << vecvec[l-1][c-1].cons(commandsVec[1]);
         if (oss.str().empty()) {
             oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
             return oss;
         }
         return oss;
-        /*
-    } else {
-        oss << "Target zone coordinates fall outside the island!";
-        return oss;
-    }
-         */
 }
 
 std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
