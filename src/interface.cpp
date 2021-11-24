@@ -54,10 +54,10 @@ void newGame() {
 
     // player chooses island dimensions
     do{
-        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n >";
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n > ";
         std::cin >> dim[0];
         std::cin.ignore(1,'\n');
-        std::cout << "Size 2/2:\n >";
+        std::cout << "Size 2/2:\n > ";
         std::cin >> dim[1];
         std::cin.ignore(1,'\n');
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
@@ -77,7 +77,7 @@ bool loadGame(const std::string& filename){
     } else return false;
 }
 
-void plays(island& world, const file& savegame){
+void plays(island& world, file& savegame){
     std::string command;
     std::string msg;
     do {
@@ -103,4 +103,32 @@ void showCredits(){
                  "  %%%%%%%%%            %%%%%%%%%                                                \n"
                  "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
                  "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
+}
+
+std::string helpMe() {
+
+    return R"(
+        >>> HELP <<<
+        Welcome to PooIsland. These are the commands to learn how to play the game!
+        >> EXEC <filename> -> executes saved file
+        >> CONS <type> <line> <column> -> builds <type> in the coordinates
+        >> LIGA <line> <column> -> coming soon
+        >> DES <line> <column> -> coming soon
+        >> MOVE <id> <line> <column> -> coming soon
+        >> VENDE <type> <when> -> coming soon
+        >>>> OR <<<<
+        >> VENDE <line> <column> -> coming soon
+        >> CONT <type> -> hires worker from <type>
+        >> LIST (optional: <type> <column>) -> lists events/workers/etc.
+        >> NEXT -> Skips to next day.
+        >> SAVE <filename> -> saves <filename>
+        >> LOAD <filename> -> loads <filename>
+        >> APAGA <name> -> coming soon
+        >> CONFIG <filename> -> coming soon
+		>> DEBCASH <value> -> coming soon (debug)
+		>> DEBED <type> <line> <column> -> coming soon (debug)
+		>> DEBKILL <id> -> coming soon (debug)
+        >> HELP -> shows help with commands
+        >> EXIT -> ends program
+        )";
 }

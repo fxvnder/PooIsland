@@ -3,6 +3,7 @@
 
 #include "objects.h"
 
-std::string treatCommand(std::string& commands, island& world, file savegame);
+std::string treatCommand(std::string& commands, island& world, file& savegame);
 
 #endif //POOISLAND_COMMANDS_H
+

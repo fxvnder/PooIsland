@@ -15,7 +15,7 @@ void createNewWorld(int * dim){
 
 void createLoadedWorld(file loadedFile){
     island world(loadedFile.giveLines(), loadedFile.giveColumns());
-    std::vector<std::string> oldcommands = loadedFile.redoCommands();
+    std::vector<std::string> oldcommands = loadedFile.getCommands();
     for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i], world, loadedFile);
     game(world, loadedFile);
 }
@@ -28,11 +28,17 @@ tile::tile() : building(""), workers() {
 }
 std::string tile::showInfoTile() const {
     std::ostringstream oss;
+    std::string tmp;
     oss << type;
     if (building.empty())
-        oss << "    ";
-    else
-        oss << building;
+        oss << "     ";
+    else{
+        tmp += building;
+        while (tmp.size() != 5){
+            tmp += " ";
+        }
+        oss << tmp;
+    }
     oss << "> " << workers[0] << '|' << workers[1] << '|' << workers[2];
     return oss.str();
 }
@@ -41,6 +47,7 @@ std::string tile::getType(){
 }
 std::string tile::cons(const std::string& command) {
     std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
+    // TODO: imprimir como {"minaf", "minac", "cntrl", " bat ", " fund", " edx "}
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == v_buildings[i]){
@@ -70,7 +77,11 @@ std::string tile::cont(const std::string& command){
             return "";
         }
     }
-    oss << "type of worker doesn't exist";
+    oss << "Type of worker doesn't exist, the existing types are: ";
+    for (const std::string& str : v_types){
+        oss << str << ' ';
+    }
+    oss << std::endl;
     return oss.str();
 }
 
@@ -100,37 +111,43 @@ std::string island::showInfoIsland() const {
     //-----Print the island-----
     oss << "     ";
     for(i=0;i<vecvec.size();i++) // size of columns
-        oss << "      C" << i+1 << "      ";
+        oss << "        C" << i+1 << "          ";
     oss.put('\n');
 
-    oss << "   ";
+    oss << "    ";
     for(i=0;i<vecvec.size();i++)
-        if(i!=vecvec.size()-1)
-            oss << "----------------";
+        if(i==0)
+            oss << "+--------------------";
         else
-            oss << "-------------------------------";
+            if(i != vecvec.size() - 1)
+                oss << "+-------------------";
+            else
+                oss << "+--------------------+";
     oss << '\n';
 
     for(i=0;i<vecvec[0].size();i++){
-        oss << " L" << i+1 << "| ";
+        oss << " L" << i+1 << " | ";
         for(j=0;j<vecvec.size()-1;j++){
             oss << "  " << vecvec[i][j].showInfoTile() << " |";
         }
         oss << "  " << vecvec[i][j].showInfoTile() << "  |" << std::endl;
 
         if(i!=vecvec[0].size()-1){
-            oss << "   |-";
+            oss << "    |-";
             for(j=0;j<vecvec.size()-1;j++)
-                oss << "------------------+";
-            oss << "-------------------|\n";
+                oss << "-------------------+";
+            oss << "--------------------|\n";
         }
     }
-    oss << "   ";
+    oss << "    ";
     for(i = 0; i < vecvec.size(); i++)
-        if(i != vecvec.size() - 1)
-            oss << "----------------";
+        if(i==0)
+            oss << "+--------------------";
         else
-            oss << "-------------------------------";
+            if(i != vecvec.size() - 1)
+                oss << "+-------------------";
+            else
+                oss << "+--------------------+";
     oss.put('\n');
     //-----Print the island-----
     return oss.str();
@@ -139,19 +156,12 @@ std::string island::showInfoIsland() const {
 std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    //if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
         oss << vecvec[l-1][c-1].cons(commandsVec[1]);
         if (oss.str().empty()) {
             oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
             return oss;
         }
         return oss;
-        /*
-    } else {
-        oss << "Target zone coordinates fall outside the island!";
-        return oss;
-    }
-         */
 }
 
 std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
