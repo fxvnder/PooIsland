@@ -1,7 +1,0 @@
- 
-clang++ -S -emit-llvm graph.cpp -o - | opt -enable-new-pm=0 -analyze -dot-callgraph
-
-dot -Tpng -ocallgraph.png <\<stdin\>.callgraph.dot
-
-
-OR try to use 
