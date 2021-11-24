@@ -72,8 +72,7 @@ void newGame() {
 bool loadGame(const std::string& filename){
     if(checkFile(filename)){
         file savedFile = openFile(filename);
-        int *dim = savedFile.getDim();
-        createLoadedWorld(dim);
+        createLoadedWorld(savedFile);
         return true;
     } else return false;
 }

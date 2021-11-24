@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "files.h"
 
 class tile{
 private:
@@ -13,9 +14,9 @@ private:
 public:
     tile();
     std::string showInfoTile() const;
-    std::string cont(std::string cmnd);
+    std::string cont(const std::string& cmnd);
     std::string getType();
-    std::string cons(std::string command);
+    std::string cons(const std::string& command);
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
@@ -26,11 +27,13 @@ private:
 public:
     island(int l,int c);
     std::string showInfoIsland() const;
+    tile getTile(int l, int c) const;
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);
+    bool isOutOfBounds(int l, int c) const;
 };
 
 void createNewWorld(int * dim);
-void createLoadedWorld(int * dim);
+void createLoadedWorld(file loadedFile);
 
 #endif //POOISLAND_OBJECTS_H

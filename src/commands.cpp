@@ -51,7 +51,10 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
             savegame.receiveCommand(commands);
-            return world.cons(commandsVec).str();
+            if (world.isOutOfBounds(stoi(commandsVec[2]),stoi(commandsVec[3])))
+                return "Target zone coordinates fall outside the island!";
+            else
+                return world.cons(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
@@ -87,14 +90,19 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         else {
             //oss << "hiring worker to " << commandsVec[1] << std::endl;
             savegame.receiveCommand(commands);
-
             return world.cont(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
-        if (commandsVec.size() != 3) return "error: Invalid number of arguments\n";
-        oss << "list" << commandsVec[1] << std::endl;
-        return oss.str();
+        int l = stoi(commandsVec[1]);
+        int c = stoi(commandsVec[2]);
+        if (commandsVec.size() == 1)
+            return world.showInfoIsland();
+        if (commandsVec.size() != 3)
+            return "error: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
+        if (world.isOutOfBounds(l,c))
+            return "Target zone coordinates fall outside the island!";
+        return world.getTile(l,c).showInfoTile();
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "error: Invalid number of arguments\n";

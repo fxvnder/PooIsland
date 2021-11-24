@@ -2,7 +2,6 @@
 #define POOISLAND_FILES_H
 
 #include <vector>
-#include "objects.h"
 
 class file{
 private:
@@ -17,9 +16,16 @@ public:
         commandsHistory.push_back(command);
     }
 
-    int * getDim(){
-        return dim;
+    int giveLines(){
+        return dim[0];
     }
+
+    int giveColumns(){
+        return dim[1];
+    }
+
+    std::vector<std::string> redoCommands();
+
 };
 
 bool checkFile(const std::string& filename);

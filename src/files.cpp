@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "files.h"
+#include "commands.h"
 
 bool saveFile(const std::string& filename, const file& filereceived) {
     // vars
@@ -20,13 +21,13 @@ bool saveFile(const std::string& filename, const file& filereceived) {
     }
 }
 
-bool checkFile(const std::string& filename){
+bool checkFile(const std::string& filename){ // function to check if file filename exists
     std::ifstream trymefile;
     trymefile.open(filename + ".cfg");
     if(trymefile) {
-        return true;
+        return true; // it exists. great success!
     } else {
-        return false;
+        return false; // no file with that name was found. or... maybe error opening it.
     }
 }
 
@@ -39,4 +40,11 @@ file openFile(const std::string& filename) {
     openFile.read((char*)&savedfile, sizeof(savedfile));
 
     return savedfile;
+}
+
+std::vector<std::string> file::redoCommands(){
+    std::vector<std::string> commands;
+    commands.reserve(commandsHistory.size());
+    for (int i = 0; i < commandsHistory.size(); ++i) commands.push_back(commandsHistory[i]);
+    return commands;
 }

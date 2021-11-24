@@ -4,6 +4,7 @@
 #include "program.h"
 #include "objects.h"
 #include "files.h"
+#include "commands.h"
 
 void createNewWorld(int * dim){
     island world(dim[0], dim[1]);
@@ -13,8 +14,9 @@ void createNewWorld(int * dim){
 }
 
 void createLoadedWorld(file loadedFile){
-    int *dim = loadedFile.getDim();
-    island world(dim[0],dim[1]);
+    island world(loadedFile.giveLines(), loadedFile.giveColumns());
+    std::vector<std::string> oldcommands = loadedFile.redoCommands();
+    for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i], world, loadedFile);
     game(world, loadedFile);
 }
 
@@ -37,7 +39,7 @@ std::string tile::showInfoTile() const {
 std::string tile::getType(){
     return type;
 }
-std::string tile::cons(std::string command) {
+std::string tile::cons(const std::string& command) {
     std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
@@ -51,12 +53,12 @@ std::string tile::cons(std::string command) {
         }
     }
     oss << "Wrong specified type, the existing types of buildings are: ";
-    for (std::string str : v_buildings)
+    for (const std::string& str : v_buildings)
         oss << str << ' ';
     return oss.str();
 }
 
-std::string tile::cont(std::string command){
+std::string tile::cont(const std::string& command){
     std::ostringstream oss;
     std::vector<std::string> v_types = {"miner", "len", "oper"};
     if (type != "pas ")
@@ -137,17 +139,19 @@ std::string island::showInfoIsland() const {
 std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
+    //if (l >= 1 && l <= vecvec.size()+1 && c >= 1 && c <= vecvec[0].size()+1) { // vecvec.size() size of columns (amount of lines)
         oss << vecvec[l-1][c-1].cons(commandsVec[1]);
         if (oss.str().empty()) {
             oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
             return oss;
         }
         return oss;
+        /*
     } else {
         oss << "Target zone coordinates fall outside the island!";
         return oss;
     }
+         */
 }
 
 std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
@@ -173,4 +177,14 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     if (oss.str().empty())
         oss << "hiring " << commandsVec[1] << std::endl;
     return oss;
+}
+
+tile island::getTile(int l, int c) const {
+    --l ; --c ;
+    return vecvec[l][c];
+}
+
+bool island::isOutOfBounds(int l, int c) const{
+    --l ; --c ;
+    return !(l >= 0 && l <= vecvec.size() && c >= 0 && c <= vecvec[0].size()); // vecvec.size() size of columns (amount of lines)
 }
