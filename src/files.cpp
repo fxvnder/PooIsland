@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "files.h"
-#include "commands.h"
 
 bool saveFile(const std::string& filename, const file& filereceived) {
     // vars
