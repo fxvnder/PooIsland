@@ -1,12 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <ctime>
 #include "program.h"
 #include "objects.h"
 #include "files.h"
-
-using namespace std;
 
 void createNewWorld(int * dim){
     island world(dim[0], dim[1]);
@@ -15,11 +12,10 @@ void createNewWorld(int * dim){
     game(world, savegame);
 }
 
-void createLoadedWorld(int * dim){
-    island world(dim[0], dim[1]);
-    file savegame;
-    savegame.receiveDim(dim);
-    game(world, savegame);
+void createLoadedWorld(file loadedFile){
+    int *dim = loadedFile.getDim();
+    island world(dim[0],dim[1]);
+    game(world, loadedFile);
 }
 
 //class tiles
@@ -50,7 +46,6 @@ std::string tile::cons(std::string command) {
                 oss << "There's a " << building << " here already";
                 return oss.str();
             }
-            //std::cout << "making merda" << merda << "the building " << building;
             building = command;
             return "";
         }
@@ -61,14 +56,14 @@ std::string tile::cons(std::string command) {
     return oss.str();
 }
 
-std::string tile::cont(std::string cmnd){
+std::string tile::cont(std::string command){
     std::ostringstream oss;
     std::vector<std::string> v_types = {"miner", "len", "oper"};
     if (type != "pas ")
         return "Can only do this for tiles of type pas";
 
     for (int i = 0; i < v_types.size(); ++i) {
-        if (cmnd == v_types[i]){
+        if (command == v_types[i]){
             ++workers[i];
             return "";
         }
@@ -78,7 +73,6 @@ std::string tile::cont(std::string cmnd){
 }
 
 
-//class island TODO: SEGFAULT
 island::island(int l, int c) : lines(l), columns(c) {
     for (int i = 0; i < l; i++) {
         vecvec.push_back(std::vector<tile>());

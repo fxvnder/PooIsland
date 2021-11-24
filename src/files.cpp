@@ -1,38 +1,42 @@
 #include <iostream>
 #include <fstream>
-#include <cstring>
 #include <string>
 #include <vector>
-#include "program.h"
 #include "files.h"
 
 bool saveFile(const std::string& filename, const file& filereceived) {
+    // vars
     std::ofstream saveFile;
-    saveFile.open(filename + ".cfg", std::ios::out | std::ios::app);
 
-//    for (int i = 0; i < commands.size(); i++) {
-//        saveFile << commands[i] << "\n";
-//    }
-//    saveFile.close();
-    return true;
-}
-
-bool openFile(const std::string& filename) {
-    std::string nLines;
-    std::ifstream openFile(filename + ".cfg");
-
-    if (openFile.is_open()){
-        while (!openFile.eof()) {
-            while(getline(openFile, nLines)){
-                if (!nLines.empty()) {
-                    //treatCommand(nLines, world);
-                }
-            }
-        }
-        openFile.close();
+    // exporting to file
+    try {
+        saveFile.open(filename + ".cfg", std::ios::out | std::ios::app);
+        saveFile.write((char*)&filereceived, sizeof(filereceived));
+        saveFile.close();
         return true;
-    } else {
-        std::cout << "ERROR: " << strerror(errno) << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "ERROR (saving file): " << e.what() << std::endl;
         return false;
     }
+}
+
+bool checkFile(const std::string& filename){
+    std::ifstream trymefile;
+    trymefile.open(filename + ".cfg");
+    if(trymefile) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+file openFile(const std::string& filename) {
+    // vars
+    file savedfile;
+    std::ifstream openFile(filename + ".cfg");
+
+    // importing from file
+    openFile.read((char*)&savedfile, sizeof(savedfile));
+
+    return savedfile;
 }

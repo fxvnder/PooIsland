@@ -19,7 +19,7 @@ public:
     // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
-class island : public tile { // herança
+class island { // herança
 private:
     int lines, columns;
     std::vector<std::vector<tile>> vecvec;

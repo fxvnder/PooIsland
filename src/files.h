@@ -16,9 +16,14 @@ public:
     void receiveCommand(const std::string& command){
         commandsHistory.push_back(command);
     }
+
+    int * getDim(){
+        return dim;
+    }
 };
 
-bool saveFile(const std::string& filename, const file& filereceived);
-bool openFile(const std::string& filename);
+bool checkFile(const std::string& filename);
+file openFile(const std::string& filename);
+bool saveFile(const std::string& filename, const file &filereceived);
 
 #endif //POOISLAND_FILES_H
