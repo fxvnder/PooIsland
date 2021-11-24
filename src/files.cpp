@@ -4,6 +4,8 @@
 #include <vector>
 #include "files.h"
 
+// TODO: HAVE .SAVE FOR SAVING COMMANDS AND .CFG FOR SAVING THE WHOLE THING
+
 bool saveFile(const std::string& filename, const file& filereceived) {
     // vars
     std::ofstream saveFile;
@@ -41,15 +43,22 @@ file openFile(const std::string& filename) {
     return savedfile;
 }
 
-std::vector<std::string> file::redoCommands(){
+std::vector<std::string> file::getCommands(){
     std::vector<std::string> commands;
     commands.reserve(commandsHistory.size());
     for (int i = 0; i < commandsHistory.size(); ++i) commands.push_back(commandsHistory[i]);
     return commands;
 }
 
-bool saveCommands(const std::string& command){
+bool saveCommands(const std::string& filename, file filereceived){
+    std::vector<std::string> commands = filereceived.getCommands();
+    std::ofstream file;
+    file.open(filename + ".cfg");
 
+    for (int i = 0; i < commands.size(); ++i) {
+        file << commands[i] << std::endl;
+    }
 
-    return false;
+    file.close();
+    return true;
 }

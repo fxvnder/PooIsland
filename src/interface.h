@@ -6,7 +6,8 @@
 void welcome();
 void newGame();
 bool loadGame(const std::string& filename);
-void plays(island& world, const file& savegame);
+void plays(island& world, file& savegame);
 void showCredits();
+std::string helpMe();
 
 #endif //POOISLAND_INTERFACE_H

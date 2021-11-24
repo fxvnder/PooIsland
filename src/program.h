@@ -7,7 +7,7 @@
 #include <sstream>
 #include <iostream>
 
-void game(island& island, const file& gamefile);
+void game(island& island, file& gamefile);
 bool gameover(island& world);
 void dawn(island& world);
 void dusk(island& world);

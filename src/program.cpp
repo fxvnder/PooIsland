@@ -9,7 +9,7 @@
 
 //region Working with the island
 
-void game(island& world, const file& gamefile){
+void game(island& world, file& gamefile){
     do {
         std::cout << world.showInfoIsland() << std::endl;
         dawn(world);
