@@ -47,3 +47,9 @@ std::vector<std::string> file::redoCommands(){
     for (int i = 0; i < commandsHistory.size(); ++i) commands.push_back(commandsHistory[i]);
     return commands;
 }
+
+bool saveCommands(const std::string& command){
+
+
+    return false;
+}

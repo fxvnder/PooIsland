@@ -27,7 +27,7 @@ void welcome(){
 
     std::cout << welcome << "\nWelcome to PooIsland" << std::endl;
     do {
-        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game\n3 - Show Credits\n9 - Exit\n > ";
+        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game (COMING SOON!)\n3 - Show Credits\n9 - Exit\n > ";
         std::cin >> userInp;
         if (userInp == "1"){
             success = true;

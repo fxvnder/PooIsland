@@ -30,7 +30,7 @@ std::string tile::showInfoTile() const {
     std::ostringstream oss;
     oss << type;
     if (building.empty())
-        oss << "";
+        oss << "    ";
     else
         oss << building;
     oss << "> " << workers[0] << '|' << workers[1] << '|' << workers[2];
@@ -98,39 +98,39 @@ std::string island::showInfoIsland() const {
     }*/
 
     //-----Print the island-----
-    oss << "   ";
+    oss << "     ";
     for(i=0;i<vecvec.size();i++) // size of columns
-        oss << "   C" << i+1 << "   ";
+        oss << "      C" << i+1 << "      ";
     oss.put('\n');
 
     oss << "   ";
     for(i=0;i<vecvec.size();i++)
         if(i!=vecvec.size()-1)
-            oss << "--------";
+            oss << "----------------";
         else
-            oss << "--------";
+            oss << "-------------------------------";
     oss << '\n';
 
     for(i=0;i<vecvec[0].size();i++){
-        oss << "L" << i+1 << '|';
+        oss << " L" << i+1 << "| ";
         for(j=0;j<vecvec.size()-1;j++){
-            oss << "  " << vecvec[i][j].showInfoTile() << " :";
+            oss << "  " << vecvec[i][j].showInfoTile() << " |";
         }
-        oss << ' ' << vecvec[i][j].showInfoTile() << "  |" << std::endl;
+        oss << "  " << vecvec[i][j].showInfoTile() << "  |" << std::endl;
 
         if(i!=vecvec[0].size()-1){
-            oss << "  |";
+            oss << "   |-";
             for(j=0;j<vecvec.size()-1;j++)
-                oss << "-------:";
-            oss << "-------|\n";
+                oss << "------------------+";
+            oss << "-------------------|\n";
         }
     }
     oss << "   ";
     for(i = 0; i < vecvec.size(); i++)
         if(i != vecvec.size() - 1)
-            oss << "--------";
+            oss << "----------------";
         else
-            oss << "--------";
+            oss << "-------------------------------";
     oss.put('\n');
     //-----Print the island-----
     return oss.str();
@@ -186,5 +186,5 @@ tile island::getTile(int l, int c) const {
 
 bool island::isOutOfBounds(int l, int c) const{
     --l ; --c ;
-    return !(l >= 0 && l <= vecvec.size() && c >= 0 && c <= vecvec[0].size()); // vecvec.size() size of columns (amount of lines)
+    return (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1); // vecvec.size() size of columns (amount of lines)
 }

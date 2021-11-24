@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <cstring>
+
 #include "files.h"
 #include "commands.h"
 #include "interface.h"
@@ -29,14 +30,19 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
 
     if (commandsVec[0] == "exec") { // executes saved file
         // vars
+        int commandnum = 1;
         std::string lineContent;
         std::ifstream fileSaved(commandsVec[1] + ".cfg");
+        std::string msg;
 
         if (fileSaved.is_open()) {
             while (getline(fileSaved, lineContent)) {
-                std::cout << lineContent << std::endl; // prints out everything
+                std::cout << "\nCommand #" << commandnum << ":" << std::endl;
+                std::cout << lineContent << "\n" << std::endl; // prints out everything
                 if (!lineContent.empty()) {
-                    treatCommand(lineContent, world, savegame);
+                    msg = treatCommand(lineContent, world, savegame);
+                    std::cout << msg << std::endl;
+                    commandnum++;
                 }
             }
             fileSaved.close();
@@ -51,6 +57,8 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
         if (commandsVec.size() != 4) return "error: Invalid number of arguments\n";
         else {
             savegame.receiveCommand(commands);
+            if (!(std::isdigit(stoi(commandsVec[2]))) || !(std::isdigit(stoi(commandsVec[3]))))
+                return "expected digits";
             if (world.isOutOfBounds(stoi(commandsVec[2]),stoi(commandsVec[3])))
                 return "Target zone coordinates fall outside the island!";
             else
@@ -98,6 +106,8 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
             return world.showInfoIsland();
         if (commandsVec.size() != 3)
             return "error: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
+        if (!(std::isdigit(stoi(commandsVec[1]) ) && std::isdigit(stoi(commandsVec[2]) )))
+            return "expected digits";
         if (world.isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";
         return world.getTile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
@@ -109,7 +119,8 @@ std::string treatCommand(std::string& commands, island& world, file savegame) {
 
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return "error: Invalid number of arguments\n";
-        saveFile(commandsVec[1], savegame);
+        //saveFile(commandsVec[1], savegame);
+        saveCommands(commandsVec[1]);
         return "file saved\n";
 
     } else if (commandsVec[0] == "load") { // load <nome>
