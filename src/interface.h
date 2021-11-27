@@ -2,6 +2,7 @@
 #define POOISLAND_INTERFACE_H
 
 #include "program.h"
+#include "main2.h"
 
 void welcome();
 void newGame();

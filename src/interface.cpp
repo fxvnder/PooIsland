@@ -3,7 +3,7 @@
 #include "interface.h"
 #include "commands.h"
 
-void welcome(){
+void welcome(GameData game){
     bool success = false;
     std::string userInp, filename;
     // my beautiful palm tree
@@ -53,10 +53,10 @@ void newGame() {
 
     // player chooses island dimensions
     do{
-        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n > ";
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size(columns): 1/2\n > ";
         std::cin >> dim[0];
         std::cin.ignore(1,'\n');
-        std::cout << "Size 2/2:\n > ";
+        std::cout << "Size(lines): 2/2\n > ";
         std::cin >> dim[1];
         std::cin.ignore(1,'\n');
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
