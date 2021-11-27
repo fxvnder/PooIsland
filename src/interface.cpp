@@ -3,7 +3,7 @@
 #include "interface.h"
 #include "commands.h"
 
-void welcome(GameData game){
+void welcome(){
     bool success = false;
     std::string userInp, filename;
     // my beautiful palm tree

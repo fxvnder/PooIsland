@@ -10,7 +10,7 @@ GameData::GameData() : world(0,0){
 
 Interface::Interface(GameData game_on) {
 };
-void Interface::start(GameData game_on) {
-    welcome(game_on);
+void Interface::start() {
+    welcome();
     return;
 };

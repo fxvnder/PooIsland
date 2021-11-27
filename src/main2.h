@@ -18,7 +18,7 @@ class Interface{
 private:
 public:
     Interface(GameData game_on);
-    void start(GameData game_on);
+    void start();
 };
 
 
