@@ -5,9 +5,23 @@
 #include "program.h"
 #include "interface.h"
 #include "files.h"
-#include "objects.h"
+#include "commands.h"
 
 //region Working with the island
+
+void createNewWorld(int * dim){
+    island world(dim[0], dim[1]);
+    file savegame;
+    savegame.receiveDim(dim);
+    game(world, savegame);
+}
+
+void createLoadedWorld(file loadedFile){
+    island world(loadedFile.giveLines(), loadedFile.giveColumns());
+    std::vector<std::string> oldcommands = loadedFile.getCommands();
+    for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i], world, loadedFile);
+    game(world, loadedFile);
+}
 
 void game(island& world, file& gamefile){
     do {

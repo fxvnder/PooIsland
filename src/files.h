@@ -29,6 +29,7 @@ public:
 
 };
 
+
 bool checkFile(const std::string& filename);
 file openFile(const std::string& filename);
 bool saveFile(const std::string& filename, const file &filereceived);

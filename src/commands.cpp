@@ -106,7 +106,7 @@ std::string treatCommand(std::string& commands, island& world, file& savegame) {
             return world.showInfoIsland();
         if (commandsVec.size() != 3)
             return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
-        if (!(std::isdigit(stoi(commandsVec[1]) ) && std::isdigit(stoi(commandsVec[2]) )))
+        if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
             return "Expected digits";
         if (world.isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";

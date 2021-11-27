@@ -1,7 +1,6 @@
 #include <iostream>
 #include "files.h"
 #include "interface.h"
-#include "objects.h"
 #include "commands.h"
 
 void welcome(){

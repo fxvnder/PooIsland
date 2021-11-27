@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include "files.h"
+#include "island.h"
+#include "files.h"
 
 // TODO: HAVE .SAVE FOR SAVING COMMANDS AND .CFG FOR SAVING THE WHOLE THING
 

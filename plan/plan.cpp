@@ -207,3 +207,15 @@ int main(){
  Como se usa e para quê que se usa o new
 Deve-se fazer as funções de cont e cons nod objetos ou como funções normais que passas o mundo normalmente?
 */
+
+/*
+Todo:
+ 1-Make vetors into arrays
+ 2-Read a text file too
+ 3-Change the structure of the program to:
+    Jogo j; // Dados
+    UserInt ui(j); // user interface (comandos)
+    ui.run();
+ 5-typeid(a).name()
+ 6-make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
+
