@@ -12,12 +12,15 @@ private:
     island world;
 public:
     GameData();
+    island getIsland();
 };
+
 
 class Interface{
 private:
+    island world;
 public:
-    Interface(GameData game_on);
+    Interface(GameData &game_on);
     void start();
 };
 
