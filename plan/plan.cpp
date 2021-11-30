@@ -66,7 +66,7 @@ Jogo acaba quando
 	O jogador quiser
 	Jogador perdeu todos recursos/Trabalhadores
 
-Interface:
+interface:
 Representação Ilha:
 	A ilha deve estar toda no ecrã
 	É necessário indicar o conteúdo das várias zonas. Utilize as abreviaturas e códigos indicados:
@@ -87,7 +87,7 @@ Representação Ilha:
 		3a linha: trabalhadores na zona (O = Operário, M =Mineiro, L = Lenhador). Nesta representação só cabem 4, mas podem estar mais nessa zona, tal como indicado na 4a linha.
 		4a linha número total de trabalhadores na zona.
 		
-	Exemplo Interface:  ┐┌├ ┬ ─│
+	Exemplo interface:  ┐┌├ ┬ ─│
 	  1    2    3    4    5
 	┌────┬────┬────┬────┬────┐
 	│flr │pas │pan │flr │mnt │
@@ -219,6 +219,21 @@ Todo:
     Jogo j; // Dados
     UserInt ui(j); // user interface (comandos)
     ui.run();
- 5-typeid(a).name()
+ 5-typeid(a).name() ???
  6-make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
+
+ Dizer ao founder:
+    Não use cin >> str
+    use getline(cin,str)
+    e getNumber se quiser um numero.
+    Evita de poluir o buffer que isso já deu muito problema
+
+ Perguntar ao durães:
+ alguma diferença entre
+    if
+        cout << "hello"
+ou
+    if {
+        cout << "hello"
+    }
 

@@ -15,8 +15,9 @@ private:
     int lines, columns;
     std::vector<std::vector<tile>> vecvec;
 public:
-    island(int l,int c);
+    island(int l=0,int c=0);
     std::string showInfoIsland() const;
+    void changeDim(int * dim);
     tile getTile(int l, int c) const;
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);

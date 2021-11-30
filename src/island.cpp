@@ -112,6 +112,16 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     return oss;
 }
 
+void island::changeDim(int * dim){ // seg fault
+    for (int i = vecvec.size(); i < dim[0]; i++) { // l
+        vecvec.push_back(std::vector<tile>());
+        for (int j = vecvec[0].size(); j < dim[1]; j++) { // c
+            tile newTile;
+            vecvec[i].push_back(newTile);
+        }
+    }
+}
+
 tile island::getTile(int l, int c) const {
     --l ; --c ;
     return vecvec[l][c];

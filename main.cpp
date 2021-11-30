@@ -1,7 +1,7 @@
 // #include <QCoreApplication>
 // #include <QDebug>
 
-#include <src/main2.h>
+#include <src/interface.h>
 
 
 
@@ -10,8 +10,8 @@ int main() {
     //qDebug() << "Hello World";
     //return QCoreApplication::exec();
 
-    GameData game_on;
-    Interface ui(game_on);
+    gameData game_on;
+    interface ui(game_on);
     ui.start();
 
     return 0;

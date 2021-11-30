@@ -26,7 +26,7 @@ set(PROJECT_SOURCES
         src/program.cpp
         src/program.h
         src/commands.cpp
-        src/commands.h src/island.cpp src/island.h src/tile.cpp src/tile.h src/main2.cpp src/main2.h)
+        src/commands.h src/island.cpp src/island.h src/tile.cpp src/tile.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland

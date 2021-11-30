@@ -2,7 +2,23 @@
 #define POOISLAND_INTERFACE_H
 
 #include "program.h"
-#include "main2.h"
+
+
+
+class interface{
+private:
+    gameData game;
+public:
+    interface(gameData &game);
+    void start();
+    bool getNumber(int &userInp);
+    void welcome();
+    //void showCredits();
+    void mainMenu();
+    void newGame();
+    //std::string helpMe();
+};
+
 
 void welcome();
 void newGame();

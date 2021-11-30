@@ -7,10 +7,19 @@
 #include "files.h"
 #include "commands.h"
 
+gameData::gameData(){
+}
+island gameData::getIsland(){
+    return world;
+};
+
 //region Working with the island
 
-void createNewWorld(int * dim){
+void gameData::createNewWorld(int * dim){
     island world(dim[0], dim[1]);
+    //world.changeDim(dim);
+    //world.showInfoIsland();
+    //exit(0)
     file savegame;
     savegame.receiveDim(dim);
     game(world, savegame);
