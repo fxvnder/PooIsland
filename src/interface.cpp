@@ -1,7 +1,6 @@
 #include <iostream>
 #include "files.h"
 #include "interface.h"
-#include "commands.h"
 #include "program.h"
 
 bool loadGame(const std::string& filename){

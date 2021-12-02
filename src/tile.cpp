@@ -1,14 +1,9 @@
-//
-// Created by yeshey on 27/11/21.
-//
-
 #include "tile.h"
+#include "program.h"
 #include <iostream>
 #include <vector>
 #include <random>
-#include "program.h"
 
-//class tiles
 tile::tile() : building(""), workers() {
     std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
     type = v_types[random(0,v_types.size() - 1)];
@@ -72,3 +67,10 @@ std::string tile::cont(const std::string& command){
     oss << std::endl;
     return oss.str();
 }
+
+/*
+std::ostream& operator<<(std::ostream& os, const tile& recievedTile){
+    os << recievedTile.type;
+    return os;
+}
+ */

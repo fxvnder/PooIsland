@@ -10,7 +10,7 @@
 #include "files.h"
 #include "tile.h"
 
-class island { // herança
+class island {
 private:
     std::vector<std::vector<tile>> vecvec;
 public:

@@ -1,18 +1,15 @@
+#include "program.h"
+#include "files.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <random>
-#include "program.h"
-#include "files.h"
-#include "commands.h"
 
 gameData::gameData(){
 }
 island gameData::getIsland(){
     return world;
 };
-
-//region Working with the island
 
 void gameData::createNewWorld(int * dim){
     world.changeDim(dim[0], dim[1]);
@@ -39,7 +36,6 @@ void gameData::dusk(){
 bool gameData::over(){
     return false;
 }
-//endregion
 
 int random (int low, int high) {
     if (low > high) return high;

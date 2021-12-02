@@ -1,13 +1,9 @@
-//
-// Created by yeshey on 27/11/21.
-//
-
 #include "island.h"
 #include "tile.h"
+#include "program.h"
 #include <iostream>
 #include <vector>
 #include <random>
-#include "program.h"
 
 island::island(int l, int c){
     for (int i = 0; i < l; i++) {

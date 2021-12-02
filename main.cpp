@@ -3,8 +3,6 @@
 
 #include <src/interface.h>
 
-
-
 int main() {
     //QCoreApplication a(argc, argv);
     //qDebug() << "Hello World";

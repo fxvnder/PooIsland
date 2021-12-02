@@ -243,7 +243,9 @@ ou
     Perguntar sobre o QT no windows
 
     Perguntar sobre o que retornar nas funções, retornar strings é boa prática, ou é boa pratica retornar bools de zero ou um para ver só se houve erros?
-    E perguntar se melhor retornar strings ou oss
+    E perguntar se melhor retornar strings ou oss (interface.cpp l 23 e 25)
+
+    Perguntar sobre o friend no operador<< (tile.h l 24)
 
 
 Durães:
