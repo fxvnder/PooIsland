@@ -242,6 +242,10 @@ ou
 
     Perguntar sobre o QT no windows
 
+    Perguntar sobre o que retornar nas funções, retornar strings é boa prática, ou é boa pratica retornar bools de zero ou um para ver só se houve erros?
+    E perguntar se melhor retornar strings ou oss
+
+
 Durães:
  Existe um equilibrio ideal entre a interface e os dados, em que um extremo é receber strings e escrevê-las e outro é saber os promenores do programa para as consgurir comparar, a interface não deve conhecer as regras
  Class zona{

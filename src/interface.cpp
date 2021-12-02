@@ -12,7 +12,7 @@ bool loadGame(const std::string& filename){
     } else return false;
 }
 
-void plays(island& world, file& savegame){
+void interface::plays(){
     std::string command;
     std::string msg;
     do {
@@ -21,7 +21,7 @@ void plays(island& world, file& savegame){
             std::cout << "\nInsert a command\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msg = treatCommand(command, world, savegame);
+        msg = treatCommand(command);
         std::cout << msg;
     } while (msg != "Continuing...\n");
 }
@@ -66,7 +66,7 @@ void interface::welcome(){
 
     std::cout << welcome << "\nWelcome to PooIsland!" << std::endl;
 }
-void showCredits(){
+void interface::showCredits(){
     std::cout << "           %%%%%%%%%%%%                                                         \n"
                  "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
                  "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
@@ -109,7 +109,7 @@ void interface::mainMenu() {
         }
     } while (!success);
 }
-std::string helpMe() {
+std::string interface::helpMe() {
     return R"(
         >>> HELP <<<
         Welcome to PooIsland. These are the commands to learn how to play the game!
@@ -141,9 +141,9 @@ void interface::newGame() {
 
     // player chooses island dimensions
     do{
-        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size(columns): 1/2\n > ";
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size(lines): 1/2\n > ";
         getNumber(dim[0]);
-        std::cout << "Size(lines): 2/2\n > ";
+        std::cout << "Size(columns): 2/2\n > ";
         getNumber(dim[1]);
         if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
             success = true;
@@ -152,4 +152,14 @@ void interface::newGame() {
         }
     } while (!success);
     game.createNewWorld(dim);
+    gameCycle();
+}
+
+void interface::gameCycle(){
+    do {
+        std::cout << game.getIsland().showSimpleIsland() << std::endl;
+        game.dawn();
+        plays();
+        game.dusk();
+    } while (!game.over());
 }

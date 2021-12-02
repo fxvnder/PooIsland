@@ -13,16 +13,14 @@ private:
 public:
     gameData();
     void createNewWorld(int * dim);
+    void dawn();
+    void dusk();
+    bool over();
     island getIsland();
 };
 
-void game(island& island, file& gamefile);
-bool gameover(island& world);
-void dawn(island& world);
-void dusk(island& world);
 int random (int low, int high);
 void createLoadedWorld(file loadedFile);
-
 
 
 #endif //POOISLAND_PROGRAM_H
