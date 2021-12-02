@@ -16,10 +16,10 @@ island gameData::getIsland(){
 //region Working with the island
 
 void gameData::createNewWorld(int * dim){
-    island world(dim[0], dim[1]);
-    //world.changeDim(dim);
-    //world.showInfoIsland();
-    //exit(0)
+    //island world(dim[0], dim[1]);
+    world.changeDim(dim);
+    std::cout << world.showInfoIsland();
+    exit(0);
     file savegame;
     savegame.receiveDim(dim);
     game(world, savegame);

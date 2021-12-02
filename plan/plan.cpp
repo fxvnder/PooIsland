@@ -237,3 +237,14 @@ ou
         cout << "hello"
     }
 
+    Perguntar diferença entre os consts:
+    const Pessoa * ArquivoIdentif::procuraPessoa( const ??int bi) const {
+
+    Perguntar sobre o QT no windows
+
+Durães:
+ Existe um equilibrio ideal entre a interface e os dados, em que um extremo é receber strings e escrevê-las e outro é saber os promenores do programa para as consgurir comparar, a interface não deve conhecer as regras
+ Class zona{
+    int tipo  (//Está mal)
+ }
+ memória dinâmica:

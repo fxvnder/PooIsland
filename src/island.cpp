@@ -51,7 +51,7 @@ std::string island::showInfoIsland() const {
     for(i=0;i<vecvec[0].size();i++){
         oss << " L" << i+1 << " | ";
         for(j=0;j<vecvec.size()-1;j++){
-            oss << "  " << vecvec[i][j].showInfoTile() << " |";
+            oss << "  " << vecvec[i][j].showInfoTile() << " |"; // segmetation fault problem
         }
         oss << "  " << vecvec[i][j].showInfoTile() << "  |" << std::endl;
 
@@ -113,9 +113,9 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
 }
 
 void island::changeDim(int * dim){ // seg fault
-    for (int i = vecvec.size(); i < dim[0]; i++) { // l
+    for (int i = 0; i < dim[0]; i++) { // l
         vecvec.push_back(std::vector<tile>());
-        for (int j = vecvec[0].size(); j < dim[1]; j++) { // c
+        for (int j = 0; j < dim[1]; j++) { // c
             tile newTile;
             vecvec[i].push_back(newTile);
         }
