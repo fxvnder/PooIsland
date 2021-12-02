@@ -212,15 +212,11 @@ Deve-se fazer as funções de cont e cons nod objetos ou como funções normais 
 // Compiling on surface 👍
 
 /*
-Todo:
- 1-Make vetors into arrays
- 2-Read a text file too
- 3-Change the structure of the program to:
-    Jogo j; // Dados
-    UserInt ui(j); // user interface (comandos)
-    ui.run();
- 5-typeid(a).name() ???
- 6-make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
+Todo: Order of works:
+ 1 - Make vectors into dynamic arrays  !
+ 3 - Fix cons cont & list
+ 2 - Fix files (read a text file too)
+ 6 - make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
 
  Dizer ao founder:
     Não use cin >> str
