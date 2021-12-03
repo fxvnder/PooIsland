@@ -126,9 +126,9 @@ void island::changeDim(int l, int c){ // seg fault
      */
 
 
-    for (int i = 0 ; i < c ; ++i ) {
+    for (int i = 0 ; i < l ; ++i ) {
         vecvec.push_back(std::vector<class tile>());
-        for (int j = 0; j < l; ++j) {
+        for (int j = 0; j < c; ++j) {
             tile newTile;
             vecvec[i].push_back(newTile);
         }
