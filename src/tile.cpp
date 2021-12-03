@@ -67,10 +67,3 @@ std::string tile::cont(const std::string& command){
     oss << std::endl;
     return oss.str();
 }
-
-/*
-std::ostream& operator<<(std::ostream& os, const tile& recievedTile){
-    os << recievedTile.type;
-    return os;
-}
- */

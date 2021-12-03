@@ -3,7 +3,7 @@
 
 #include "program.h"
 
-class interface{
+class interface {
 private:
     gameData game;
 public:

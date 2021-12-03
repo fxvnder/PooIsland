@@ -17,7 +17,6 @@ public:
     std::string cont(const std::string& cmnd);
     std::string getType();
     std::string cons(const std::string& command);
-    // friend std::ostream& operator<<(std::ostream& os, const tile& recievedTile);
 };
 
 #endif //POOISLAND_TILE_H

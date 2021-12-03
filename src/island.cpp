@@ -106,7 +106,7 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
             if (vecvec[i][j].getType() == "pas ") {
                 --counter;
                 if (counter == 0) {
-                    //oss << vecvec[i][j].cont(commandsVec[1]);
+                    oss << vecvec[i][j].cont(commandsVec[1]);
                 }
             }
         }
