@@ -10,13 +10,14 @@
 #include "files.h"
 #include "tile.h"
 
-class island { // herança
+class island {
 private:
-    int lines, columns;
     std::vector<std::vector<tile>> vecvec;
 public:
-    island(int l,int c);
+    island(int l=0,int c=0);
+    std::string showSimpleIsland() const;
     std::string showInfoIsland() const;
+    void changeDim(int l, int c);
     tile getTile(int l, int c) const;
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);

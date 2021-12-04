@@ -1,36 +1,40 @@
-//
-// Created by yeshey on 27/11/21.
-//
-
 #include "island.h"
 #include "tile.h"
+#include "program.h"
 #include <iostream>
 #include <vector>
 #include <random>
-#include "program.h"
 
-island::island(int l, int c) : lines(l), columns(c) {
+island::island(int l, int c){
     for (int i = 0; i < l; i++) {
         vecvec.push_back(std::vector<tile>());
-        for (int j = 0; j < c; j++) {
+        for (int j = 0; j <= c; j++) {
             tile newTile;
             vecvec[i].push_back(newTile);
         }
     }
 }
 
-std::string island::showInfoIsland() const {
-    // vars
+std::string island::showSimpleIsland() const {
     std::ostringstream oss;
+    for (int i = 0; i < vecvec.size(); i++){
+        for (int j = 0; j < vecvec[i].size(); j++){
+            std::cout << vecvec[i][j].showInfoTile() << " ";
+        }
+        std::cout << std::endl;
+    }
+    return oss.str();
+}
+
+std::string island::showInfoIsland() const {
+    // Causes seg fault when not square island
+    std::ostringstream oss;
+    if (vecvec.size() == 0)
+        return "No data to show, or island corrupted\n";
+    if (vecvec[0].size() == 0)
+        return "Island corrupted\n";
     oss << "Showing Island Info" << std::endl;
     int i=0,j=0;
-
-    /*for (const vector<tile> &vec : vecvec){
-        for (const tile &x : vec)
-            oss << x.showInfoTile() << ' ';
-        oss << endl;
-    }*/
-
     //-----Print the island-----
     oss << "     ";
     for(i=0;i<vecvec.size();i++) // size of columns
@@ -110,6 +114,37 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     if (oss.str().empty())
         oss << "hiring " << commandsVec[1] << std::endl;
     return oss;
+}
+
+void island::changeDim(int l, int c){ // seg fault
+    /*
+    vecvec.push_back(std::vector<class tile>());
+    tile newTile;
+    vecvec[0].push_back(newTile);
+    vecvec[0].push_back(newTile);
+    vecvec[0].push_back(newTile);
+     */
+
+
+    for (int i = 0 ; i < l ; ++i ) {
+        vecvec.push_back(std::vector<class tile>());
+        for (int j = 0; j < c; ++j) {
+            tile newTile;
+            vecvec[i].push_back(newTile);
+        }
+    }
+
+
+
+    /*
+    for (int i = 0; i < l; i++) { // l
+        vecvec.push_back(std::vector<tile>());
+        for (int j = 0; j < c; j++) { // c
+            tile newTile;
+            vecvec[i].push_back(newTile);
+        }
+    }
+     */
 }
 
 tile island::getTile(int l, int c) const {

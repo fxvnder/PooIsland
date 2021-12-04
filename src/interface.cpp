@@ -1,72 +1,7 @@
 #include <iostream>
 #include "files.h"
 #include "interface.h"
-#include "commands.h"
-
-void welcome(){
-    bool success = false;
-    std::string userInp, filename;
-    // my beautiful palm tree
-    const char *welcome =
-    "                   ****\n"
-    "                 ********\n"
-    "                **  ******\n"
-    "                *   ******     ******\n"
-    "            **      ******   *********\n"
-    "           *  ****   ****  *****   ***\n"
-    "                ***  ***  ***     ***\n"
-    "                *************      **\n"
-    " ____   ___    __**********____ _   *   ____  ____   ___   \n"
-    "|    \\ /   \\  /   \\*******   _/| |     /    ||    \\ |   \\  \n"
-    "|  o  )     ||     |H****H   \\_| |    |  o  ||  _  ||    \\ \n"
-    "|   _/|  O  ||  O  |H   H\\__  || |___ |     ||  |  ||  D  |\n"
-    "|  |  |     ||     |H-_-H/  \\ ||     ||  _  ||  |  ||     |\n"
-    "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
-    "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
-
-    std::cout << welcome << "\nWelcome to PooIsland" << std::endl;
-    do {
-        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game (COMING SOON!)\n3 - Show Credits\n9 - Exit\n > ";
-        std::cin >> userInp;
-        if (userInp == "1"){
-            success = true;
-            newGame();
-        } else if (userInp == "2") {
-            std::cout << "\nWhat is the filename?\n >";
-            std::cin >> filename;
-            if(loadGame(filename)) {
-                success = true;
-            } else {
-                std::cout << "\nThat does not seem very right... Try again.";
-            }
-        } else if (userInp == "3") {
-            showCredits();
-        } else if (userInp == "9") {
-            exit(1);
-        } else std::cout << "\nWell, that's odd... Try out again.";
-    } while (!success);
-}
-
-void newGame() {
-    int dim[2];
-    bool success = false;
-
-    // player chooses island dimensions
-    do{
-        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size: 1/2\n > ";
-        std::cin >> dim[0];
-        std::cin.ignore(1,'\n');
-        std::cout << "Size 2/2:\n > ";
-        std::cin >> dim[1];
-        std::cin.ignore(1,'\n');
-        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
-            success = true;
-        } else {
-            std::cout << "\nInvalid data received, try again!\n" << std::endl;
-        }
-    } while (!success);
-    createNewWorld(dim);
-}
+#include "program.h"
 
 bool loadGame(const std::string& filename){
     if(checkFile(filename)){
@@ -76,7 +11,7 @@ bool loadGame(const std::string& filename){
     } else return false;
 }
 
-void plays(island& world, file& savegame){
+void interface::plays(){
     std::string command;
     std::string msg;
     do {
@@ -85,12 +20,52 @@ void plays(island& world, file& savegame){
             std::cout << "\nInsert a command\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msg = treatCommand(command, world, savegame);
+        msg = treatCommand(command);
         std::cout << msg;
     } while (msg != "Continuing...\n");
 }
 
-void showCredits(){
+interface::interface(gameData &game) : game(game){
+};
+void interface::start() {
+    welcome(); // goes to the function of the own class per default
+    mainMenu();
+    return;
+};
+bool interface::getNumber(int &x){
+    std::string theInput;
+    std::getline(std::cin, theInput);
+    if(std::cin.fail() || std::cin.eof() || theInput.find_first_not_of("0123456789") != std::string::npos || theInput.empty()) {
+        if( theInput.find_first_not_of("0123456789") == std::string::npos) {
+            std::cin.clear();
+        }
+        return 0;
+    }
+    x = std::stoi(theInput);
+    return 1;
+}
+void interface::welcome(){
+    // my beautiful palm tree
+    const char *welcome =
+            "                   ****\n"
+            "                 ********\n"
+            "                **  ******\n"
+            "                *   ******     ******\n"
+            "            **      ******   *********\n"
+            "           *  ****   ****  *****   ***\n"
+            "                ***  ***  ***     ***\n"
+            "                *************      **\n"
+            " ____   ___    __**********____ _   *   ____  ____   ___   \n"
+            "|    \\ /   \\  /   \\*******   _/| |     /    ||    \\ |   \\  \n"
+            "|  o  )     ||     |H****H   \\_| |    |  o  ||  _  ||    \\ \n"
+            "|   _/|  O  ||  O  |H   H\\__  || |___ |     ||  |  ||  D  |\n"
+            "|  |  |     ||     |H-_-H/  \\ ||     ||  _  ||  |  ||     |\n"
+            "|  |  |     ||     |H   H\\    ||     ||  |  ||  |  ||     |\n"
+            "|__|   \\___/  \\___/ H-_-H\\____||_____||__|__||__|__||_____|";
+
+    std::cout << welcome << "\nWelcome to PooIsland!" << std::endl;
+}
+void interface::showCredits(){
     std::cout << "           %%%%%%%%%%%%                                                         \n"
                  "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
                  "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
@@ -103,9 +78,37 @@ void showCredits(){
                  "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
                  "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
 }
-
-std::string helpMe() {
-
+void interface::mainMenu() {
+    bool success = false;
+    int userInp;
+    std::string filename;
+    do {
+        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game (COMING SOON!)\n3 - Show Credits\n9 - Exit\n > ";
+        if ((!getNumber(userInp))){
+            std::cout << " NaN\n";
+            continue;
+        }
+        if (userInp == 1){
+            success = true;
+            newGame();
+        } else if (userInp == 2) {
+            std::cout << "\nWhat is the filename?\n >";
+            std::cin >> filename;
+            if(loadGame(filename)) {
+                success = true;
+            } else {
+                std::cout << "\nThat does not seem very right... Try again.";
+            }
+        } else if (userInp == 3) {
+            showCredits();
+        } else if (userInp == 9) {
+            exit(1);
+        } else {
+            std::cout << "\nWell, that's odd... Try out again.";
+        }
+    } while (!success);
+}
+std::string interface::helpMe() {
     return R"(
         >>> HELP <<<
         Welcome to PooIsland. These are the commands to learn how to play the game!
@@ -130,4 +133,32 @@ std::string helpMe() {
         >> HELP -> shows help with commands
         >> EXIT -> ends program
         )";
+}
+void interface::newGame() {
+    int dim[2];
+    bool success = false;
+
+    // player chooses island dimensions
+    do{
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size(lines): 1/2\n > ";
+        getNumber(dim[0]);
+        std::cout << "Size(columns): 2/2\n > ";
+        getNumber(dim[1]);
+        if (dim[0] >= 3 && dim[0] <= 8 && dim[1] >= 3 && dim[1] <= 16){ // restrictions
+            success = true;
+        } else {
+            std::cout << "\nInvalid data received, try again!\n" << std::endl;
+        }
+    } while (!success);
+    game.createNewWorld(dim);
+    gameCycle();
+}
+
+void interface::gameCycle(){
+    do {
+        std::cout << game.getIsland().showSimpleIsland() << std::endl;
+        game.dawn();
+        plays();
+        game.dusk();
+    } while (!game.over());
 }

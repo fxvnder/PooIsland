@@ -7,12 +7,19 @@
 #include <sstream>
 #include <iostream>
 
-void game(island& island, file& gamefile);
-bool gameover(island& world);
-void dawn(island& world);
-void dusk(island& world);
+class gameData {
+private:
+    island world;
+public:
+    gameData();
+    void createNewWorld(int * dim);
+    void dawn();
+    void dusk();
+    bool over();
+    island getIsland();
+};
+
 int random (int low, int high);
-void createNewWorld(int * dim);
 void createLoadedWorld(file loadedFile);
 
 

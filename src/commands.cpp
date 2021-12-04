@@ -3,12 +3,9 @@
 #include <algorithm>
 #include <fstream>
 #include <cstring>
-
-#include "files.h"
-#include "commands.h"
 #include "interface.h"
 
-std::string treatCommand(std::string& commands, island& world, file& savegame) {
+std::string interface::treatCommand(std::string& commands) {
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
@@ -40,7 +37,7 @@ std::string treatCommand(std::string& commands, island& world, file& savegame) {
                 std::cout << "\nCommand #" << commandnum << ":" << std::endl;
                 std::cout << lineContent << "\n" << std::endl; // prints out everything
                 if (!lineContent.empty()) {
-                    msg = treatCommand(lineContent, world, savegame);
+                    msg = treatCommand(lineContent);
                     std::cout << msg << std::endl;
                     commandnum++;
                 }
@@ -50,18 +47,18 @@ std::string treatCommand(std::string& commands, island& world, file& savegame) {
             std::cout << "ERROR: " << strerror(errno) << std::endl;
             return "Error opening file!";
         }
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return "File opened with success!";
 
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
-            savegame.receiveCommand(commands);
+            //savegame.receiveCommand(commands);
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
-                if (world.isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                if (game.getIsland().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
                     return "Target zone coordinates fall outside the island!";
                 else
-                    return world.cons(commandsVec).str();
+                    return game.getIsland().cons(commandsVec).str();
             } else return "Expected digits";
         }
 
@@ -69,58 +66,58 @@ std::string treatCommand(std::string& commands, island& world, file& savegame) {
         //liga(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        savegame.receiveCommand(commands);
+        //vegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
             //oss << "hiring worker to " << commandsVec[1] << std::endl;
-            savegame.receiveCommand(commands);
-            return world.cont(commandsVec).str();
+            //savegame.receiveCommand(commands);
+            return game.getIsland().cont(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1)
-            return world.showInfoIsland();
+            return game.getIsland().showSimpleIsland();
         if (commandsVec.size() != 3)
             return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
             return "Expected digits";
-        if (world.isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
+        if (game.getIsland().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";
-        return world.getTile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        return game.getIsland().getTile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return "Continuing...\n";
 
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         //saveFile(commandsVec[1], savegame);
-        saveCommands(commandsVec[1], savegame);
+        //saveCommands(commandsVec[1], savegame);
         return "file saved\n";
 
     } else if (commandsVec[0] == "load") { // load <nome>
@@ -129,12 +126,12 @@ std::string treatCommand(std::string& commands, island& world, file& savegame) {
 
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return "apagado\n";
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        savegame.receiveCommand(commands);
+        //savegame.receiveCommand(commands);
         return "config file loaded\n";
 
     } else if (commandsVec[0] == "debcash") { // debcash <valor>

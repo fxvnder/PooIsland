@@ -66,7 +66,7 @@ Jogo acaba quando
 	O jogador quiser
 	Jogador perdeu todos recursos/Trabalhadores
 
-Interface:
+interface:
 Representação Ilha:
 	A ilha deve estar toda no ecrã
 	É necessário indicar o conteúdo das várias zonas. Utilize as abreviaturas e códigos indicados:
@@ -87,7 +87,7 @@ Representação Ilha:
 		3a linha: trabalhadores na zona (O = Operário, M =Mineiro, L = Lenhador). Nesta representação só cabem 4, mas podem estar mais nessa zona, tal como indicado na 4a linha.
 		4a linha número total de trabalhadores na zona.
 		
-	Exemplo Interface:  ┐┌├ ┬ ─│
+	Exemplo interface:  ┐┌├ ┬ ─│
 	  1    2    3    4    5
 	┌────┬────┬────┬────┬────┐
 	│flr │pas │pan │flr │mnt │
@@ -208,14 +208,45 @@ int main(){
 Deve-se fazer as funções de cont e cons nod objetos ou como funções normais que passas o mundo normalmente?
 */
 
-/*
-Todo:
- 1-Make vetors into arrays
- 2-Read a text file too
- 3-Change the structure of the program to:
-    Jogo j; // Dados
-    UserInt ui(j); // user interface (comandos)
-    ui.run();
- 5-typeid(a).name()
- 6-make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
+// Testing new branch alright 👍
+// Compiling on surface 👍
 
+/*
+Todo: Order of works:
+ 1 - Make vectors into dynamic arrays  !
+ 3 - Fix cons cont & list
+ 2 - Fix files (read a text file too)
+ 6 - make file?: g++ -Wall -Wextra -Error         Kylix: cFlags = -Wall -Werror -Wextra
+
+ Dizer ao founder:
+    Não use cin >> str
+    use getline(cin,str)
+    e getNumber se quiser um numero.
+    Evita de poluir o buffer que isso já deu muito problema
+
+ Perguntar ao durães:
+ alguma diferença entre
+    if
+        cout << "hello"
+ou
+    if {
+        cout << "hello"
+    }
+
+    Perguntar diferença entre os consts:
+    const Pessoa ArquivoIdentif::procuraPessoa( const int bi) const {
+
+    Perguntar sobre o que retornar nas funções, retornar strings é boa prática, ou é boa pratica retornar bools de zero ou um para ver só se houve erros?
+    E perguntar se melhor retornar strings ou oss (interface.cpp l 23 e 25)
+    -> Melhor retornar um codigo e intrepertar, oss ainda pior que strings
+    enumerações class enum
+
+    Perguntar sobre o friend no operador<< (tile.h l 24)
+
+
+Durães:
+ Existe um equilibrio ideal entre a interface e os dados, em que um extremo é receber strings e escrevê-las e outro é saber os promenores do programa para as consgurir comparar, a interface não deve conhecer as regras
+ Class zona{
+    int tipo  (//Está mal)
+ }
+ memória dinâmica:

@@ -3,11 +3,23 @@
 
 #include "program.h"
 
-void welcome();
-void newGame();
+class interface {
+private:
+    gameData game;
+public:
+    interface(gameData &game);
+    void start();
+    bool getNumber(int &userInp);
+    void welcome();
+    void mainMenu();
+    void newGame();
+    void gameCycle();
+    void plays(); //void plays(island& world, file& savegame);
+    void showCredits();
+    std::string helpMe();
+    std::string treatCommand(std::string& commands);
+};
+
 bool loadGame(const std::string& filename);
-void plays(island& world, file& savegame);
-void showCredits();
-std::string helpMe();
 
 #endif //POOISLAND_INTERFACE_H
