@@ -2,5 +2,6 @@
 *.log
 cmake-build-debug
 .idea
+build
 *.tmp
 Tests
