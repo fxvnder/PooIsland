@@ -12,6 +12,10 @@
 
 class island {
 private:
+    //int lines = 0, columns = 0;
+    //int *arr = new int[0];
+    // syntax for arr[l][c] will be arr[l*sizeY+c]
+
     std::vector<std::vector<tile>> vecvec;
 public:
     island(int l=0,int c=0);
