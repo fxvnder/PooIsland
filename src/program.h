@@ -16,7 +16,7 @@ public:
     void dawn();
     void dusk();
     bool over();
-    island getIsland();
+    island &getIsland();
 };
 
 int random (int low, int high);

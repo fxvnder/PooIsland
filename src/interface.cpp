@@ -11,6 +11,18 @@ bool loadGame(const std::string& filename){
     } else return false;
 }
 
+interface::interface(gameData &game) : game(game){
+    /*
+    int dim[2] = {4,4};
+    gameData gamer;
+    std::vector<std::string> commandsVec = {"cont", "len"};
+    gamer.createNewWorld(dim);
+    gamer.getIsland().showSimpleIsland();
+    std::cout << gamer.getIsland().cont(commandsVec).str();
+    gamer.getIsland().showSimpleIsland();
+    exit(0);
+     */
+};
 void interface::plays(){
     std::string command;
     std::string msg;
@@ -24,9 +36,6 @@ void interface::plays(){
         std::cout << msg;
     } while (msg != "Continuing...\n");
 }
-
-interface::interface(gameData &game) : game(game){
-};
 void interface::start() {
     welcome(); // goes to the function of the own class per default
     mainMenu();

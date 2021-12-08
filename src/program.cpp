@@ -7,7 +7,7 @@
 
 gameData::gameData(){
 }
-island gameData::getIsland(){
+island &gameData::getIsland(){
     return world;
 };
 
@@ -16,13 +16,6 @@ void gameData::createNewWorld(int * dim){
     //file savegame;
     //savegame.receiveDim(dim);
     //game(savegame);
-}
-
-void createLoadedWorld(file loadedFile){
-    island world(loadedFile.giveLines(), loadedFile.giveColumns());
-    std::vector<std::string> oldcommands = loadedFile.getCommands();
-    //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
-    //game(world, loadedFile);
 }
 
 void gameData::dawn(){
@@ -35,6 +28,13 @@ void gameData::dusk(){
 
 bool gameData::over(){
     return false;
+}
+
+void createLoadedWorld(file loadedFile){
+    island world(loadedFile.giveLines(), loadedFile.giveColumns());
+    std::vector<std::string> oldcommands = loadedFile.getCommands();
+    //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
+    //game(world, loadedFile);
 }
 
 int random (int low, int high) {

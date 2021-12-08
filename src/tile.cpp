@@ -5,7 +5,7 @@
 #include <random>
 
 tile::tile() : building(""), workers() {
-    std::vector<std::string> v_types = {"pnt ","dsr ", "pas ", "flr ", "pnt ", "znZ ", "mnF ", "mnC ", "elec", "bat ", "fun "};
+    std::vector<std::string> v_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ", "mnF", "mnC", "elec", "bat", "fun"};
     type = v_types[random(0,v_types.size() - 1)];
     // access the island here
 }
@@ -51,7 +51,7 @@ std::string tile::cons(const std::string& command) {
 std::string tile::cont(const std::string& command){
     std::ostringstream oss;
     std::vector<std::string> v_types = {"miner", "len", "oper"};
-    if (type != "pas ")
+    if (type != "pas")
         return "Can only do this for tiles of type pas";
 
     for (int i = 0; i < v_types.size(); ++i) {

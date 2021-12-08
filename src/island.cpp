@@ -96,14 +96,14 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     int counter = 0;
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas ")
+            if (vecvec[i][j].getType() == "pas")
                 ++counter;
         }
     }
     counter = random(1, counter);
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas ") {
+            if (vecvec[i][j].getType() == "pas") {
                 --counter;
                 if (counter == 0) {
                     oss << vecvec[i][j].cont(commandsVec[1]);
