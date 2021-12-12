@@ -55,10 +55,10 @@ std::string interface::treatCommand(std::string& commands) {
         else {
             //savegame.receiveCommand(commands);
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
-                if (game.getIsland().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                if (game.Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
                     return "Target zone coordinates fall outside the island!";
                 else
-                    return game.getIsland().cons(commandsVec).str();
+                    return game.Island().cons(commandsVec).str();
             } else return "Expected digits";
         }
 
@@ -95,19 +95,19 @@ std::string interface::treatCommand(std::string& commands) {
         else {
             //oss << "hiring worker to " << commandsVec[1] << std::endl;
             //savegame.receiveCommand(commands);
-            return game.getIsland().cont(commandsVec).str();
+            return game.Island().cont(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1)
-            return game.getIsland().showSimpleIsland();
+            return game.Island().showSimpleIsland();
         if (commandsVec.size() != 3)
             return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
             return "Expected digits";
-        if (game.getIsland().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
+        if (game.Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";
-        return game.getIsland().getTile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        return game.Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
@@ -160,5 +160,5 @@ std::string interface::treatCommand(std::string& commands) {
         exit(1);
     }
 
-    return "Malformed command, try again\n";
+    return "Malformed command, type \"help\" for a list of available commands\n";
 }

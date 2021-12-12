@@ -3,7 +3,6 @@
 #include "program.h"
 #include <iostream>
 #include <vector>
-#include <random>
 
 island::island(int l, int c){
     for (int i = 0; i < l; i++) {
@@ -116,7 +115,7 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     return oss;
 }
 
-void island::changeDim(int l, int c){ // seg fault
+void island::changeDim(int l, int c){
     /*
     vecvec.push_back(std::vector<class tile>());
     tile newTile;
@@ -124,8 +123,6 @@ void island::changeDim(int l, int c){ // seg fault
     vecvec[0].push_back(newTile);
     vecvec[0].push_back(newTile);
      */
-
-
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.push_back(std::vector<class tile>());
         for (int j = 0; j < c; ++j) {
@@ -133,9 +130,6 @@ void island::changeDim(int l, int c){ // seg fault
             vecvec[i].push_back(newTile);
         }
     }
-
-
-
     /*
     for (int i = 0; i < l; i++) { // l
         vecvec.push_back(std::vector<tile>());
@@ -147,7 +141,7 @@ void island::changeDim(int l, int c){ // seg fault
      */
 }
 
-tile island::getTile(int l, int c) const {
+tile &island::Tile(int l, int c) {
     --l ; --c ;
     return vecvec[l][c];
 }

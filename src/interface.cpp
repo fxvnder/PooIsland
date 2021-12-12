@@ -17,9 +17,9 @@ interface::interface(gameData &game) : game(game){
     gameData gamer;
     std::vector<std::string> commandsVec = {"cont", "len"};
     gamer.createNewWorld(dim);
-    gamer.getIsland().showSimpleIsland();
-    std::cout << gamer.getIsland().cont(commandsVec).str();
-    gamer.getIsland().showSimpleIsland();
+    gamer.Island().showSimpleIsland();
+    std::cout << gamer.Island().cont(commandsVec).str();
+    gamer.Island().showSimpleIsland();
     exit(0);
      */
 };
@@ -165,7 +165,7 @@ void interface::newGame() {
 
 void interface::gameCycle(){
     do {
-        std::cout << game.getIsland().showSimpleIsland() << std::endl;
+        std::cout << game.Island().showSimpleIsland() << std::endl;
         game.dawn();
         plays();
         game.dusk();

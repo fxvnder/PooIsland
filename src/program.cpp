@@ -7,7 +7,7 @@
 
 gameData::gameData(){
 }
-island &gameData::getIsland(){
+island &gameData::Island(){
     return world;
 };
 

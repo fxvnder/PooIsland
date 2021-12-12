@@ -22,7 +22,7 @@ public:
     std::string showSimpleIsland() const;
     std::string showInfoIsland() const;
     void changeDim(int l, int c);
-    tile getTile(int l, int c) const;
+    tile &Tile(int l, int c);
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);
     bool isOutOfBounds(int l, int c) const;
