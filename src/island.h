@@ -7,14 +7,17 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "files.h"
 #include "tile.h"
 
 class island {
 private:
-    //int lines = 0, columns = 0;
-    //int *arr = new int[0];
-    // syntax for arr[l][c] will be arr[l*sizeY+c]
+    int lines = 0, columns = 0;
+    int *arr = new int[0];
+    //std::shared_ptr<int>;
+    //syntax for arr[l][c] will be arr[l*sizeY+c]
+
 
     std::vector<std::vector<tile>> vecvec;
 public:
