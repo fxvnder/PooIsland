@@ -1,5 +1,6 @@
 #include "tile.h"
 #include "program.h"
+#include "utils.h"
 #include <iostream>
 #include <vector>
 #include <random>

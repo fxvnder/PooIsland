@@ -19,7 +19,6 @@ public:
     island &Island();
 };
 
-int random (int low, int high);
 void createLoadedWorld(file loadedFile);
 
 

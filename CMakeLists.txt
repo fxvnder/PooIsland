@@ -30,7 +30,7 @@ set(PROJECT_SOURCES
         src/island.cpp 
         src/island.h 
         src/tile.cpp 
-        src/tile.h)
+        src/tile.h src/utils.cpp src/utils.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland

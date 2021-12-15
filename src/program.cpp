@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <random>
+
 
 gameData::gameData(){
 }
@@ -35,14 +35,6 @@ void createLoadedWorld(file loadedFile){
     std::vector<std::string> oldcommands = loadedFile.getCommands();
     //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
     //game(world, loadedFile);
-}
-
-int random (int low, int high) {
-    if (low > high) return high;
-    std::random_device rd;
-    std::default_random_engine e{rd()};
-    std::uniform_int_distribution<int> dist{low, high};
-    return dist(e);
 }
 
 //region ExtraInfo
