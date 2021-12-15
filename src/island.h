@@ -21,7 +21,7 @@ private:
 
     std::vector<std::vector<tile>> vecvec;
 public:
-    island(int l=0,int c=0);
+    island(int l=0, int c=0);
     std::string showSimpleIsland() const;
     std::string showInfoIsland() const;
     void changeDim(int l, int c);
