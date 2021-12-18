@@ -16,7 +16,7 @@ private:
     int lines = 0, columns = 0;
     int *arr = new int[0];
     //syntax for arr[l][c] will be arr[l*sizeY+c]
-    poo::vectorClass<int> array;
+    //poo::vectorClass<int> array;
 
     std::vector<std::vector<tile>> vecvec;
 public:

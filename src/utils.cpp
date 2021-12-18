@@ -1,6 +1,8 @@
 #include "utils.h"
 #include <random>
+
 using namespace std;
+
 int random (int low, int high) {
     if (low > high) return high;
     std::random_device rd;
@@ -8,27 +10,12 @@ int random (int low, int high) {
     std::uniform_int_distribution<int> dist{low, high};
     return dist(e);
 }
+/*
+        poo::vector<int>::vectorClass(){
 
 
+        }
 
-namespace poo {
-    // Inspect better:
-    // https://www.learncpp.com/cpp-tutorial/user-defined-namespaces-and-the-scope-resolution-operator/
-    // https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
-    template <typename T> class vector{
-        // arr is the integer pointer
-        // which stores the address of our vector
-        T* arr;
-
-        // capacity is the total storage
-        // capacity of the vector
-        int capacity;
-
-        // current is the number of elements
-        // currently present in the vector
-        int current;
-
-    public:
         // Default constructor to initialise
         // an initial capacity of 1 element and
         // allocating storage using dynamic allocation
@@ -93,9 +80,9 @@ namespace poo {
             }
             cout << endl;
         }*/
-    };
+/*
     int doSomething(int x, int y){
         return x + y;
     }
 }
-
+*/
