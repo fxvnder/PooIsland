@@ -10,9 +10,28 @@ int random (int low, int high) {
     std::uniform_int_distribution<int> dist{low, high};
     return dist(e);
 }
+
+ // cpp
+
+template <class T>
+void poo::vector<T>::getmax (){
+  int retval;
+  retval = a>b? a : b;
+}
+
+/*
+template <class T>
+class mypair {
+    T values [2];
+public:
+    mypair (T first, T second){
+        values[0]=first; values[1]=second;
+    }
+};
+*/
+
 /*
         poo::vector<int>::vectorClass(){
-
 
         }
 
@@ -73,14 +92,14 @@ int random (int low, int high) {
         int getcapacity() { return capacity; }
 
         // function to print array elements
-        /*
+
         void print(){
             for (int i = 0; i < current; i++) {
                 cout << arr[i] << " ";
             }
             cout << endl;
-        }*/
-/*
+        }
+
     int doSomething(int x, int y){
         return x + y;
     }

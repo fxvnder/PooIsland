@@ -1,7 +1,9 @@
 *conflict*
 *.log
-cmake-build-debug
-.idea
-build
 *.tmp
+.cache
+.idea
+.vscode
+cmake-build-debug
+build
 Tests

@@ -113,7 +113,7 @@ void interface::mainMenu() {
         } else if (userInp == 9) {
             exit(1);
         } else {
-            std::cout << "\nWell, that's odd... Try out again.";
+            std::cout << "\nWell, you probably said something wrong... Try out again." << std::endl;
         }
     } while (!success);
 }

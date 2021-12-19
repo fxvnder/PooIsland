@@ -3,7 +3,34 @@
 
 int random (int low, int high);
 
+// header
+namespace poo {
+    template <class T>
+    class vector {
+        T* arr;
+        int quant;
+    public:
+        vector (){
+            
+        }
+        void getmax(); 
+    };
+}
 
+/*
+namespace poo2{
+    template <class T>
+    class mypair2 {
+        T values [2];
+    public:
+        mypair2 (T first, T second){
+            values[0]=first; values[1]=second;
+        }
+        void saysike(){
+            int p = 1;
+        }
+    };
+}*/
 
 /*
 namespace poo {
