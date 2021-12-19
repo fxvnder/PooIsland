@@ -10,9 +10,7 @@ namespace poo {
         T* arr;
         int quant;
     public:
-        vector (){
-            
-        }
+        vector ();
         void getmax(); 
     };
 }

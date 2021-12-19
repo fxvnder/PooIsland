@@ -6,13 +6,13 @@
 #include "interface.h"
 
 std::string interface::treatCommand(std::string& commands) {
+
+    // convert string to lowercase
+    std::transform(commands.begin(), commands.end(), commands.begin(), ::tolower);
+
     // vars to manage commands
     std::vector<std::string> commandsVec;
     std::string separateWords;
-
-    // Convert String to lowercase
-    std::transform(commands.begin(), commands.end(), commands.begin(), ::tolower);
-
     std::stringstream strStream(commands);
 
     // splitting "commands" into separate words
@@ -47,18 +47,18 @@ std::string interface::treatCommand(std::string& commands) {
             std::cout << "ERROR: " << strerror(errno) << std::endl;
             return "Error opening file!";
         }
-        //savegame.receiveCommand(commands);
         return "File opened with success!";
 
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
-            //savegame.receiveCommand(commands);
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
                 if (game.Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
                     return "Target zone coordinates fall outside the island!";
-                else
+                else {
+                    commandHistory.push_back(commands);
                     return game.Island().cons(commandsVec).str();
+                }
             } else return "Expected digits";
         }
 
@@ -66,35 +66,30 @@ std::string interface::treatCommand(std::string& commands) {
         //liga(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //vegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //savegame.receiveCommand(commands);
         return oss.str();
 
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
             //oss << "hiring worker to " << commandsVec[1] << std::endl;
-            //savegame.receiveCommand(commands);
             return game.Island().cont(commandsVec).str();
         }
 
@@ -111,7 +106,6 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        //savegame.receiveCommand(commands);
         return "Continuing...\n";
 
     } else if (commandsVec[0] == "save") { // save <nome>
@@ -126,12 +120,10 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        //savegame.receiveCommand(commands);
         return "apagado\n";
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        //savegame.receiveCommand(commands);
         return "config file loaded\n";
 
     } else if (commandsVec[0] == "debcash") { // debcash <valor>

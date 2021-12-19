@@ -16,7 +16,6 @@ int random (int low, int high) {
 template <class T>
 void poo::vector<T>::getmax (){
   int retval;
-  retval = a>b? a : b;
 }
 
 /*

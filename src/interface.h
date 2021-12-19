@@ -8,16 +8,25 @@ private:
     gameData game;
 public:
     interface(gameData &game);
+
+    // beautiful stuff
+    static void welcome();
+    static void showCredits();
+    static std::string helpMe();
+
+    // funcs
     void start();
     bool getNumber(int &userInp);
-    void welcome();
     void mainMenu();
     void newGame();
     void gameCycle();
     void plays(); //void plays(island& world, file& savegame);
-    void showCredits();
-    std::string helpMe();
+
+    // treatCommand from program.h
     std::string treatCommand(std::string& commands);
+
+    // vector that contains command strings
+    std::vector<std::string> commandHistory;
 };
 
 bool loadGame(const std::string& filename);
