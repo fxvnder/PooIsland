@@ -18,6 +18,7 @@ namespace poo {
 
         void add(T obj);
         std::string display();
+        int size();
     };
 }
 

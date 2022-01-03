@@ -68,3 +68,8 @@ std::string poo::vector<T>::display(){
     oss << "|";
     return oss.str();
 }
+
+template <class T>
+int poo::vector<T>::size(){
+    return tam;
+}

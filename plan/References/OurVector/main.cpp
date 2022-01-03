@@ -25,6 +25,6 @@ int main(){
     meme.add(a);
     novo = meme;
 
-    std::cout << novo.display() << std::endl;
+    std::cout << novo.display() << "size: " << novo.size() << std::endl;
     return 0;
 }
