@@ -30,12 +30,12 @@ bool gameData::over(){
     return false;
 }
 
-void createLoadedWorld(file loadedFile){
-    island world(loadedFile.giveLines(), loadedFile.giveColumns());
-    std::vector<std::string> oldcommands = loadedFile.getCommands();
-    //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
-    //game(world, loadedFile);
-}
+// void createLoadedWorld(file loadedFile){
+//     island world(loadedFile.giveLines(), loadedFile.giveColumns());
+//     std::vector<std::string> oldcommands = loadedFile.getCommands();
+//     //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
+//     //game(world, loadedFile);
+// }
 
 //region ExtraInfo
 

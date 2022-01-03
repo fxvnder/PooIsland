@@ -3,14 +3,14 @@
 #include "vector.h"
 
 // Constructor
-template <class T>  
-poo::vector<T>::vector() : tam(0), parr(nullptr){ 
+template <class T>
+poo::vector<T>::vector() : tam(0), parr(nullptr){
     std::cout << "Constructor Called" << std::endl;
 }
 
 // Destructor
-template <class T>  
-poo::vector<T>::~vector() { 
+template <class T>
+poo::vector<T>::~vector() {
     std::cout << "Destructor Called" << std::endl;
     //for (int i = 0; i < tam; i++){
     //    delete parr[i];
@@ -19,7 +19,7 @@ poo::vector<T>::~vector() {
 }
 
 // Copy Constructor
-template <class T>  
+template <class T>
 poo::vector<T>::vector (const poo::vector<T> & old){  //vamos substitui-lo
     std::cout << "Copy Constructor Called" << std::endl;
     tam = old.tam;
@@ -30,7 +30,7 @@ poo::vector<T>::vector (const poo::vector<T> & old){  //vamos substitui-lo
 }
 
 // Operator= (made using Copy Constructor)
-template <class T>  
+template <class T>
 poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idioma swap
     std::cout << "Operator= Called" << std::endl;
     // the object old will die here
@@ -40,14 +40,14 @@ poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idiom
 }
 
 // Operator[]
-template <class T>  
+template <class T>
 T & poo::vector<T>::operator[](int index){
     if (index >= tam) throw 101;
 
     return parr[index];
 }
 
-template <class T>  
+template <class T>
 void poo::vector<T>::add(T obj){
     T * paux = new T [tam + 1];
     for (int i = 0; i < tam; ++i)
@@ -59,7 +59,7 @@ void poo::vector<T>::add(T obj){
     parr = paux;
 }
 
-template <class T>  
+template <class T>
 std::string poo::vector<T>::display(){
     std::ostringstream oss;
     for (int i=0 ; i<tam ; ++i) {

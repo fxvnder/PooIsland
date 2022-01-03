@@ -11,6 +11,8 @@
 #include "tile.h"
 #include "utils.h"
 
+#include "vector.h"
+
 class island {
 private:
     int lines = 0, columns = 0;

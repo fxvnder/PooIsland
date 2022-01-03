@@ -4,11 +4,12 @@
 #include "program.h"
 
 bool loadGame(const std::string& filename){
-    if(checkFile(filename)){
-        file savedFile = openFile(filename);
-        createLoadedWorld(savedFile);
-        return true;
-    } else return false;
+//     if(checkFile(filename)){
+//         file savedFile = openFile(filename);
+//         createLoadedWorld(savedFile);
+//         return true;
+//     } else return false;
+    return false;
 }
 
 interface::interface(gameData &game) : game(game){

@@ -34,7 +34,9 @@ set(PROJECT_SOURCES
         src/tile.cpp 
         src/tile.h 
         src/utils.cpp 
-        src/utils.h)
+        src/utils.h
+        #src/vector.cpp # removed due to linking issues with the template class
+        src/vector.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland

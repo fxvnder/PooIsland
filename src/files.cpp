@@ -6,59 +6,62 @@
 
 // TODO: HAVE .SAVE FOR SAVING COMMANDS AND .CFG FOR SAVING THE WHOLE THING
 
-bool saveFile(const std::string& filename, const file& filereceived) {
-    // vars
-    std::ofstream saveFile;
 
-    // exporting to file
-    try {
-        saveFile.open(filename + ".cfg", std::ios::out | std::ios::app);
-        saveFile.write((char*)&filereceived, sizeof(filereceived));
-        saveFile.close();
-        return true;
-    } catch (const std::exception& e) {
-        std::cout << "ERROR (saving file): " << e.what() << std::endl;
-        return false;
-    }
-}
+// TESTING
 
-bool checkFile(const std::string& filename){ // function to check if file filename exists
-    std::ifstream trymefile;
-    trymefile.open(filename + ".cfg");
-    if(trymefile) {
-        return true; // it exists. great success!
-    } else {
-        return false; // no file with that name was found. or... maybe error opening it.
-    }
-}
+// bool saveFile(const std::string& filename, const file& filereceived) {
+//     // vars
+//     std::ofstream saveFile;
 
-file openFile(const std::string& filename) {
-    // vars
-    file savedfile;
-    std::ifstream openFile(filename + ".cfg");
+//     // exporting to file
+//     try {
+//         saveFile.open(filename + ".cfg", std::ios::out | std::ios::app);
+//         saveFile.write((char*)&filereceived, sizeof(filereceived));
+//         saveFile.close();
+//         return true;
+//     } catch (const std::exception& e) {
+//         std::cout << "ERROR (saving file): " << e.what() << std::endl;
+//         return false;
+//     }
+// }
 
-    // importing from file
-    openFile.read((char*)&savedfile, sizeof(savedfile));
+// bool checkFile(const std::string& filename){ // function to check if file filename exists
+//     std::ifstream trymefile;
+//     trymefile.open(filename + ".cfg");
+//     if(trymefile) {
+//         return true; // it exists. great success!
+//     } else {
+//         return false; // no file with that name was found. or... maybe error opening it.
+//     }
+// }
 
-    return savedfile;
-}
+// file openFile(const std::string& filename) {
+//     // vars
+//     file savedfile;
+//     std::ifstream openFile(filename + ".cfg");
 
-std::vector<std::string> file::getCommands(){
-    std::vector<std::string> commands;
-    commands.reserve(commandsHistory.size());
-    for (int i = 0; i < commandsHistory.size(); ++i) commands.push_back(commandsHistory[i]);
-    return commands;
-}
+//     // importing from file
+//     openFile.read((char*)&savedfile, sizeof(savedfile));
 
-bool saveCommands(const std::string& filename, file filereceived){
-    std::vector<std::string> commands = filereceived.getCommands();
-    std::ofstream file;
-    file.open(filename + ".cfg");
+//     return savedfile;
+// }
 
-    for (int i = 0; i < commands.size(); ++i) {
-        file << commands[i] << std::endl;
-    }
+// std::vector<std::string> file::getCommands(){
+//     std::vector<std::string> commands;
+//     commands.reserve(commandsHistory.size());
+//     for (int i = 0; i < commandsHistory.size(); ++i) commands.push_back(commandsHistory[i]);
+//     return commands;
+// }
 
-    file.close();
-    return true;
-}
+// bool saveCommands(const std::string& filename, file filereceived){
+//     std::vector<std::string> commands = filereceived.getCommands();
+//     std::ofstream file;
+//     file.open(filename + ".cfg");
+
+//     for (int i = 0; i < commands.size(); ++i) {
+//         file << commands[i] << std::endl;
+//     }
+
+//     file.close();
+//     return true;
+// }

@@ -4,6 +4,7 @@
 int random (int low, int high);
 
 // header
+/*
 namespace poo {
     template <class T>
     class vector {
@@ -14,6 +15,7 @@ namespace poo {
         void getmax(); 
     };
 }
+*/
 
 /*
 namespace poo2{

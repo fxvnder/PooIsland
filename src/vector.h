@@ -22,7 +22,7 @@ namespace poo {
 }
 
 // to avoid linking issues, due to the template class
-// with this, we can't add vector.cpp to the compiled files
+// with this, we can't add vector.cpp to the compiled files in CMakeLists
 #include "vector.cpp"
 
 #endif // VECTOR

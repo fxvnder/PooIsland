@@ -19,7 +19,6 @@ public:
     island &Island();
 };
 
-void createLoadedWorld(file loadedFile);
-
+//void createLoadedWorld(file loadedFile);
 
 #endif //POOISLAND_PROGRAM_H

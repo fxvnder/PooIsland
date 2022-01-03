@@ -1,2 +1,2 @@
 all:
-	g++ *.cpp -o /tmp/main && /tmp/main
+	g++ main.cpp -o /tmp/main && /tmp/main

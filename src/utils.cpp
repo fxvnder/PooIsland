@@ -13,10 +13,12 @@ int random (int low, int high) {
 
  // cpp
 
+ /*
 template <class T>
 void poo::vector<T>::getmax (){
   int retval;
 }
+*/
 
 /*
 template <class T>

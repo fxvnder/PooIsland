@@ -13,7 +13,6 @@ island::island(int l, int c){
             vecvec[i].push_back(newTile);
         }
     }
-
 }
 
 std::string island::showSimpleIsland() const {
