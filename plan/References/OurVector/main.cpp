@@ -26,5 +26,33 @@ int main(){
     novo = meme;
 
     std::cout << novo.display() << "size: " << novo.size() << std::endl;
+
+    std::cout << "==========================" << std::endl;
+
+    poo::vector<poo::vector<int>> vecvec{};
+
+    for (int i = 0, k=0; i < 10; ++i) {
+        vecvec.add();
+        for (int j = 0; j < 10; ++j) {
+            vecvec[i].add(++k);
+        }
+    }
+
+    vecvec[5][5] = 100;
+
+    for (int i = 0, k=0; i < vecvec.size(); ++i) {
+        //std::cout << vecvec[i].display() << std::endl;
+        for (int j = 0; j < vecvec[i].size(); ++j) {
+            std::cout << vecvec[i][j] << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    for (int i = 0, k=0; i < vecvec.size(); ++i) {
+        std::cout << vecvec[i].display() << std::endl;
+    }
+
+    std::cout << vecvec;
+
     return 0;
 }

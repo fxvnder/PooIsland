@@ -1,11 +1,13 @@
 // this cpp file is included in the end of vector.h to avid linking issues with the template
 // thus it shan't be added to the compiled files
 #include "vector.h"
+#include <ostream>
 
 // Constructor
 template <class T>  
 poo::vector<T>::vector() : tam(0), parr(nullptr){ 
     std::cout << "Constructor Called" << std::endl;
+    //std::operator<< (std::operator<<(std::cout,"Constructor Called"), std::endl);
 }
 
 // Destructor
@@ -33,6 +35,7 @@ poo::vector<T>::vector (const poo::vector<T> & old){  //vamos substitui-lo
 template <class T>  
 poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idioma swap
     std::cout << "Operator= Called" << std::endl;
+    //std::operator<<(std::cout, std::operator<<("operator", std::endl));
     // the object old will die here
     std::swap (tam, old.tam);
     std::swap (parr, old.parr);
@@ -47,6 +50,19 @@ T & poo::vector<T>::operator[](int index){
     return parr[index];
 }
 
+// Operator<< implemented in header file
+/*
+template <class T>  
+std::ostream &operator<< (std::ostream &out, const poo::vector<T> & f){
+    //using std::operator<<;
+    //for (int i=0 ; i<f.size() ; ++i) {
+        //out << parr[i] << "\t";
+    //}
+    //std::operator<<(out, "|");
+    //out << "|";
+    return out;
+}*/
+
 template <class T>  
 void poo::vector<T>::add(T obj){
     T * paux = new T [tam + 1];
@@ -54,6 +70,17 @@ void poo::vector<T>::add(T obj){
         paux[i]=parr[i];
 
     paux[tam] = obj;
+    tam += 1;
+    delete [] parr;
+    parr = paux;
+}
+
+template <class T>  
+void poo::vector<T>::add(){
+    T * paux = new T [tam + 1];
+    for (int i = 0; i < tam; ++i)
+        paux[i]=parr[i];
+
     tam += 1;
     delete [] parr;
     parr = paux;

@@ -47,6 +47,8 @@ T & poo::vector<T>::operator[](int index){
     return parr[index];
 }
 
+// Operator<< implemented in header file
+
 template <class T>
 void poo::vector<T>::add(T obj){
     T * paux = new T [tam + 1];
@@ -54,6 +56,17 @@ void poo::vector<T>::add(T obj){
         paux[i]=parr[i];
 
     paux[tam] = obj;
+    tam += 1;
+    delete [] parr;
+    parr = paux;
+}
+
+template <class T>  
+void poo::vector<T>::add(){
+    T * paux = new T [tam + 1];
+    for (int i = 0; i < tam; ++i)
+        paux[i]=parr[i];
+
     tam += 1;
     delete [] parr;
     parr = paux;
