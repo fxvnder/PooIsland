@@ -14,16 +14,17 @@ namespace poo {
         vector(const vector & old); // Copy Constructor
 
         vector & operator=( /*const*/ vector /*&*/ outro);
-        T & operator[](int index);
+        T & operator[](int index) const;
 
         void add(T obj);
         void add();
-        std::string display();
-        int size();
+
+        std::string display() const;
+        int size() const;
 
     private:
     // implemented in header file due to added implementatin complexity when implementing a friend function of a template class outside the header
-        friend std::ostream& operator<< ( std::ostream& out, const vector<T>& f){
+        friend std::ostream& operator<< ( std::ostream& out, const vector<T>& f) {
             for (int i=0 ; i<f.tam ; ++i) {
                 out << f.parr[i] << "\t";
             }

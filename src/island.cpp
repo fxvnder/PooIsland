@@ -7,10 +7,10 @@
 
 island::island(int l, int c){
     for (int i = 0; i < l; i++) {
-        vecvec.push_back(std::vector<tile>());
+        vecvec.add(poo::vector<tile>());
         for (int j = 0; j <= c; j++) {
             tile newTile;
-            vecvec[i].push_back(newTile);
+            vecvec[i].add(newTile);
         }
     }
 }
@@ -125,10 +125,10 @@ void island::changeDim(int l, int c){
     vecvec[0].push_back(newTile);
      */
     for (int i = 0 ; i < l ; ++i ) {
-        vecvec.push_back(std::vector<class tile>());
+        vecvec.add(poo::vector<class tile>());
         for (int j = 0; j < c; ++j) {
             tile newTile;
-            vecvec[i].push_back(newTile);
+            vecvec[i].add(newTile);
         }
     }
     /*

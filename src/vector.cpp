@@ -41,7 +41,7 @@ poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idiom
 
 // Operator[]
 template <class T>
-T & poo::vector<T>::operator[](int index){
+T & poo::vector<T>::operator[](int index) const{
     if (index >= tam) throw 101;
 
     return parr[index];
@@ -61,7 +61,7 @@ void poo::vector<T>::add(T obj){
     parr = paux;
 }
 
-template <class T>  
+template <class T>
 void poo::vector<T>::add(){
     T * paux = new T [tam + 1];
     for (int i = 0; i < tam; ++i)
@@ -73,7 +73,7 @@ void poo::vector<T>::add(){
 }
 
 template <class T>
-std::string poo::vector<T>::display(){
+std::string poo::vector<T>::display() const{
     std::ostringstream oss;
     for (int i=0 ; i<tam ; ++i) {
         oss << parr[i] << "\t";
@@ -83,6 +83,6 @@ std::string poo::vector<T>::display(){
 }
 
 template <class T>
-int poo::vector<T>::size(){
+int poo::vector<T>::size() const{
     return tam;
 }

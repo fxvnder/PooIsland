@@ -19,9 +19,9 @@ private:
     int *arr = new int[0];
     //syntax for arr[l][c] will be arr[l*sizeY+c]
     poo::vector<int> array;
-    //poo::vector<poo::vector<int>> vecvec{};
+    poo::vector<poo::vector<tile>> vecvec{};
 
-    std::vector<std::vector<tile>> vecvec;
+    //std::vector<std::vector<tile>> vecvec;
 public:
     island(int l=0, int c=0);
     std::string showSimpleIsland() const;
