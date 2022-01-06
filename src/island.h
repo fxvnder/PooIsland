@@ -19,6 +19,7 @@ private:
     int *arr = new int[0];
     //syntax for arr[l][c] will be arr[l*sizeY+c]
     poo::vector<int> array;
+    //poo::vector<poo::vector<int>> vecvec{};
 
     std::vector<std::vector<tile>> vecvec;
 public:
