@@ -18,6 +18,7 @@ namespace poo {
 
         void add(T obj);
         void add();
+        bool empty() const;
 
         std::string display() const;
         int size() const;

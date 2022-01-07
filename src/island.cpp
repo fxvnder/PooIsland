@@ -27,56 +27,108 @@ std::string island::showSimpleIsland() const {
 }
 
 std::string island::showInfoIsland() const {
-    // Causes seg fault when not square island
     std::ostringstream oss;
-    if (vecvec.size() == 0)
-        return "No data to show, or island corrupted\n";
-    if (vecvec[0].size() == 0)
-        return "Island corrupted\n";
-    oss << "Showing Island Info" << std::endl;
-    int i=0,j=0;
-    //-----Print the island-----
-    oss << "     ";
-    for(i=0;i<vecvec.size();i++) // size of columns
-        oss << "        C" << i+1 << "          ";
-    oss.put('\n');
+    // vecvec.size(): lines
+    // vecvec[i].size(): clomun
+    if (vecvec.empty()) // if it's empty, give up
+        return oss.str();
+    else
+        if(vecvec[0].empty())
+            return oss.str();
 
-    oss << "    ";
-    for(i=0;i<vecvec.size();i++)
-        if(i==0)
-            oss << "+--------------------";
-        else
-        if(i != vecvec.size() - 1)
-            oss << "+-------------------";
-        else
-            oss << "+--------------------+";
-    oss << '\n';
-
-    for(i=0;i<vecvec[0].size();i++){
-        oss << " L" << i+1 << " | ";
-        for(j=0;j<vecvec.size()-1;j++){
-            oss << "  " << vecvec[i][j].showInfoTile() << " |";
+//Exemplo interface:  ┐┌├ ┬ ─│
+//
+//      1    2    3    4    5
+//    ┌────┬────┬────┬────┬────┐
+//    │flr │pas │pan │flr │mnt │
+//   1│    │elec│    │    │mnF │
+//    │LO  │    │    │    │    │
+//    │2   │    │    │    │M   │
+//    ├────┼────┼────┼────┼────┤
+//    │pas │dsr │mnt │flr │mnt │
+//   2│    │bat │    │    │    │
+//    │    │O   │    │L   │    │
+//    │    │1   │    │1   │    │
+//    ├────┼────┼────┼────┼────┤
+//    │znX │mnt │pnt │dsr │mnt │
+//   3│    │mnC │    │    │    │
+//    │    │M   │    │    │M   │
+//    │    │1   │    │    │1   │
+//    ├────┼────┼────┼────┼────┤
+//    │mnt │pas │znX │pas │flr │
+//   4│    │    │    │    │    │
+//    │    │    │    │OOOO│    │
+//    │    │    │    │5   │    │
+//    └────┴────┴────┴────┴────┘
+    for (int j = 1; j <= vecvec.size(); j++){
+        if (j==1) { // first iteration
+            for (int i = 1; i <= vecvec[0].size(); i++) { // ┌────┬────┬────┬────┬────┐
+                if (i == 1) { // first iteration
+                    oss << "┌────";
+                } else if (i == vecvec[0].size()) { // last iteration
+                    oss << "┬────┐" << std::endl;
+                } else { // other iteration
+                    oss << "┬────";
+                }
+            }
         }
-        oss << "  " << vecvec[i][j].showInfoTile() << "  |" << std::endl;
 
-        if(i!=vecvec[0].size()-1){
-            oss << "    |-";
-            for(j=0;j<vecvec.size()-1;j++)
-                oss << "-------------------+";
-            oss << "--------------------|\n";
+        if (j!=1) { // if not first iteration
+            for (int i = 1; i <= vecvec[0].size(); i++) { // ├────┼────┼────┼────┼────┤
+                std::string displayvar = vecvec[j - 1][i - 1].type();
+                if (i == 1) { // first iteration
+                    oss << "├────";
+                } else if (i == vecvec[0].size()) { // last iteration
+                    oss << "┼────┤" << std::endl;
+                } else { // other iteration
+                    oss << "┼────";
+                }
+            }
+        }
+
+
+        for (int i = 1; i <= vecvec[0].size(); i++) { // │flr │pas │pan │flr │mnt │
+            std::string displayvar = vecvec[j - 1][i - 1].type();
+            if (i == 1) { // first iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "|" << displayvar;
+            } else if (i == vecvec[0].size()) { // last iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "|" << displayvar << "|" << std::endl;
+            } else { // other iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "│" << displayvar;
+            }
+        }
+
+        for (int i = 1; i <= vecvec[0].size(); i++) { // │    │elec│    │    │mnF │
+            std::string displayvar = vecvec[j - 1][i - 1].building();
+            if (i == 1) { // first iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "|" << displayvar;
+            } else if (i == vecvec[0].size()) { // last iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "|" << displayvar << "|" << std::endl;
+            } else { // other iteration
+                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
+                oss << "│" << displayvar;
+            }
+        }
+
+
+        if (j == vecvec.size()){ // last iteration
+            for (int i = 1; i <= vecvec[0].size(); i++){ // └────┴────┴────┴────┴────┘
+                if (i==1) { // first iteration
+                    oss << "└────";
+                } else if (i==vecvec[0].size()){ // last iteration
+                    oss << "┴────┘" << std::endl;
+                } else { // other iteration
+                    oss << "┴────";
+                }
+            }
         }
     }
-    oss << "    ";
-    for(i = 0; i < vecvec.size(); i++)
-        if(i==0)
-            oss << "+--------------------";
-        else
-        if(i != vecvec.size() - 1)
-            oss << "+-------------------";
-        else
-            oss << "+--------------------+";
-    oss.put('\n');
-    //-----Print the island-----
+
     return oss.str();
 }
 
@@ -96,14 +148,14 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     int counter = 0;
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas")
+            if (vecvec[i][j].type() == "pas")
                 ++counter;
         }
     }
     counter = random(1, counter);
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].getType() == "pas") {
+            if (vecvec[i][j].type() == "pas") {
                 --counter;
                 if (counter == 0) {
                     oss << vecvec[i][j].cont(commandsVec[1]);

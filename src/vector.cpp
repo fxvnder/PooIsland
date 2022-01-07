@@ -1,17 +1,19 @@
 // this cpp file is included in the end of vector.h to avid linking issues with the template
 // thus it shan't be added to the compiled files
 #include "vector.h"
+#include <iostream>
+#include <exception>
 
 // Constructor
 template <class T>
 poo::vector<T>::vector() : tam(0), parr(nullptr){
-    std::cout << "Constructor Called" << std::endl;
+    //std::cout << "Constructor Called" << std::endl;
 }
 
 // Destructor
 template <class T>
 poo::vector<T>::~vector() {
-    std::cout << "Destructor Called" << std::endl;
+    //std::cout << "Destructor Called" << std::endl;
     //for (int i = 0; i < tam; i++){
     //    delete parr[i];
     //}
@@ -21,7 +23,7 @@ poo::vector<T>::~vector() {
 // Copy Constructor
 template <class T>
 poo::vector<T>::vector (const poo::vector<T> & old){  //vamos substitui-lo
-    std::cout << "Copy Constructor Called" << std::endl;
+    //std::cout << "Copy Constructor Called" << std::endl;
     tam = old.tam;
     parr = new T[tam];
     for (int i = 0; i < tam; i++) {
@@ -32,7 +34,7 @@ poo::vector<T>::vector (const poo::vector<T> & old){  //vamos substitui-lo
 // Operator= (made using Copy Constructor)
 template <class T>
 poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idioma swap
-    std::cout << "Operator= Called" << std::endl;
+    //std::cout << "Operator= Called" << std::endl;
     // the object old will die here
     std::swap (tam, old.tam);
     std::swap (parr, old.parr);
@@ -42,7 +44,11 @@ poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idiom
 // Operator[]
 template <class T>
 T & poo::vector<T>::operator[](int index) const{
-    if (index >= tam) throw 101;
+    try {
+        if (index >= tam) throw 101;
+    } catch (std::exception& e) {
+        std::cout << "Standard exception: " << e.what() << std::endl;
+    }
 
     return parr[index];
 }
@@ -71,6 +77,11 @@ void poo::vector<T>::add(){
     delete [] parr;
     parr = paux;
 }
+
+template <class T>
+bool poo::vector<T>::empty() const {
+    return parr == nullptr;
+};
 
 template <class T>
 std::string poo::vector<T>::display() const{

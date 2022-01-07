@@ -126,6 +126,7 @@ std::string interface::helpMe() {
         Welcome to PooIsland. These are the commands to learn how to play the game!
         >> EXEC <filename> -> executes saved file
         >> CONS <type> <line> <column> -> builds <type> in the coordinates
+        >> UPGRD <line> <column> -> upgrades building in target tile
         >> LIGA <line> <column> -> coming soon
         >> DES <line> <column> -> coming soon
         >> MOVE <id> <line> <column> -> coming soon
@@ -168,7 +169,7 @@ void interface::newGame() {
 
 void interface::gameCycle(){
     do {
-        std::cout << game.Island().showSimpleIsland() << std::endl;
+        std::cout << game.Island().showInfoIsland() << std::endl;
         game.dawn();
         plays();
         game.dusk();

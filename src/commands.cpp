@@ -62,6 +62,12 @@ std::string interface::treatCommand(std::string& commands) {
             } else return "Expected digits";
         }
 
+    } else if (commandsVec[0] == "upgrade") { // upgrade <linha> <coluna>
+        if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        // comandos
+        return oss.str();
+
+
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
         //liga(island,commandsVec)
         if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
@@ -138,7 +144,7 @@ std::string interface::treatCommand(std::string& commands) {
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         return "debkill\n";
 
-    } else if (commandsVec[0] == "credits") { // credits <id>
+    } else if (commandsVec[0] == "credits") { // credits
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         showCredits();
         return "";

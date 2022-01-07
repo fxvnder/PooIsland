@@ -1,7 +1,3 @@
-//
-// Created by yeshey on 27/11/21.
-//
-
 #ifndef POOISLAND_ISLAND_H
 #define POOISLAND_ISLAND_H
 
@@ -17,8 +13,7 @@ class island {
 private:
     int lines = 0, columns = 0;
     int *arr = new int[0];
-    //syntax for arr[l][c] will be arr[l*sizeY+c]
-    poo::vector<int> array;
+    //syntax for arr[l][c] will be arr[l*sizeY+c];
     poo::vector<poo::vector<tile>> vecvec{};
 
     //std::vector<std::vector<tile>> vecvec;

@@ -1,6 +1,8 @@
 #ifndef POOISLAND_UTILS_H
 #define POOISLAND_UTILS_H
 
+#define TILEDISPSIZE 4
+
 int random (int low, int high);
 
 // header
