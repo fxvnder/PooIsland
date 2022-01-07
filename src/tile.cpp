@@ -13,7 +13,10 @@ std::string tile::showInfoTile() const {
     std::ostringstream oss;
     std::string tmp;
 
-    oss << "┌────┐" << std::endl;
+    oss << "┌";
+    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+    oss << "┐" << std::endl;
+
 
     oss << "|" << typevar;
     for (int i = typevar.size(); i < TILEDISPSIZE; ++i)
@@ -24,7 +27,10 @@ std::string tile::showInfoTile() const {
     for (int i = buildingvar.size(); i < TILEDISPSIZE; ++i)
         oss << " ";
     oss <<      "|" << std::endl;
-    oss << "└────┘" << std::endl;
+
+    oss << "└";
+    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+    oss << "┘" << std::endl;
 
     return oss.str();
 }

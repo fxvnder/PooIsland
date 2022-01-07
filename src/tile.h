@@ -8,7 +8,7 @@
 
 class tile{
 private:
-    std::vector<std::string> v_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ", "mnF", "mnC", "elec", "bat", "fun"};
+    std::vector<std::string> v_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ"};
     std::string typevar;
     std::string buildingvar;
     // miner len oper

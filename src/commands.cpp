@@ -101,7 +101,7 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1)
-            return game.Island().showSimpleIsland();
+            return game.Island().showInfoIsland();
         if (commandsVec.size() != 3)
             return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))

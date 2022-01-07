@@ -64,11 +64,15 @@ std::string island::showInfoIsland() const {
         if (j==1) { // first iteration
             for (int i = 1; i <= vecvec[0].size(); i++) { // ┌────┬────┬────┬────┬────┐
                 if (i == 1) { // first iteration
-                    oss << "┌────";
+                    oss << "┌";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
                 } else if (i == vecvec[0].size()) { // last iteration
-                    oss << "┬────┐" << std::endl;
+                    oss << "┬";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+                    oss << "┐" << std::endl;
                 } else { // other iteration
-                    oss << "┬────";
+                    oss << "┬";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
                 }
             }
         }
@@ -77,11 +81,15 @@ std::string island::showInfoIsland() const {
             for (int i = 1; i <= vecvec[0].size(); i++) { // ├────┼────┼────┼────┼────┤
                 std::string displayvar = vecvec[j - 1][i - 1].type();
                 if (i == 1) { // first iteration
-                    oss << "├────";
+                    oss << "├";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
                 } else if (i == vecvec[0].size()) { // last iteration
-                    oss << "┼────┤" << std::endl;
+                    oss << "┼";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+                    oss << "┤" << std::endl;
                 } else { // other iteration
-                    oss << "┼────";
+                    oss << "┼";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
                 }
             }
         }
@@ -118,12 +126,17 @@ std::string island::showInfoIsland() const {
 
         if (j == vecvec.size()){ // last iteration
             for (int i = 1; i <= vecvec[0].size(); i++){ // └────┴────┴────┴────┴────┘
-                if (i==1) { // first iteration
-                    oss << "└────";
-                } else if (i==vecvec[0].size()){ // last iteration
-                    oss << "┴────┘" << std::endl;
+
+                if (i == 1) { // first iteration
+                    oss << "└";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+                } else if (i == vecvec[0].size()) { // last iteration
+                    oss << "┴";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
+                    oss << "┘" << std::endl;
                 } else { // other iteration
-                    oss << "┴────";
+                    oss << "┴";
+                    for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
                 }
             }
         }
