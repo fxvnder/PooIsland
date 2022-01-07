@@ -6,7 +6,6 @@
 #include <random>
 
 tile::tile() : buildingvar(""), workers() {
-    std::vector<std::string> v_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ", "mnF", "mnC", "elec", "bat", "fun"};
     typevar = v_types[random(0,v_types.size() - 1)];
     // access the island here
 }
@@ -19,12 +18,12 @@ std::string tile::showInfoTile() const {
     oss << "|" << typevar;
     for (int i = typevar.size(); i < TILEDISPSIZE; ++i)
         oss << " ";
-    oss << "|" << std::endl;
+    oss <<      "|" << std::endl;
 
     oss << "|" << buildingvar;
     for (int i = buildingvar.size(); i < TILEDISPSIZE; ++i)
         oss << " ";
-    oss << "|" << std::endl;
+    oss <<      "|" << std::endl;
     oss << "└────┘" << std::endl;
 
     return oss.str();
@@ -32,6 +31,16 @@ std::string tile::showInfoTile() const {
 std::string tile::type() const{
     return typevar;
 }
+std::string& tile::type(){
+    return typevar;
+}
+void tile::chgType(std::string type){
+    typevar = type;
+}
+
+std::vector<std::string> tile::existingTypes() const {
+    return v_types;
+};
 
 std::string tile::building() const{
     return buildingvar;

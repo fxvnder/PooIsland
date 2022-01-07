@@ -26,6 +26,7 @@ public:
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);
     bool isOutOfBounds(int l, int c) const;
+    bool existsInIsland(const std::string type);
 };
 
 #endif //POOISLAND_ISLAND_H

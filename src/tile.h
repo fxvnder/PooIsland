@@ -8,6 +8,7 @@
 
 class tile{
 private:
+    std::vector<std::string> v_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ", "mnF", "mnC", "elec", "bat", "fun"};
     std::string typevar;
     std::string buildingvar;
     // miner len oper
@@ -17,7 +18,10 @@ public:
     std::string showInfoTile() const;
     std::string cont(const std::string& cmnd);
     std::string type() const;
+    std::string& type();
+    void chgType(std::string type);
     std::string building() const;
+    std::vector<std::string> existingTypes() const;
     std::string cons(const std::string& command);
 };
 

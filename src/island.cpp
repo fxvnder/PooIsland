@@ -169,13 +169,6 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
 }
 
 void island::changeDim(int l, int c){
-    /*
-    vecvec.push_back(std::vector<class tile>());
-    tile newTile;
-    vecvec[0].push_back(newTile);
-    vecvec[0].push_back(newTile);
-    vecvec[0].push_back(newTile);
-     */
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.add(poo::vector<class tile>());
         for (int j = 0; j < c; ++j) {
@@ -183,15 +176,26 @@ void island::changeDim(int l, int c){
             vecvec[i].add(newTile);
         }
     }
-    /*
-    for (int i = 0; i < l; i++) { // l
-        vecvec.push_back(std::vector<tile>());
-        for (int j = 0; j < c; j++) { // c
-            tile newTile;
-            vecvec[i].push_back(newTile);
+
+    for (int i = 0; i < vecvec[0][0].existingTypes().size(); ++i){   //std::string type: vecvec[0][0].existingTypes()) {
+        std::cout << vecvec[0][0].existingTypes().size() << "|" << vecvec[0][0].existingTypes()[i] << std::endl;
+        std::string typooo = vecvec[0][0].existingTypes()[i]; //whyNeeded?
+        if(!existsInIsland(typooo)){
+            i = 0;
+            vecvec[random(0,vecvec.size()-1)][random(0,vecvec[0].size()-1)].type() = typooo;
         }
     }
-     */
+}
+
+bool island::existsInIsland(const std::string type) {
+    for (int i = 1; i <= vecvec.size(); i++) {
+        for (int j = 1; j <= vecvec[0].size(); j++){
+            if (vecvec[i-1][j-1].type() == type){
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 tile &island::Tile(int l, int c) {

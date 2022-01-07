@@ -76,6 +76,7 @@ Representação Ilha:
 		flr -> Floresta
 		pnt -> Pântano
 		znZ -> ZonaX
+
 		mnF -> Mina de ferro
 		mnC -> Mina de carvão
 		elec -> Central elétrica
