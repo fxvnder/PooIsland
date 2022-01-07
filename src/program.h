@@ -10,6 +10,8 @@
 class gameData {
 private:
     island world;
+    std::vector<std::string> resources;
+    std::vector<int> resources_quantities;
 public:
     gameData();
     void createNewWorld(int * dim);

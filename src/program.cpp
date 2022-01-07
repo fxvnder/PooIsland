@@ -6,6 +6,15 @@
 
 
 gameData::gameData(){
+    resources.push_back("Iron"); //Ferro
+    resources.push_back("Steel bar"); //Barra de aço
+    resources.push_back("Coal"); //Carvão
+    resources.push_back("Wood"); //Madeira
+    resources.push_back("Wood Plaques"); //Madeira
+    resources.push_back("Electricity"); //Eletricidade
+
+    for (std::string s : resources)
+        resources_quantities.push_back(0);
 }
 island &gameData::Island(){
     return world;

@@ -53,7 +53,6 @@ std::string tile::building() const{
 }
 
 std::string tile::cons(const std::string& command) {
-    std::vector<std::string> v_buildings = {"minaf", "minac", "central", "bat", "fund", "edx"};
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == v_buildings[i]){
