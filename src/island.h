@@ -14,7 +14,7 @@ private:
     int lines = 0, columns = 0;
     int *arr = new int[0];
     //syntax for arr[l][c] will be arr[l*sizeY+c];
-    poo::vector<poo::vector<tile>> vecvec{};
+    poo::vector<poo::vector<tile>> vecvec{};  // VOU FAZER UM COMMIT ANTES DE ESTRAGAR TUD0
 
     //std::vector<std::vector<tile>> vecvec;
 public:

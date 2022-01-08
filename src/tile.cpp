@@ -90,3 +90,10 @@ std::string tile::cont(const std::string& command){
     oss << std::endl;
     return oss.str();
 }
+
+// ===== Class forest ===== //
+forest::forest() : num_trees(0){
+}
+int forest::trees() {
+    return num_trees;
+}

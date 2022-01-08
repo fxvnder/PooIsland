@@ -26,4 +26,17 @@ public:
     std::string cons(const std::string& command);
 };
 
+class desert : public tile {
+private:
+
+};
+
+class forest : public tile{
+private:
+    int num_trees;
+public:
+    forest();
+    int trees();
+};
+
 #endif //POOISLAND_TILE_H
