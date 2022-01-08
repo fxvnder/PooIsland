@@ -185,11 +185,11 @@ void island::changeDim(int l, int c){
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.add(poo::vector<class tile>());
         for (int j = 0; j < c; ++j) {
-            tile newTile;
-            vecvec[i].add(newTile);
+            vecvec[i].add();
         }
     }
 
+    // Check if there's a tile type missing
     for (int i = 0; i < vecvec[0][0].existingTypes().size(); ++i){   //std::string type: vecvec[0][0].existingTypes()) {
         std::cout << vecvec[0][0].existingTypes().size() << "|" << vecvec[0][0].existingTypes()[i] << std::endl;
         std::string typooo = vecvec[0][0].existingTypes()[i]; //whyNeeded?
