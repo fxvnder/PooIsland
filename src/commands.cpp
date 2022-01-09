@@ -5,7 +5,7 @@
 #include "files.h"
 #include "program.h"
 
-std::string interface::treatCommand(std::string& commands) {
+std::string gameData::treatCommand(std::string& commands) {
 
     // convert string to lowercase
     commands = strToLower(commands);
@@ -27,19 +27,19 @@ std::string interface::treatCommand(std::string& commands) {
     // COMMANDS
 
     if (commandsVec[0] == "exec") { // executes saved file
-        if(checkFile(commandsVec[1])){
-            game.readExecFile(commandsVec[2]);
+        if(checkFiletxt(commandsVec[1])){
+            readExecFile(commandsVec[2]);
             return "File opened with success!";
         } else return "Error opening file!";
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
-                if (game.Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                if (Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
                     return "Target zone coordinates fall outside the island!";
                 else {
                     commandHistory.push_back(commands);
-                    return game.Island().cons(commandsVec).str();
+                    return Island().cons(commandsVec).str();
                 }
             } else return "Expected digits";
         }
@@ -78,19 +78,19 @@ std::string interface::treatCommand(std::string& commands) {
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
             //oss << "hiring worker to " << commandsVec[1] << std::endl;
-            return game.Island().cont(commandsVec).str();
+            return Island().cont(commandsVec).str();
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1)
-            return game.Island().showInfoIsland();
+            return Island().showInfoIsland();
         if (commandsVec.size() != 3)
             return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
             return "Expected digits";
-        if (game.Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
+        if (Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return "Target zone coordinates fall outside the island!";
-        return game.Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        return Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
 
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
@@ -112,8 +112,8 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        if(checkFile(commandsVec[1])){
-            game.readConfigFile(commandsVec[1]);
+        if(checkFilecfg(commandsVec[1])){
+            readConfigFile(commandsVec[1]);
             //readConfigFile(commandsVec[1]);
         } else return "wrong filename or file nonexistent";
         return "config file loaded\n";
@@ -132,12 +132,11 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "credits") { // credits
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        showCredits();
-        return "";
+        return interface::showCredits();
 
     } else if (commandsVec[0] == "help") { // exit <id>
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return helpMe();
+        return interface::helpMe();
     }
     else if (commandsVec[0] == "exit") { // exit <id>
         if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";

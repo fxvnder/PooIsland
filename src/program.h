@@ -12,6 +12,9 @@ private:
     island world;
     std::vector<std::string> resources;
     std::vector<int> resources_quantities;
+    
+    // vector that contains command strings
+    std::vector<std::string> commandHistory;
 public:
     gameData();
     void createNewWorld(int *dim);
@@ -21,6 +24,9 @@ public:
     island &Island();
     void readConfigFile(std::string filename);
     void readExecFile(std::string filename);
+
+    std::string treatCommand(std::string& commands);
+
 };
 
 //void createLoadedWorld(file loadedFile);

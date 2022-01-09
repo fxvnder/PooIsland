@@ -3,6 +3,26 @@
 #include <string>
 #include "files.h"
 
+bool checkFilecfg(const std::string& filename){ // function to check if file filename exists
+    std::ifstream trymefile;
+    trymefile.open(filename + ".cfg");
+    if(trymefile) {
+        return true; // it exists. great success!
+    } else {
+        return false; // no file with that name was found. or... maybe error opening it.
+    }
+}
+
+bool checkFiletxt(const std::string& filename){ // function to check if file filename exists
+    std::ifstream trymefile;
+    trymefile.open(filename + ".txt");
+    if(trymefile) {
+        return true; // it exists. great success!
+    } else {
+        return false; // no file with that name was found. or... maybe error opening it.
+    }
+}
+
 // bool saveFile(const std::string& filename, const file& filereceived) {
 //     // vars
 //     std::ofstream saveFile;
@@ -18,16 +38,6 @@
 //         return false;
 //     }
 // }
-
-bool checkFile(const std::string& filename){ // function to check if file filename exists
-    std::ifstream trymefile;
-    trymefile.open(filename + ".cfg");
-    if(trymefile) {
-        return true; // it exists. great success!
-    } else {
-        return false; // no file with that name was found. or... maybe error opening it.
-    }
-}
 
 // file openFile(const std::string& filename) {
 //     // vars

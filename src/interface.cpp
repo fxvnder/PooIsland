@@ -34,7 +34,7 @@ void interface::plays(){
             std::cout << "\nInsert a command. For help type 'help'\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msg = treatCommand(command);
+        msg = game.treatCommand(command);
         std::cout << msg;
     } while (msg != "Continuing...\n");
 }
@@ -77,8 +77,9 @@ void interface::welcome(){
 
     std::cout << welcome << "\nWelcome to PooIsland!" << std::endl;
 }
-void interface::showCredits(){
-    std::cout << "           %%%%%%%%%%%%                                                         \n"
+std::string interface::showCredits(){
+    return R"(
+                 "           %%%%%%%%%%%%                                                         \n"
                  "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
                  "     %%%%%%%%%%%%%%%%%%%%%%%%                                                   \n"
                  "   #%%%%%%%%%%%    %%%%%%%%%%%        %%%%  %%%%%%%%%%   %%%%%%%%%   %%%%%%%%%  \n"
@@ -89,6 +90,7 @@ void interface::showCredits(){
                  "  %%%%%%%%%            %%%%%%%%%                                                \n"
                  "  %%%%%%%%%            %%%%%%%%%      Made by: Joao 'FXVNDER' Oliveira\n"
                  "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
+            )";
 }
 void interface::mainMenu() {
     bool success = false;
@@ -104,7 +106,7 @@ void interface::mainMenu() {
             success = true;
             newGame();
         } else if (userInp == 2) {
-            showCredits();
+            std::cout << showCredits();
         } else if (userInp == 9) {
             exit(EXIT_SUCCESS);
         } else {

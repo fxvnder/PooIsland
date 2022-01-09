@@ -1,9 +1,10 @@
 #ifndef POOISLAND_FILES_H
 #define POOISLAND_FILES_H
 
-#include <string>
-#include <vector>
+bool checkFiletxt(const std::string& filename);
+bool checkFilecfg(const std::string& filename);
 
+// add #include if needed
 // class file{
 // private:
 //     std::vector<std::string> commandsHistory;
@@ -30,8 +31,6 @@
 
 // };
 
-
-bool checkFile(const std::string& filename);
 // file openFile(const std::string& filename);
 // bool saveFile(const std::string& filename, const file &filereceived);
 // bool saveCommands(const std::string& filename, file filereceived);

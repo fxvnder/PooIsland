@@ -11,7 +11,7 @@ public:
 
     // beautiful stuff
     static void welcome();
-    static void showCredits();
+    static std::string showCredits();
     static std::string helpMe();
 
     // funcs
@@ -21,12 +21,6 @@ public:
     void newGame();
     void gameCycle();
     void plays(); //void plays(island& world, file& savegame);
-
-    // treatCommand from program.h
-    std::string treatCommand(std::string& commands);
-
-    // vector that contains command strings
-    std::vector<std::string> commandHistory;
 };
 
 bool loadGame(const std::string& filename);

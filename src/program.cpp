@@ -58,7 +58,7 @@ void gameData::readExecFile(std::string filename){
             std::cout << "\nCommand #" << commandnum << ":" << std::endl;
             std::cout << lineContent << "\n" << std::endl; // prints out everything
             if (!lineContent.empty()) {
-                //msg = treatCommand(lineContent);
+                msg = treatCommand(lineContent);
                 std::cout << msg << std::endl;
                 commandnum++;
             }
