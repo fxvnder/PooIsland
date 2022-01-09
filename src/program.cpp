@@ -42,12 +42,13 @@ bool gameData::over(){
     return false;
 }
 
+// STUFF WITH FILES
+
 void gameData::readConfigFile(std::string filename){
     return;
 }
 
 void gameData::readExecFile(std::string filename){
-// vars
     int commandnum = 1;
     std::string lineContent;
     std::ifstream fileSaved(filename + ".cfg");
@@ -68,6 +69,17 @@ void gameData::readExecFile(std::string filename){
         std::cout << "ERROR: " << strerror(errno) << std::endl;
     }
     return;
+}
+
+bool gameData::saveCommands(std::string filename){
+    std::ofstream file;
+    file.open(filename + ".txt");
+    for (int i = 0; i < commandHistory.size(); ++i) {
+        file << commandHistory[i] << std::endl;
+    }
+
+    file.close();
+    return true;
 }
 
 // void createLoadedWorld(file loadedFile){

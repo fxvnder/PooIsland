@@ -102,6 +102,12 @@ std::string gameData::treatCommand(std::string& commands) {
         //saveCommands(commandsVec[1], savegame);
         return "file saved\n";
 
+    } else if (commandsVec[0] == "savecommands") { // savecommands <nome>
+        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        //saveFile(commandsVec[1], savegame);
+        saveCommands(commandsVec[1]);
+        return "file saved\n";
+
     } else if (commandsVec[0] == "load") { // load <nome>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         return "file loaded\n";

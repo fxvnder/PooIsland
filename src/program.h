@@ -15,6 +15,7 @@ private:
     
     // vector that contains command strings
     std::vector<std::string> commandHistory;
+    
 public:
     gameData();
     void createNewWorld(int *dim);
@@ -25,8 +26,8 @@ public:
     void readConfigFile(std::string filename);
     void readExecFile(std::string filename);
 
+    bool gameData::saveCommands(std::string filename);
     std::string treatCommand(std::string& commands);
-
 };
 
 //void createLoadedWorld(file loadedFile);
