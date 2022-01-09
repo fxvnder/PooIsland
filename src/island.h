@@ -14,9 +14,9 @@ private:
     int lines = 0, columns = 0;
     int *arr = new int[0];
     //syntax for arr[l][c] will be arr[l*sizeY+c];
-    poo::vector<poo::vector<tile>> vecvec{};  // VOU FAZER UM COMMIT ANTES DE ESTRAGAR TUD0
+    poo::vector<poo::vector<tile*>> vecvec{};
 
-    //std::vector<std::vector<tile>> vecvec;
+    std::vector<std::string> tile_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ"};
 public:
     island(int l=0, int c=0);
     std::string showSimpleIsland() const;
@@ -27,6 +27,7 @@ public:
     std::ostringstream cons(std::vector<std::string> commandsVec);
     bool isOutOfBounds(int l, int c) const;
     bool existsInIsland(const std::string type);
+    tile* randomTile();
 };
 
 #endif //POOISLAND_ISLAND_H

@@ -31,7 +31,7 @@ void interface::plays(){
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
-            std::cout << "\nInsert a command\n> ";
+            std::cout << "\nInsert a command. For help type 'help'\n> ";
             getline(std::cin, command);
         } while (command.empty());
         msg = treatCommand(command);
@@ -95,7 +95,7 @@ void interface::mainMenu() {
     int userInp;
     std::string filename;
     do {
-        std::cout << "\nWould you like to play a new game or load a saved one?\n1 - New Game\n2 - Load Game (COMING SOON!)\n3 - Show Credits\n9 - Exit\n > ";
+        std::cout << "\nWould you like to play the game?\n1 - New Game\n2 - Show Credits\n9 - Exit\n > ";
         if ((!getNumber(userInp))){
             std::cout << " NaN\n";
             continue;
@@ -104,14 +104,6 @@ void interface::mainMenu() {
             success = true;
             newGame();
         } else if (userInp == 2) {
-            std::cout << "\nWhat is the filename?\n >";
-            std::cin >> filename;
-            if(loadGame(filename)) {
-                success = true;
-            } else {
-                std::cout << "\nThat does not seem very right... Try again.";
-            }
-        } else if (userInp == 3) {
             showCredits();
         } else if (userInp == 9) {
             exit(EXIT_SUCCESS);
@@ -124,11 +116,11 @@ std::string interface::helpMe() {
     return R"(
         >>> HELP <<<
         Welcome to PooIsland. These are the commands to learn how to play the game!
-        >> EXEC <filename> -> executes saved file
+        >> EXEC <filename> -> executes saved file commands
         >> CONS <type> <line> <column> -> builds <type> in the coordinates
         >> UPGRD <line> <column> -> upgrades building in target tile
         >> LIGA <line> <column> -> coming soon
-        >> DES <line> <column> -> coming soon
+        >> DES <line> <column> -> destroys what's on X,Y
         >> MOVE <id> <line> <column> -> coming soon
         >> VENDE <type> <when> -> coming soon
         >>>> OR <<<<
@@ -136,10 +128,11 @@ std::string interface::helpMe() {
         >> CONT <type> -> hires worker from <type>
         >> LIST (optional: <type> <column>) -> lists events/workers/etc.
         >> NEXT -> Skips to next day.
-        >> SAVE <filename> -> saves <filename>
-        >> LOAD <filename> -> loads <filename>
-        >> APAGA <name> -> coming soon
-        >> CONFIG <filename> -> coming soon
+        >> SAVE -> saves game state to memory
+        >> SAVECOMMANDS -> saves the commands written to a file
+        >> LOAD -> loads game state from memory
+        >> APAGA <name> -> deletes game state from memory
+        >> CONFIG <filename> -> opens config saved file
 		>> DEBCASH <value> -> coming soon (debug)
 		>> DEBED <type> <line> <column> -> coming soon (debug)
 		>> DEBKILL <id> -> coming soon (debug)

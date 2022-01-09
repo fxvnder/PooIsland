@@ -1,14 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <fstream>
-#include <cstring>
 #include "interface.h"
+#include "files.h"
+#include "program.h"
 
 std::string interface::treatCommand(std::string& commands) {
 
     // convert string to lowercase
-    std::transform(commands.begin(), commands.end(), commands.begin(), ::tolower);
+    commands = strToLower(commands);
+    //std::transform(commands.begin(), commands.end(), commands.begin(), ::tolower);
 
     // vars to manage commands
     std::vector<std::string> commandsVec;
@@ -26,29 +27,10 @@ std::string interface::treatCommand(std::string& commands) {
     // COMMANDS
 
     if (commandsVec[0] == "exec") { // executes saved file
-        // vars
-        int commandnum = 1;
-        std::string lineContent;
-        std::ifstream fileSaved(commandsVec[1] + ".cfg");
-        std::string msg;
-
-        if (fileSaved.is_open()) {
-            while (getline(fileSaved, lineContent)) {
-                std::cout << "\nCommand #" << commandnum << ":" << std::endl;
-                std::cout << lineContent << "\n" << std::endl; // prints out everything
-                if (!lineContent.empty()) {
-                    msg = treatCommand(lineContent);
-                    std::cout << msg << std::endl;
-                    commandnum++;
-                }
-            }
-            fileSaved.close();
-        } else {
-            std::cout << "ERROR: " << strerror(errno) << std::endl;
-            return "Error opening file!";
-        }
-        return "File opened with success!";
-
+        if(checkFile(commandsVec[1])){
+            game.readExecFile(commandsVec[2]);
+            return "File opened with success!";
+        } else return "Error opening file!";
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
         else {
@@ -130,6 +112,10 @@ std::string interface::treatCommand(std::string& commands) {
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if(checkFile(commandsVec[1])){
+            game.readConfigFile(commandsVec[1]);
+            //readConfigFile(commandsVec[1]);
+        } else return "wrong filename or file nonexistent";
         return "config file loaded\n";
 
     } else if (commandsVec[0] == "debcash") { // debcash <valor>

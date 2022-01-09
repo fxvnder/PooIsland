@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
+#include <cstring>
+#include <fstream>
 
 
 gameData::gameData(){
@@ -37,6 +40,34 @@ void gameData::dusk(){
 
 bool gameData::over(){
     return false;
+}
+
+void gameData::readConfigFile(std::string filename){
+    return;
+}
+
+void gameData::readExecFile(std::string filename){
+// vars
+    int commandnum = 1;
+    std::string lineContent;
+    std::ifstream fileSaved(filename + ".cfg");
+    std::string msg;
+
+    if (fileSaved.is_open()) {
+        while (getline(fileSaved, lineContent)) {
+            std::cout << "\nCommand #" << commandnum << ":" << std::endl;
+            std::cout << lineContent << "\n" << std::endl; // prints out everything
+            if (!lineContent.empty()) {
+                //msg = treatCommand(lineContent);
+                std::cout << msg << std::endl;
+                commandnum++;
+            }
+        }
+        fileSaved.close();
+    } else {
+        std::cout << "ERROR: " << strerror(errno) << std::endl;
+    }
+    return;
 }
 
 // void createLoadedWorld(file loadedFile){

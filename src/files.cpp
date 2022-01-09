@@ -1,13 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include "files.h"
-
-// TODO: HAVE .SAVE FOR SAVING COMMANDS AND .CFG FOR SAVING THE WHOLE THING
-
-
-// TESTING
 
 // bool saveFile(const std::string& filename, const file& filereceived) {
 //     // vars
@@ -25,15 +19,15 @@
 //     }
 // }
 
-// bool checkFile(const std::string& filename){ // function to check if file filename exists
-//     std::ifstream trymefile;
-//     trymefile.open(filename + ".cfg");
-//     if(trymefile) {
-//         return true; // it exists. great success!
-//     } else {
-//         return false; // no file with that name was found. or... maybe error opening it.
-//     }
-// }
+bool checkFile(const std::string& filename){ // function to check if file filename exists
+    std::ifstream trymefile;
+    trymefile.open(filename + ".cfg");
+    if(trymefile) {
+        return true; // it exists. great success!
+    } else {
+        return false; // no file with that name was found. or... maybe error opening it.
+    }
+}
 
 // file openFile(const std::string& filename) {
 //     // vars

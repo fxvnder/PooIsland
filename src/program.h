@@ -14,11 +14,13 @@ private:
     std::vector<int> resources_quantities;
 public:
     gameData();
-    void createNewWorld(int * dim);
+    void createNewWorld(int *dim);
     void dawn();
     void dusk();
     bool over();
     island &Island();
+    void readConfigFile(std::string filename);
+    void readExecFile(std::string filename);
 };
 
 //void createLoadedWorld(file loadedFile);

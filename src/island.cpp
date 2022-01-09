@@ -5,12 +5,12 @@
 #include <iostream>
 #include <vector>
 
-island::island(int l, int c){
+island::island(int l, int c) {
     for (int i = 0; i < l; i++) {
-        vecvec.add(poo::vector<tile>());
+        vecvec.add(poo::vector<tile*>());
         for (int j = 0; j <= c; j++) {
-            tile newTile;
-            vecvec[i].add(newTile);
+            vecvec[i].add();
+            vecvec[i][j] = randomTile();
         }
     }
 }
@@ -19,7 +19,7 @@ std::string island::showSimpleIsland() const {
     std::ostringstream oss;
     for (int i = 0; i < vecvec.size(); i++){
         for (int j = 0; j < vecvec[i].size(); j++){
-            std::cout << vecvec[i][j].showInfoTile() << " ";
+            std::cout << vecvec[i][j]->showInfoTile() << " ";
         }
         std::cout << std::endl;
     }
@@ -79,7 +79,7 @@ std::string island::showInfoIsland() const {
 
         if (j!=1) { // if not first iteration
             for (int i = 1; i <= vecvec[0].size(); i++) { // ├────┼────┼────┼────┼────┤
-                std::string displayvar = vecvec[j - 1][i - 1].type();
+                std::string displayvar = vecvec[j - 1][i - 1]->type();
                 if (i == 1) { // first iteration
                     oss << "├";
                     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
@@ -96,7 +96,7 @@ std::string island::showInfoIsland() const {
 
 
         for (int i = 1; i <= vecvec[0].size(); i++) { // │flr │pas │pan │flr │mnt │
-            std::string displayvar = vecvec[j - 1][i - 1].type();
+            std::string displayvar = vecvec[j - 1][i - 1]->type();
             if (i == 1) { // first iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "|" << displayvar;
@@ -110,7 +110,7 @@ std::string island::showInfoIsland() const {
         }
 
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │elec│    │    │mnF │
-            std::string displayvar = vecvec[j - 1][i - 1].building();
+                std::string displayvar = vecvec[j - 1][i - 1]->building();
             if (i == 1) { // first iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "|" << displayvar;
@@ -148,7 +148,7 @@ std::string island::showInfoIsland() const {
 std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    oss << vecvec[l-1][c-1].cons(commandsVec[1]);
+    oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
     if (oss.str().empty()) {
         oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
         return oss;
@@ -161,17 +161,17 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     int counter = 0;
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].type() == "pas")
+            if (vecvec[i][j]->type() == "pas")
                 ++counter;
         }
     }
     counter = random(1, counter);
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j].type() == "pas") {
+            if (vecvec[i][j]->type() == "pas") {
                 --counter;
                 if (counter == 0) {
-                    oss << vecvec[i][j].cont(commandsVec[1]);
+                    oss << vecvec[i][j]->cont(commandsVec[1]);
                 }
             }
         }
@@ -183,27 +183,56 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
 
 void island::changeDim(int l, int c){
     for (int i = 0 ; i < l ; ++i ) {
-        vecvec.add(poo::vector<class tile>());
+        vecvec.add(poo::vector<class tile*>());
         for (int j = 0; j < c; ++j) {
             vecvec[i].add();
+            vecvec[i][j] = randomTile();
         }
     }
 
     // Check if there's a tile type missing
-    for (int i = 0; i < vecvec[0][0].existingTypes().size(); ++i){   //std::string type: vecvec[0][0].existingTypes()) {
-        std::cout << vecvec[0][0].existingTypes().size() << "|" << vecvec[0][0].existingTypes()[i] << std::endl;
-        std::string typooo = vecvec[0][0].existingTypes()[i]; //whyNeeded?
+    for (int i = 0; i < tile_types.size(); ++i){   //std::string type: vecvec[0][0].existingTypes()) {
+        std::string typooo = tile_types[i]; //whyNeeded?
         if(!existsInIsland(typooo)){
             i = 0;
-            vecvec[random(0,vecvec.size()-1)][random(0,vecvec[0].size()-1)].type() = typooo;
+            vecvec[random(0,vecvec.size()-1)][random(0,vecvec[0].size()-1)]->type() = typooo;
         }
     }
+}
+
+tile * island::randomTile(){
+    tile * p;
+    int rnd = random(0, tile_types.size()-1);
+    mountain ok;
+    switch (rnd) {
+        case (0):
+            p = new mountain;
+            break;
+        case (1):
+            p = new desert;
+            break;
+        case (2):
+            p = new pasture;
+            break;
+        case (3):
+            p = new forest;
+            break;
+        case (4):
+            p = new swamp;
+            break;
+        case (5):
+            p = new zoneX;
+            break;
+        default:
+            std::cout << "Error generating zone" << std::endl;
+    }
+    return p;
 }
 
 bool island::existsInIsland(const std::string type) {
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
-            if (vecvec[i-1][j-1].type() == type){
+            if (vecvec[i-1][j-1]->type() == type){
                 return 1;
             }
         }
@@ -213,7 +242,7 @@ bool island::existsInIsland(const std::string type) {
 
 tile &island::Tile(int l, int c) {
     --l ; --c ;
-    return vecvec[l][c];
+    return *vecvec[l][c];
 }
 
 bool island::isOutOfBounds(int l, int c) const{

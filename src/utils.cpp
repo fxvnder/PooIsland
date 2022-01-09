@@ -1,7 +1,6 @@
 #include "utils.h"
+#include <algorithm>
 #include <random>
-
-using namespace std;
 
 int random (int low, int high) {
     if (low > high) return high;
@@ -9,6 +8,13 @@ int random (int low, int high) {
     std::default_random_engine e{rd()};
     std::uniform_int_distribution<int> dist{low, high};
     return dist(e);
+}
+
+std::string strToLower(std::string str){
+    std::for_each(str.begin(), str.end(), [](char & c) {
+        c = ::tolower(c);
+    });
+    return str;
 }
 
  // cpp
