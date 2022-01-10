@@ -30,11 +30,15 @@ std::string island::showInfoIsland() const {
     std::ostringstream oss;
     // vecvec.size(): lines
     // vecvec[i].size(): clomun
-    if (vecvec.empty()) // if it's empty, give up
+    if (vecvec.empty()){ // if it's empty, give up
+        oss << "ERROR:" << std::endl;
         return oss.str();
-    else
-        if(vecvec[0].empty())
+    } else
+        if(vecvec[0].empty()) {
+            oss << "ERROR:" << std::endl;
             return oss.str();
+        }
+    oss << "SUCCESS:" << std::endl;
 
 //Exemplo interface:  ┐┌├ ┬ ─│
 //
@@ -150,9 +154,10 @@ std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
     oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
     if (oss.str().empty()) {
-        oss << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+        oss << "SUCCESS:" << std::endl << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
         return oss;
     }
+    oss << "ERROR:" << std::endl;
     return oss;
 }
 
@@ -177,7 +182,9 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
         }
     }
     if (oss.str().empty())
-        oss << "hiring " << commandsVec[1] << std::endl;
+        oss << "SUCCESS:" << std::endl << "hiring " << commandsVec[1] << std::endl;
+
+    oss << "ERROR:" << std::endl;
     return oss;
 }
 

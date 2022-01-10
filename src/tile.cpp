@@ -20,15 +20,18 @@ std::string tile::showInfoTile() const {
     std::string tmp;
 
     std::string building_type;
-    if (building_class== nullptr)
+    if (building_class == nullptr) {
+        oss << "ERROR:" << std::endl;
         building_type = "";
-    else
+    } else {
+        oss << "ERROR:" << std::endl;
         building_type = building_class->type();
+    }
+    oss << "SUCCESS:" << std::endl;
 
     oss << "┌";
     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
     oss << "┐" << std::endl;
-
 
     oss << "|" << typevar;
     for (int i = typevar.size(); i < TILEDISPSIZE; ++i)

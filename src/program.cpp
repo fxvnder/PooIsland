@@ -1,27 +1,23 @@
 #include "program.h"
-#include "files.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <vector>
 #include <cstring>
 #include <fstream>
 
 
-gameData::gameData(){
-    resources.push_back("Iron"); //Ferro
-    resources.push_back("Steel bar"); //Barra de aço
-    resources.push_back("Coal"); //Carvão
-    resources.push_back("Wood"); //Madeira
-    resources.push_back("Wood Plaques"); //Madeira
-    resources.push_back("Electricity"); //Eletricidade
 
-    for (std::string s : resources)
-        resources_quantities.push_back(0);
-}
+gameData::gameData() :
+    iron(0),
+    steel_bar(0),
+    coal(0),
+    wood(0),
+    wood_plaques(0),
+    resources(0) { }
+
 island &gameData::Island(){
     return world;
-};
+}
 
 void gameData::createNewWorld(int * dim){
     world.changeDim(dim[0], dim[1]);
@@ -48,18 +44,19 @@ void gameData::readConfigFile(std::string filename){
     return;
 }
 
-void gameData::readExecFile(std::string filename){
+void gameData::readExecFile(const std::string& filename){
     int commandnum = 1;
+    int msg;
     std::string lineContent;
     std::ifstream fileSaved(filename + ".cfg");
-    std::string msg;
+    Interpreter interpreter;
 
     if (fileSaved.is_open()) {
         while (getline(fileSaved, lineContent)) {
             std::cout << "\nCommand #" << commandnum << ":" << std::endl;
             std::cout << lineContent << "\n" << std::endl; // prints out everything
             if (!lineContent.empty()) {
-                msg = treatCommand(lineContent);
+                msg = treatCommand(lineContent,interpreter);
                 std::cout << msg << std::endl;
                 commandnum++;
             }
@@ -68,7 +65,6 @@ void gameData::readExecFile(std::string filename){
     } else {
         std::cout << "ERROR: " << strerror(errno) << std::endl;
     }
-    return;
 }
 
 bool gameData::saveCommands(std::string filename){
@@ -80,6 +76,10 @@ bool gameData::saveCommands(std::string filename){
 
     file.close();
     return true;
+}
+
+void gameData::saveCommsVec(std::string command){
+    commandHistory.push_back(command);
 }
 
 // void createLoadedWorld(file loadedFile){

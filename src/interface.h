@@ -1,6 +1,7 @@
 #ifndef POOISLAND_INTERFACE_H
 #define POOISLAND_INTERFACE_H
 
+#include <iostream>
 #include "program.h"
 
 class interface {
@@ -11,8 +12,6 @@ public:
 
     // beautiful stuff
     static void welcome();
-    static std::string showCredits();
-    static std::string helpMe();
 
     // funcs
     void start();
@@ -22,7 +21,5 @@ public:
     void gameCycle();
     void plays(); //void plays(island& world, file& savegame);
 };
-
-bool loadGame(const std::string& filename);
 
 #endif //POOISLAND_INTERFACE_H

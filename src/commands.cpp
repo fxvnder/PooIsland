@@ -1,11 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "interface.h"
 #include "files.h"
 #include "program.h"
 
-std::string gameData::treatCommand(std::string& commands) {
+int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
 
     // convert string to lowercase
     commands = strToLower(commands);
@@ -29,125 +28,133 @@ std::string gameData::treatCommand(std::string& commands) {
     if (commandsVec[0] == "exec") { // executes saved file
         if(checkFiletxt(commandsVec[1])){
             readExecFile(commandsVec[2]);
-            return "File opened with success!";
-        } else return "Error opening file!";
+            return 1;
+        } else return -1;
+
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
-        if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 4) return -2;
         else {
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
                 if (Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
-                    return "Target zone coordinates fall outside the island!";
+                    return -3;
                 else {
-                    commandHistory.push_back(commands);
-                    return Island().cons(commandsVec).str();
+                    interpreter.overloadedMsg() = Island().cons(commandsVec).str();
+                    return 111;
                 }
-            } else return "Expected digits";
+            } else return -4;
         }
 
     } else if (commandsVec[0] == "upgrade") { // upgrade <linha> <coluna>
-        if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 3) return -2;
         // comandos
-        return oss.str();
+        //interpreter.overload(Island().upgrade(commandsVec).str());
+        return 111;
 
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
         //liga(island,commandsVec)
-        if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 3) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        return oss.str();
+        //interpreter.overload(Island().turnOn(commandsVec).str());
+        return 111;
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(island,commandsVec)
-        if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 3) return -2;
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        return oss.str();
+        //interpreter.overload(Island().turnOff(commandsVec).str());
+        return 111;
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
-        if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 4) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        return oss.str();
+        //interpreter.overload(Island().move(commandsVec).str());
+        return 111;
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(island,commandsVec)
-        if (commandsVec.size() != 3) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 3) return -2;
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        return oss.str();
+        //interpreter.overload(Island().vende(commandsVec).str());
+        return 111;
 
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 2) return -2;
         else {
-            //oss << "hiring worker to " << commandsVec[1] << std::endl;
-            return Island().cont(commandsVec).str();
+            interpreter.overloadedMsg() = Island().cont(commandsVec).str();
+            return 111;
         }
 
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
-        if (commandsVec.size() == 1)
-            return Island().showInfoIsland();
-        if (commandsVec.size() != 3)
-            return "ERROR: Invalid number of arguments, usage: list <linha> <coluna> or simply list\n";
+        if (commandsVec.size() == 1) {
+            interpreter.overloadedMsg() = Island().showInfoIsland();
+            return 111;
+        } if (commandsVec.size() != 3)
+            return -2;
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
-            return "Expected digits";
+            return -4;
         if (Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
-            return "Target zone coordinates fall outside the island!";
-        return Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+            return -3;
+        interpreter.overloadedMsg() = Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        return 111;
 
     } else if (commandsVec[0] == "next") { // next
-        if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "Continuing...\n";
+        if (commandsVec.size() != 1) return -2;
+        return 0;
 
     } else if (commandsVec[0] == "save") { // save <nome>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 2) return -2;
         //saveFile(commandsVec[1], savegame);
         //saveCommands(commandsVec[1], savegame);
-        return "file saved\n";
+        return -404;
 
     } else if (commandsVec[0] == "savecommands") { // savecommands <nome>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 2) return -2;
         //saveFile(commandsVec[1], savegame);
-        saveCommands(commandsVec[1]);
-        return "file saved\n";
+        if(saveCommands(commandsVec[1])) {
+            return 4;
+        } else return -404;
 
     } else if (commandsVec[0] == "load") { // load <nome>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "file loaded\n";
+        if (commandsVec.size() != 2) return -2;
+        return -404;
 
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "apagado\n";
+        if (commandsVec.size() != 2) return -2;
+        return -404;
 
     } else if (commandsVec[0] == "config") { // config <ficheiro>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 2) return -2;
         if(checkFilecfg(commandsVec[1])){
             readConfigFile(commandsVec[1]);
-            //readConfigFile(commandsVec[1]);
-        } else return "wrong filename or file nonexistent";
-        return "config file loaded\n";
+            return 0;
+        } else return -6;
 
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "debcash\n";
+        if (commandsVec.size() != 2) return -2;
+        return -404;
 
     } else if (commandsVec[0] == "debed") { // debed <tipo> <linha> <coluna>
-        if (commandsVec.size() != 4) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "debed\n";
+        if (commandsVec.size() != 4) return -2;
+        return -404;
 
     } else if (commandsVec[0] == "debkill") { // dekill <id>
-        if (commandsVec.size() != 2) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return "debkill\n";
+        if (commandsVec.size() != 2) return -2;
+        return -404;
 
     } else if (commandsVec[0] == "credits") { // credits
-        if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return interface::showCredits();
+        if (commandsVec.size() != 1) return -2;
+        return 2;
 
     } else if (commandsVec[0] == "help") { // exit <id>
-        if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
-        return interface::helpMe();
+        if (commandsVec.size() != 1) return -2;
+        return 3;
     }
     else if (commandsVec[0] == "exit") { // exit <id>
-        if (commandsVec.size() != 1) return "ERROR: Invalid number of arguments. Use \"help\" for help.\n";
+        if (commandsVec.size() != 1) return -2;
         exit(1);
     }
 
-    return "Malformed command, type \"help\" for a list of available commands\n";
+    return -5;
 }

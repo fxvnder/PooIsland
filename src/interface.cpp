@@ -1,49 +1,34 @@
-#include <iostream>
-#include "files.h"
 #include "interface.h"
+#include "interpreter.h"
 #include "program.h"
 
-bool loadGame(const std::string& filename){
-//     if(checkFile(filename)){
-//         file savedFile = openFile(filename);
-//         createLoadedWorld(savedFile);
-//         return true;
-//     } else return false;
-    return false;
-}
-
-interface::interface(gameData &game) : game(game){
-    /*
-        int dim[2] = {4,4};
-        gameData gamer;
-        std::vector<std::string> commandsVec = {"cont", "len"};
-        gamer.createNewWorld(dim);
-        gamer.Island().showSimpleIsland();
-        std::cout << gamer.Island().cont(commandsVec).str();
-        gamer.Island().showSimpleIsland();
-        exit(0);
-     */
-}
+interface::interface(gameData &game) : game(game){ }
 
 void interface::plays(){
     std::string command;
-    std::string msg;
+    Interpreter interpreter;
+    int msgCode;
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
             std::cout << "\nInsert a command. For help type 'help'\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msg = game.treatCommand(command);
-        std::cout << msg;
-    } while (msg != "Continuing...\n");
+        msgCode = game.treatCommand(command, interpreter);
+
+        if (msgCode >= 0) { game.saveCommsVec(command); }
+        //msgCode = 111;
+        //std::cout<< "MSH2:" << msgCode << std::endl;
+        std::cout << interpreter.predefinedErrors(msgCode) << std::endl;
+        //std::cout<< "MSH2:" << msgCode << std::endl;
+    } while (msgCode != 0);
 }
 
 void interface::start() {
     welcome(); // goes to the function of the own class per default
-    mainMenu();
-    return;
-};
+    mainMenu(); // main menu yeah
+}
+
 bool interface::getNumber(int &x){
     std::string theInput;
     std::getline(std::cin, theInput);
@@ -51,11 +36,12 @@ bool interface::getNumber(int &x){
         if( theInput.find_first_not_of("0123456789") == std::string::npos) {
             std::cin.clear();
         }
-        return 0;
+        return false;
     }
     x = std::stoi(theInput);
-    return 1;
+    return true;
 }
+
 void interface::welcome(){
     // my beautiful palm tree
     const char *welcome =
@@ -77,7 +63,8 @@ void interface::welcome(){
 
     std::cout << welcome << "\nWelcome to PooIsland!" << std::endl;
 }
-std::string interface::showCredits(){
+
+std::string Interpreter::showCredits(){
     return R"(
                  "           %%%%%%%%%%%%                                                         \n"
                  "       %%%%%%%%%%%%%%%%%%%%                                                     \n"
@@ -92,6 +79,7 @@ std::string interface::showCredits(){
                  "  %%%%%%%%%            %%%%%%%%%               Joao 'Yeshey' Almeida\n";
             )";
 }
+
 void interface::mainMenu() {
     bool success = false;
     int userInp;
@@ -106,7 +94,7 @@ void interface::mainMenu() {
             success = true;
             newGame();
         } else if (userInp == 2) {
-            std::cout << showCredits();
+            std::cout << Interpreter::showCredits();
         } else if (userInp == 9) {
             exit(EXIT_SUCCESS);
         } else {
@@ -114,7 +102,8 @@ void interface::mainMenu() {
         }
     } while (!success);
 }
-std::string interface::helpMe() {
+
+std::string Interpreter::helpMe() {
     return R"(
         >>> HELP <<<
         Welcome to PooIsland. These are the commands to learn how to play the game!
@@ -142,6 +131,7 @@ std::string interface::helpMe() {
         >> EXIT -> ends program
         )";
 }
+
 void interface::newGame() {
     int dim[2];
     bool success = false;
