@@ -21,10 +21,8 @@ std::string tile::showInfoTile() const {
 
     std::string building_type;
     if (building_class == nullptr) {
-        oss << "ERROR:" << std::endl;
         building_type = "";
     } else {
-        oss << "ERROR:" << std::endl;
         building_type = building_class->type();
     }
     oss << "SUCCESS:" << std::endl;
