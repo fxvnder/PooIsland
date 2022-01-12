@@ -2,8 +2,7 @@
 #include "tile.h"
 
 // ===== Class Building ===== //
-Building::Building(Tile &tile) : on(1), tile(tile){
-}
+Building::Building(Tile &tile) : on(1), tile(tile){ }
 
 std::string Building::type() {
     return type_var;

@@ -40,7 +40,9 @@ set(PROJECT_SOURCES
         src/workers.cpp 
         src/workers.h 
         src/buildings.cpp 
-        src/buildings.h src/interpreter.cpp src/interpreter.h)
+        src/buildings.h 
+        src/interpreter.cpp 
+        src/interpreter.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland

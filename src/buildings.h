@@ -1,5 +1,6 @@
 #ifndef POOISLAND_BUILDINGS_H
 #define POOISLAND_BUILDINGS_H
+
 #include <iostream>
 #include <vector>
 

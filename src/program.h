@@ -4,6 +4,7 @@
 #include "island.h"
 #include "files.h"
 #include "interpreter.h"
+
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -21,21 +22,27 @@ private:
     
 public:
     gameData();
+    
     void createNewWorld(int *dim);
+    
     void dawn();
     void dusk();
     bool over();
+
     Island &island();
-    void readConfigFile(std::string filename);
-    void readExecFile(const std::string& filename);
+
     std::string interpreter(int errorCode);
 
+    // files
+    void readConfigFile(std::string filename);
+    void readExecFile(const std::string& filename);
+
+    // saves commands in vector
+    void saveCommsVec(std::string command);
+    // saves commands in file
     bool saveCommands(std::string filename);
 
-    void saveCommsVec(std::string command);
     int treatCommand(std::string& commands, Interpreter&);
 };
-
-//void createLoadedWorld(file loadedFile);
 
 #endif //POOISLAND_PROGRAM_H

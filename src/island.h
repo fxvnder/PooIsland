@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <vector>
+
 #include "files.h"
 #include "tile.h"
 #include "utils.h"
-
 #include "vector.h"
 
 struct resourcesStr {
