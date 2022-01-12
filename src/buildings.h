@@ -8,6 +8,7 @@ class Tile;
 class Building {
 private:
 protected:
+    bool on;
     std::string type_var;
     Tile & tile;
 public:

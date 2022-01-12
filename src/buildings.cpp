@@ -2,7 +2,7 @@
 #include "tile.h"
 
 // ===== Class Building ===== //
-Building::Building(Tile &tile) : tile(tile){
+Building::Building(Tile &tile) : on(1), tile(tile){
 }
 
 std::string Building::type() {
@@ -30,6 +30,9 @@ battery::battery(class Tile &tile) : Building(tile) {
 }
 
 // ===== Class foundry ===== //
+//Fundição. Permite obter aço a partir de ferro e carvão. Para funcionar é necessário que a zona em que se
+//encontre seja adjacente a uma zona que tenha uma mina de ferro e a uma mina de carvão ou a uma central
+//elétrica (por causa do carvão). Precisa também de ter um operário na sua zona. Custa 10 €.
 foundry::foundry(class Tile &tile) : Building(tile) {
     type_var = "fun";
 }

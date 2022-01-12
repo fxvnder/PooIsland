@@ -4,11 +4,13 @@
 #include <iostream>
 #include <vector>
 
-Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workers(), island(island) {
+Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workers(), island_var(island) {
     // here it's saved as coords 1 1 for the tile in vector[0][0]
     coords[0] = l;
     coords[1] = c;
 
+    // push back - cria uma copia do elemento e depois mete-o dentro do array
+    // emplace back rouba os dados da cena que tamos a passar por referencia
     v_buildings.push_back("mnF");
     v_buildings.push_back("mnC");
     v_buildings.push_back("elec");
@@ -54,13 +56,11 @@ std::string Tile::type() const{
 std::string& Tile::type(){
     return typevar;
 }
-
 std::string Tile::building(){
     //std::cout << building_class->type() << " | " << building_str << std::endl;
     if (building_class == nullptr) return "";
     return building_class->type();
 }
-
 std::string Tile::cons(const std::string& command) {
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
@@ -78,7 +78,6 @@ std::string Tile::cons(const std::string& command) {
         oss << str << ' ';
     return oss.str();
 }
-
 Building* Tile::whichBuilding(std::string building){
     Building* p;
     
@@ -99,7 +98,6 @@ Building* Tile::whichBuilding(std::string building){
     }
     return p;
 }
-
 std::string Tile::cont(const std::string& command){
     std::ostringstream oss;
     std::vector<std::string> v_types = {"miner", "len", "oper"};
@@ -132,6 +130,18 @@ std::string Tile::cont(const std::string& command){
     }
     oss << std::endl;
     return oss.str();
+}
+Island& Tile::island(){
+    return island_var;
+}
+std::vector<Tile>& Tile::adjacentZones(){
+    // Passar como referencia exige menos do PC
+    std::vector<Tile> vec;
+    vec.push_back(island().tile(coords[0] - 1, coords[1])); // above
+    vec.push_back(island().tile(coords[0], coords[1] + 1)); // right
+    vec.push_back(island().tile(coords[0] + 1, coords[1])); // below
+    vec.push_back(island().tile(coords[0], coords[1] - 1)); // left
+    return vec;
 }
 
 // ===== Class mountain ===== //

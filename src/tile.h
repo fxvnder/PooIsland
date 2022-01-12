@@ -18,7 +18,7 @@ private:
     std::vector<worker*> workers;
 protected: // protected so the derivative classes can access it
     std::string typevar;
-    Island & island;
+    Island & island_var;
 public:
     Tile(Island & island, int l, int c);
     std::string showInfoTile() const;
@@ -28,7 +28,8 @@ public:
     std::string building();
     std::vector<std::string> existingTypes() const;
     std::string cons(const std::string& command);
-
+    Island& island();
+    std::vector<Tile>& adjacentZones();
 private:
     Building* whichBuilding(std::string command);
 };

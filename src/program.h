@@ -14,12 +14,7 @@ private:
     //std::vector<std::string> resources;
     //std::vector<int> resources_quantities;
 
-    int iron; // Ferro
-    int steel_bar; // Barra de aço
-    int coal; // Carvão
-    int wood; // Madeira
-    int wood_plaques; // Vigas de Madeira
-    int resources; // Eletricidade
+    resourcesStr resourcesVar;
 
     // vector that contains command strings
     std::vector<std::string> commandHistory;

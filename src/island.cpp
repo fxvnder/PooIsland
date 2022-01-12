@@ -255,3 +255,11 @@ bool Island::isOutOfBounds(int l, int c) const{
     --l ; --c ;
     return (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1); // vecvec.size() size of columns (amount of lines)
 }
+
+void Island::dawn(){
+    std::cout << "It's dawn... ISLAND" << std::endl;
+}
+
+void Island::dusk(){
+    std::cout << "It's dusk... ISLAND" << std::endl;
+}

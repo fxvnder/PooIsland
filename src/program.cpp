@@ -5,15 +5,14 @@
 #include <cstring>
 #include <fstream>
 
-
-
-gameData::gameData() :
-    iron(0),
-    steel_bar(0),
-    coal(0),
-    wood(0),
-    wood_plaques(0),
-    resources(0) { }
+gameData::gameData(){
+    resourcesVar.iron_var = 0;
+    resourcesVar.steel_bar_var = 0;
+    resourcesVar.coal_var = 0;
+    resourcesVar.wood_var = 0;
+    resourcesVar.electricity_var = 0;
+    resourcesVar.wood_plaques_var = 0;
+}
 
 Island &gameData::island(){
     return world;
@@ -27,10 +26,12 @@ void gameData::createNewWorld(int * dim){
 }
 
 void gameData::dawn(){
+    island().dawn();
     std::cout << "It's dawn..." << std::endl;
 }
 
 void gameData::dusk(){
+    island().dusk();
     std::cout << "It's dusk..." << std::endl;
 }
 
