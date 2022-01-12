@@ -9,7 +9,7 @@
 
 class Island;
 
-class tile{
+class Tile{
 private:
     std::vector<std::string> v_buildings;
     Building* building_class;
@@ -20,7 +20,7 @@ protected: // protected so the derivative classes can access it
     std::string typevar;
     Island & island;
 public:
-    tile(Island & island, int l, int c);
+    Tile(Island & island, int l, int c);
     std::string showInfoTile() const;
     std::string cont(const std::string& cmnd);
     std::string type() const;
@@ -40,24 +40,24 @@ private:
 //        pnt -> Pântano
 //        znZ -> ZonaX
 
-class mountain : public tile{
+class mountain : public Tile{
 public:
     mountain(Island & island, int l, int c);
 };
 
-class desert : public tile {
+class desert : public Tile {
 public:
     desert(Island &island, int l, int c);
 
 };
 
-class pasture : public tile {
+class pasture : public Tile {
 private:
 public:
     pasture(Island &island, int l, int c);
 };
 
-class forest : public tile{
+class forest : public Tile{
 private:
     int num_trees; // random 20 to 40 in the beginning, MAX: 100
 public:
@@ -65,14 +65,14 @@ public:
     int trees();
 };
 
-class swamp : public tile {
+class swamp : public Tile {
 private:
     bool hasShrek = true;
 public:
     swamp(Island &island, int l, int c);
 };
 
-class zoneX : public tile{
+class zoneX : public Tile{
 private:
 public:
     zoneX(Island &island, int l, int c);

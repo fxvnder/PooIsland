@@ -7,7 +7,7 @@
 
 Island::Island(int l, int c) {
     for (int i = 0; i < l; i++) {
-        vecvec.add(poo::vector<tile*>());
+        vecvec.add(poo::vector<Tile*>());
         for (int j = 0; j <= c; j++) {
             vecvec[i].add();
             vecvec[i][j] = randomTile(l,c);
@@ -190,7 +190,7 @@ std::ostringstream Island::cont(std::vector<std::string> commandsVec) { // cont 
 
 void Island::changeDim(int l, int c){
     for (int i = 0 ; i < l ; ++i ) {
-        vecvec.add(poo::vector<class tile*>());
+        vecvec.add(poo::vector<class Tile*>());
         for (int j = 0; j < c; ++j) {
             vecvec[i].add();
             vecvec[i][j] = randomTile(i+1, j+1);
@@ -207,8 +207,8 @@ void Island::changeDim(int l, int c){
     }
 }
 
-tile * Island::randomTile(int l, int c){
-    tile * p;
+Tile * Island::randomTile(int l, int c){
+    Tile * p;
     int rnd = random(0, tile_types.size()-1);
     switch (rnd) {
         case (0):
@@ -246,7 +246,7 @@ bool Island::existsInIsland(const std::string type) {
     return 0;
 }
 
-tile &Island::Tile(int l, int c) {
+Tile &Island::tile(int l, int c) {
     --l ; --c ;
     return *vecvec[l][c];
 }

@@ -13,7 +13,7 @@ class Island {
 private:
     int lines = 0, columns = 0;
     //syntax for arr[l][c] will be arr[l*sizeY+c];
-    poo::vector<poo::vector<tile*>> vecvec{};
+    poo::vector<poo::vector<Tile*>> vecvec{};
 
     std::vector<std::string> tile_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ"};
 public:
@@ -21,12 +21,12 @@ public:
     std::string showSimpleIsland() const;
     std::string showInfoIsland() const;
     void changeDim(int l, int c);
-    tile &Tile(int l, int c);
+    Tile &tile(int l, int c);
     std::ostringstream cont(std::vector<std::string> commandsVec);
     std::ostringstream cons(std::vector<std::string> commandsVec);
     bool isOutOfBounds(int l, int c) const;
     bool existsInIsland(const std::string type);
-    tile* randomTile(int l, int c);
+    Tile* randomTile(int l, int c);
 };
 
 #endif //POOISLAND_ISLAND_H

@@ -3,9 +3,8 @@
 #include "utils.h"
 #include <iostream>
 #include <vector>
-#include <random>
 
-tile::tile(Island & island, int l, int c) : building_class(nullptr), workers(), island(island) {
+Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workers(), island(island) {
     // here it's saved as coords 1 1 for the tile in vector[0][0]
     coords[0] = l;
     coords[1] = c;
@@ -17,7 +16,7 @@ tile::tile(Island & island, int l, int c) : building_class(nullptr), workers(), 
     v_buildings.push_back("fun");
     v_buildings.push_back("sarr");
 }
-std::string tile::showInfoTile() const {
+std::string Tile::showInfoTile() const {
     std::ostringstream oss;
     std::string tmp;
 
@@ -49,20 +48,20 @@ std::string tile::showInfoTile() const {
 
     return oss.str();
 }
-std::string tile::type() const{
+std::string Tile::type() const{
     return typevar;
 }
-std::string& tile::type(){
+std::string& Tile::type(){
     return typevar;
 }
 
-std::string tile::building(){
+std::string Tile::building(){
     //std::cout << building_class->type() << " | " << building_str << std::endl;
     if (building_class == nullptr) return "";
     return building_class->type();
 }
 
-std::string tile::cons(const std::string& command) {
+std::string Tile::cons(const std::string& command) {
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == strToLower(v_buildings[i])){
@@ -80,28 +79,28 @@ std::string tile::cons(const std::string& command) {
     return oss.str();
 }
 
-Building* tile::whichBuilding(std::string building){
+Building* Tile::whichBuilding(std::string building){
     Building* p;
     
     if (building == "mnF"){ // IRonFarm
-        p = new ironFarm;
+        p = new ironFarm(*this);
     } else if (building == "mnC"){ //coalMine
-        p = new coalMine;
+        p = new coalMine(*this);
     } else if (building == "elec"){ //electricityCentral
-        p = new electricityCentral;
+        p = new electricityCentral(*this);
     } else if (building == "bat"){ //battery
-        p = new battery;
+        p = new battery(*this);
     } else if (building == "fun"){ //foundry (fundição)
-        p = new foundry;
+        p = new foundry(*this);
     } else if (building == "sarr"){ //Sarration
-        p = new Sarration;
+        p = new Sarration(*this);
     } else {
         std::cout << "Error generating building" << std::endl;
     }
     return p;
 }
 
-std::string tile::cont(const std::string& command){
+std::string Tile::cont(const std::string& command){
     std::ostringstream oss;
     std::vector<std::string> v_types = {"miner", "len", "oper"};
     if (typevar != "pas")
@@ -136,22 +135,22 @@ std::string tile::cont(const std::string& command){
 }
 
 // ===== Class mountain ===== //
-mountain::mountain(Island &island,int l, int c) : tile(island,l,c) {
+mountain::mountain(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "pnt";
 }
 
 // ===== Class desert ===== //
-desert::desert(Island &island,int l, int c) : tile(island,l,c){
+desert::desert(Island &island,int l, int c) : Tile(island,l,c){
     typevar = "dsr";
 }
 
 // ===== Class pasture ===== //
-pasture::pasture(Island &island,int l, int c) : tile(island,l,c) {
+pasture::pasture(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "pas";
 }
 
 // ===== Class forest ===== //
-forest::forest(Island &island,int l, int c) : tile(island,l,c), num_trees(0) {
+forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(0) {
     typevar = "flr";
 }
 int forest::trees() {
@@ -159,11 +158,11 @@ int forest::trees() {
 }
 
 // ===== Class swamp ===== //
-swamp::swamp(Island &island,int l, int c) : tile(island,l,c) {
+swamp::swamp(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "pnt";
 }
 
 // ===== Class zonaX ===== //
-zoneX::zoneX(Island &island,int l, int c) : tile(island,l,c) {
+zoneX::zoneX(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "znZ";
 }

@@ -96,7 +96,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             return -4;
         if (Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return -3;
-        interpreter.overloadedMsg() = Island().Tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        interpreter.overloadedMsg() = Island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
         return 111;
 
     } else if (commandsVec[0] == "next") { // next

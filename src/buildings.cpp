@@ -1,36 +1,40 @@
 #include "buildings.h"
+#include "tile.h"
 
 // ===== Class Building ===== //
-std::string Building::type(){
+Building::Building(Tile &tile) : tile(tile){
+}
+
+std::string Building::type() {
     return type_var;
 }
 
 // ===== Class ironFarm ===== //
-ironFarm::ironFarm(){
+ironFarm::ironFarm(class Tile &tile) : Building(tile) {
     type_var = "mnF";
 }
 
 // ===== Class coalMine ===== //
-coalMine::coalMine(){
+coalMine::coalMine(class Tile &tile) : Building(tile) {
     type_var = "mnC";
 }
 
 // ===== Class electricityCentral ===== //
-electricityCentral::electricityCentral(){
+electricityCentral::electricityCentral(class Tile &tile) : Building(tile) {
     type_var = "elec";
 }
 
 // ===== Class battery ===== //
-battery::battery(){
+battery::battery(class Tile &tile) : Building(tile) {
     type_var = "bat";
 }
 
 // ===== Class foundry ===== //
-foundry::foundry(){
+foundry::foundry(class Tile &tile) : Building(tile) {
     type_var = "fun";
 }
 
 // ===== Class Sarration ===== //
-Sarration::Sarration(){
+Sarration::Sarration(class Tile &tile) : Building(tile) {
     type_var = "sarr";
 }
