@@ -5,17 +5,17 @@
 #include <iostream>
 #include <vector>
 
-island::island(int l, int c) {
+Island::Island(int l, int c) {
     for (int i = 0; i < l; i++) {
         vecvec.add(poo::vector<tile*>());
         for (int j = 0; j <= c; j++) {
             vecvec[i].add();
-            vecvec[i][j] = randomTile();
+            vecvec[i][j] = randomTile(l,c);
         }
     }
 }
 
-std::string island::showSimpleIsland() const {
+std::string Island::showSimpleIsland() const {
     std::ostringstream oss;
     for (int i = 0; i < vecvec.size(); i++){
         for (int j = 0; j < vecvec[i].size(); j++){
@@ -26,7 +26,7 @@ std::string island::showSimpleIsland() const {
     return oss.str();
 }
 
-std::string island::showInfoIsland() const {
+std::string Island::showInfoIsland() const {
     std::ostringstream oss;
     // vecvec.size(): lines
     // vecvec[i].size(): clomun
@@ -149,7 +149,7 @@ std::string island::showInfoIsland() const {
     return oss.str();
 }
 
-std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
+std::ostringstream Island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
     std::ostringstream oss;
     int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
     oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
@@ -161,7 +161,7 @@ std::ostringstream island::cons(std::vector<std::string> commandsVec){ // cons <
     return oss;
 }
 
-std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont <type>
+std::ostringstream Island::cont(std::vector<std::string> commandsVec) { // cont <type>
     std::ostringstream oss;
     int counter = 0;
     for (int i = 0; i < vecvec.size(); ++i) {
@@ -188,12 +188,12 @@ std::ostringstream island::cont(std::vector<std::string> commandsVec) { // cont 
     return oss;
 }
 
-void island::changeDim(int l, int c){
+void Island::changeDim(int l, int c){
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.add(poo::vector<class tile*>());
         for (int j = 0; j < c; ++j) {
             vecvec[i].add();
-            vecvec[i][j] = randomTile();
+            vecvec[i][j] = randomTile(i+1, j+1);
         }
     }
 
@@ -207,28 +207,27 @@ void island::changeDim(int l, int c){
     }
 }
 
-tile * island::randomTile(){
+tile * Island::randomTile(int l, int c){
     tile * p;
     int rnd = random(0, tile_types.size()-1);
-    mountain ok;
     switch (rnd) {
         case (0):
-            p = new mountain;
+            p = new mountain(*this, l, c);
             break;
         case (1):
-            p = new desert;
+            p = new desert(*this, l, c);
             break;
         case (2):
-            p = new pasture;
+            p = new pasture(*this, l, c);
             break;
         case (3):
-            p = new forest;
+            p = new forest(*this, l, c);
             break;
         case (4):
-            p = new swamp;
+            p = new swamp(*this, l, c);
             break;
         case (5):
-            p = new zoneX;
+            p = new zoneX(*this, l, c);
             break;
         default:
             std::cout << "Error generating zone" << std::endl;
@@ -236,7 +235,7 @@ tile * island::randomTile(){
     return p;
 }
 
-bool island::existsInIsland(const std::string type) {
+bool Island::existsInIsland(const std::string type) {
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
             if (vecvec[i-1][j-1]->type() == type){
@@ -247,12 +246,12 @@ bool island::existsInIsland(const std::string type) {
     return 0;
 }
 
-tile &island::Tile(int l, int c) {
+tile &Island::Tile(int l, int c) {
     --l ; --c ;
     return *vecvec[l][c];
 }
 
-bool island::isOutOfBounds(int l, int c) const{
+bool Island::isOutOfBounds(int l, int c) const{
     --l ; --c ;
     return (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1); // vecvec.size() size of columns (amount of lines)
 }

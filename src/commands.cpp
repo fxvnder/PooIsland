@@ -52,28 +52,28 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
 
 
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
-        //liga(island,commandsVec)
+        //liga(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         //interpreter.overload(Island().turnOn(commandsVec).str());
         return 111;
 
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
-        //des(island,commandsVec)
+        //des(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         //interpreter.overload(Island().turnOff(commandsVec).str());
         return 111;
 
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
-        //move(island,commandsVec)
+        //move(Island,commandsVec)
         if (commandsVec.size() != 4) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         //interpreter.overload(Island().move(commandsVec).str());
         return 111;
 
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
-        //vende(island,commandsVec)
+        //vende(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
         //interpreter.overload(Island().vende(commandsVec).str());

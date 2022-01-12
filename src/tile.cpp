@@ -5,15 +5,17 @@
 #include <vector>
 #include <random>
 
-tile::tile() : building_class(nullptr), workers() {
+tile::tile(Island & island, int l, int c) : building_class(nullptr), workers(), island(island) {
+    // here it's saved as coords 1 1 for the tile in vector[0][0]
+    coords[0] = l;
+    coords[1] = c;
+
     v_buildings.push_back("mnF");
     v_buildings.push_back("mnC");
     v_buildings.push_back("elec");
     v_buildings.push_back("bat");
     v_buildings.push_back("fun");
     v_buildings.push_back("sarr");
-    //typevar = v_types[random(0,v_types.size() - 1)];
-    // access the island here
 }
 std::string tile::showInfoTile() const {
     std::ostringstream oss;
@@ -134,23 +136,22 @@ std::string tile::cont(const std::string& command){
 }
 
 // ===== Class mountain ===== //
-mountain::mountain() {
+mountain::mountain(Island &island,int l, int c) : tile(island,l,c) {
     typevar = "pnt";
 }
 
 // ===== Class desert ===== //
-desert::desert(){
+desert::desert(Island &island,int l, int c) : tile(island,l,c){
     typevar = "dsr";
-
 }
 
 // ===== Class pasture ===== //
-pasture::pasture(){
+pasture::pasture(Island &island,int l, int c) : tile(island,l,c) {
     typevar = "pas";
 }
 
 // ===== Class forest ===== //
-forest::forest() : num_trees(0){
+forest::forest(Island &island,int l, int c) : tile(island,l,c), num_trees(0) {
     typevar = "flr";
 }
 int forest::trees() {
@@ -158,11 +159,11 @@ int forest::trees() {
 }
 
 // ===== Class swamp ===== //
-swamp::swamp(){
+swamp::swamp(Island &island,int l, int c) : tile(island,l,c) {
     typevar = "pnt";
 }
 
 // ===== Class zonaX ===== //
-zoneX::zoneX(){
+zoneX::zoneX(Island &island,int l, int c) : tile(island,l,c) {
     typevar = "znZ";
 }

@@ -136,9 +136,9 @@ void interface::newGame() {
     int dim[2];
     bool success = false;
 
-    // player chooses island dimensions
+    // player chooses Island dimensions
     do{
-        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the island size(lines): 1/2\n > ";
+        std::cout << "Welcome to PooIsland! Let's start your game!\nChoose the Island size(lines): 1/2\n > ";
         getNumber(dim[0]);
         std::cout << "Size(columns): 2/2\n > ";
         getNumber(dim[1]);
@@ -154,7 +154,7 @@ void interface::newGame() {
 
 void interface::gameCycle(){
     do {
-        std::cout << game.Island().showInfoIsland() << std::endl;
+        std::cout << game.island().showInfoIsland() << std::endl;
         game.dawn();
         plays();
         game.dusk();

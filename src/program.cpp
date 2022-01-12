@@ -15,7 +15,7 @@ gameData::gameData() :
     wood_plaques(0),
     resources(0) { }
 
-island &gameData::Island(){
+Island &gameData::island(){
     return world;
 }
 
@@ -83,7 +83,7 @@ void gameData::saveCommsVec(std::string command){
 }
 
 // void createLoadedWorld(file loadedFile){
-//     island world(loadedFile.giveLines(), loadedFile.giveColumns());
+//     Island world(loadedFile.giveLines(), loadedFile.giveColumns());
 //     std::vector<std::string> oldcommands = loadedFile.getCommands();
 //     //for (int i = 0; i < oldcommands.size(); ++i) treatCommand(oldcommands[i]); //treatCommand(oldcommands[i], world, loadedFile);
 //     //game(world, loadedFile);

@@ -10,7 +10,7 @@
 
 class gameData {
 private:
-    island world;
+    Island world;
     //std::vector<std::string> resources;
     //std::vector<int> resources_quantities;
 
@@ -30,7 +30,7 @@ public:
     void dawn();
     void dusk();
     bool over();
-    island &Island();
+    Island &island();
     void readConfigFile(std::string filename);
     void readExecFile(const std::string& filename);
     std::string interpreter(int errorCode);

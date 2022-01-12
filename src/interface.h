@@ -19,7 +19,7 @@ public:
     void mainMenu();
     void newGame();
     void gameCycle();
-    void plays(); //void plays(island& world, file& savegame);
+    void plays(); //void plays(Island& world, file& savegame);
 };
 
 #endif //POOISLAND_INTERFACE_H

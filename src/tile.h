@@ -7,17 +7,20 @@
 #include "workers.h"
 #include "buildings.h"
 
+class Island;
+
 class tile{
 private:
     std::vector<std::string> v_buildings;
     Building* building_class;
-    //std::vector<worker> workers;
+    int coords[2];
     // miner len oper
     std::vector<worker*> workers;
 protected: // protected so the derivative classes can access it
     std::string typevar;
+    Island & island;
 public:
-    tile();
+    tile(Island & island, int l, int c);
     std::string showInfoTile() const;
     std::string cont(const std::string& cmnd);
     std::string type() const;
@@ -39,26 +42,26 @@ private:
 
 class mountain : public tile{
 public:
-    mountain();
+    mountain(Island & island, int l, int c);
 };
 
 class desert : public tile {
 public:
-    desert();
+    desert(Island &island, int l, int c);
 
 };
 
 class pasture : public tile {
 private:
 public:
-    pasture();
+    pasture(Island &island, int l, int c);
 };
 
 class forest : public tile{
 private:
     int num_trees; // random 20 to 40 in the beginning, MAX: 100
 public:
-    forest();
+    forest(Island &island, int l, int c);
     int trees();
 };
 
@@ -66,13 +69,13 @@ class swamp : public tile {
 private:
     bool hasShrek = true;
 public:
-    swamp();
+    swamp(Island &island, int l, int c);
 };
 
 class zoneX : public tile{
 private:
 public:
-    zoneX();
+    zoneX(Island &island, int l, int c);
 };
 
 
