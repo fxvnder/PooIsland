@@ -8,6 +8,9 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <string>
+#include <cstring>
+#include <fstream>
 
 class gameData {
 private:
@@ -34,14 +37,15 @@ public:
     std::string interpreter(int errorCode);
 
     // files
-    void readConfigFile(std::string filename);
+    void readConfigFile(const std::string& filename);
     void readExecFile(const std::string& filename);
 
     // saves commands in vector
-    void saveCommsVec(std::string command);
+    void saveCommsVec(const std::string& command);
     // saves commands in file
-    bool saveCommands(std::string filename);
+    bool saveCommands(const std::string& filename);
 
+    // manages the commands
     int treatCommand(std::string& commands, Interpreter&);
 };
 

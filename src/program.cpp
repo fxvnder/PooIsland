@@ -1,9 +1,4 @@
 #include "program.h"
-#include <iostream>
-#include <string>
-#include <algorithm>
-#include <cstring>
-#include <fstream>
 
 gameData::gameData(){ }
 
@@ -34,8 +29,8 @@ bool gameData::over(){
 
 // STUFF WITH FILES
 
-void gameData::readConfigFile(std::string filename){
-    return;
+void gameData::readConfigFile(const std::string& filename){
+    // to be done
 }
 
 void gameData::readExecFile(const std::string& filename){
@@ -61,7 +56,7 @@ void gameData::readExecFile(const std::string& filename){
     }
 }
 
-bool gameData::saveCommands(std::string filename){
+bool gameData::saveCommands(const std::string& filename){
     std::ofstream file;
     file.open(filename + ".txt");
     for (int i = 0; i < commandHistory.size(); ++i) {
@@ -72,7 +67,7 @@ bool gameData::saveCommands(std::string filename){
     return true;
 }
 
-void gameData::saveCommsVec(std::string command){
+void gameData::saveCommsVec(const std::string& command){
     commandHistory.push_back(command);
 }
 

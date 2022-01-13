@@ -8,9 +8,9 @@ int main() {
     //qDebug() << "Hello World";
     //return QCoreApplication::exec();
 
-    gameData game_on;
-    interface ui(game_on);
-    ui.start();
+    gameData game_on; // starts gameData
+    interface ui(game_on); // starts the interface
+    ui.start(); // begins program
 
     return 0;
 }

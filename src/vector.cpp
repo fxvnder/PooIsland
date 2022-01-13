@@ -45,7 +45,7 @@ poo::vector<T> & poo::vector<T>::operator=( /*const*/ vector /*&*/ old){ //idiom
 template <class T>
 T & poo::vector<T>::operator[](int index) const{
     try {
-        if (index >= tam) throw 101;
+        if (index >= tam) throw std::exception();
     } catch (std::exception& e) {
         std::cout << "Standard exception: " << e.what() << std::endl;
     }
@@ -81,7 +81,7 @@ void poo::vector<T>::add(){
 template <class T>
 bool poo::vector<T>::empty() const {
     return parr == nullptr;
-};
+}
 
 template <class T>
 std::string poo::vector<T>::display() const{

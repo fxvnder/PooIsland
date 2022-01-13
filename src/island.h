@@ -13,9 +13,10 @@
 class Island {
 private:
     int lines = 0, columns = 0;
+    poo::vector<poo::vector<Tile*>> vecvec;
     //syntax for arr[l][c] will be arr[l*sizeY+c];
-    poo::vector<poo::vector<Tile*>> vecvec{};
-    std::vector<std::string> tile_types = {"pnt","dsr", "pas", "flr", "pnt", "znZ"};
+    std::vector<std::string> tile_types = {"pnt", "dsr", "pas", "flr", "pnt", "znZ"};
+    // montanha, deserto, pastagem, floresta, pantano, zonaX
 
     resourcesStr resourcesVar;
 public:
@@ -24,10 +25,8 @@ public:
     std::string showInfoIsland() const;
     void changeDim(int l, int c);
     Tile &tile(int l, int c);
-    std::ostringstream cont(std::vector<std::string> commandsVec);
-    std::ostringstream cons(std::vector<std::string> commandsVec);
     bool isOutOfBounds(int l, int c) const;
-    bool existsInIsland(const std::string type);
+    bool existsInIsland(const std::string& type);
     Tile* randomTile(int l, int c);
     void dawn();
     void dusk();
@@ -35,3 +34,7 @@ public:
 };
 
 #endif //POOISLAND_ISLAND_H
+
+//    comandos antigos:
+//std::ostringstream cons(std::vector<std::string> commandsVec);
+//std::ostringstream cont(std::vector<std::string> commandsVec);

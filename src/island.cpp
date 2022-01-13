@@ -26,14 +26,17 @@ std::string Island::showSimpleIsland() const {
 
 std::string Island::showInfoIsland() const {
     std::ostringstream oss;
+    //std::cout << vecvec.size() << vecvec[0].size() << std::endl;
+
     // vecvec.size(): lines
-    // vecvec[i].size(): column
+    // vecvec[i].size(): columns
+
     if (vecvec.empty()){ // if it's empty, give up
-        oss << "ERROR:" << std::endl;
+        oss << "ERROR: NO X AXIS ON ISLAND FOUND" << std::endl;
         return oss.str();
     } else
         if(vecvec[0].empty()) {
-            oss << "ERROR:" << std::endl;
+            oss << "ERROR: NO Y AXIS ON ISLAND FOUND" << std::endl;
             return oss.str();
         }
     oss << "SUCCESS:" << std::endl;
@@ -148,44 +151,6 @@ std::string Island::showInfoIsland() const {
     return oss.str();
 }
 
-std::ostringstream Island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
-    std::ostringstream oss;
-    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-    oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
-    if (oss.str().empty()) {
-        oss << "SUCCESS:" << std::endl << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
-        return oss;
-    }
-    oss << "ERROR:" << std::endl;
-    return oss;
-}
-
-std::ostringstream Island::cont(std::vector<std::string> commandsVec) { // cont <type>
-    std::ostringstream oss;
-    int counter = 0;
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j]->type() == "pas")
-                ++counter;
-        }
-    }
-    counter = random(1, counter);
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j]->type() == "pas") {
-                --counter;
-                if (counter == 0) {
-                    oss << vecvec[i][j]->cont(commandsVec[1]);
-                }
-            }
-        }
-    }
-    if (oss.str().empty())
-        oss << "SUCCESS:" << std::endl << "hiring " << commandsVec[1] << std::endl;
-
-    oss << "ERROR:" << std::endl;
-    return oss;
-}
 
 void Island::changeDim(int l, int c){
     for (int i = 0 ; i < l ; ++i ) {
@@ -207,7 +172,7 @@ void Island::changeDim(int l, int c){
 }
 
 Tile * Island::randomTile(int l, int c){
-    Tile * p;
+    Tile *p = nullptr;
     int rnd = random(0, tile_types.size()-1);
     switch (rnd) {
         case (0):
@@ -234,15 +199,15 @@ Tile * Island::randomTile(int l, int c){
     return p;
 }
 
-bool Island::existsInIsland(const std::string type) {
+bool Island::existsInIsland(const std::string& type) {
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
             if (vecvec[i-1][j-1]->type() == type){
-                return 1;
+                return true;
             }
         }
     }
-    return 0;
+    return false;
 }
 
 Tile &Island::tile(int l, int c) {
@@ -250,10 +215,12 @@ Tile &Island::tile(int l, int c) {
     return *vecvec[l][c];
 }
 
-bool Island::isOutOfBounds(int l, int c) const{
-    return false;
+bool Island::isOutOfBounds(int l, int c) const {
     --l ; --c ;
-    return (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1); // vecvec.size() size of columns (amount of lines)
+    if (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1){
+        return true;
+    } // vecvec.size() size of columns (amount of lines)
+    return false;
 }
 
 void Island::dawn(){
@@ -267,3 +234,45 @@ void Island::dusk(){
 resourcesStr & Island::resources(){
     return resourcesVar;
 }
+
+// CONS // CONT ANTIGOS
+
+
+//std::ostringstream Island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
+//    std::ostringstream oss;
+//    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
+//    oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
+//    if (oss.str().empty()) {
+//        oss << "SUCCESS:" << std::endl << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
+//        return oss;
+//    }
+//    oss << "ERROR:" << std::endl;
+//    return oss;
+//}
+//
+//std::ostringstream Island::cont(std::vector<std::string> commandsVec) { // cont <type>
+//    std::ostringstream oss;
+//    int counter = 0;
+//    for (int i = 0; i < vecvec.size(); ++i) {
+//        for (int j = 0; j < vecvec[i].size(); ++j) {
+//            if (vecvec[i][j]->type() == "pas")
+//                ++counter;
+//        }
+//    }
+//    counter = random(1, counter);
+//    for (int i = 0; i < vecvec.size(); ++i) {
+//        for (int j = 0; j < vecvec[i].size(); ++j) {
+//            if (vecvec[i][j]->type() == "pas") {
+//                --counter;
+//                if (counter == 0) {
+//                    oss << vecvec[i][j]->cont(commandsVec[1]);
+//                }
+//            }
+//        }
+//    }
+//    if (oss.str().empty())
+//        oss << "SUCCESS:" << std::endl << "hiring " << commandsVec[1] << std::endl;
+//
+//    oss << "ERROR:" << std::endl;
+//    return oss;
+//}

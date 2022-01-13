@@ -14,6 +14,7 @@ std::string Interpreter::predefinedErrors(int& code) {
     static std::string overloaded; // For very specific error codes.
 
     // negative codes indicate errors, positive ones indicate success.
+
     switch (code) {
         case (0): return "Continuing...";
         case (1): return "File opened with success!";

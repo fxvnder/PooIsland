@@ -179,7 +179,7 @@ pasture::pasture(Island &island,int l, int c) : Tile(island,l,c) {
 forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(0) {
     typevar = "flr";
 }
-int forest::trees() {
+int forest::trees() const {
     return num_trees;
 }
 

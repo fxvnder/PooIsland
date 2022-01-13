@@ -64,12 +64,11 @@ private:
     int num_trees; // random 20 to 40 in the beginning, MAX: 100
 public:
     forest(Island &island, int l, int c);
-    int trees();
+    int trees() const;
 };
 
 class swamp : public Tile {
 private:
-    bool hasShrek = true;
 public:
     swamp(Island &island, int l, int c);
 };

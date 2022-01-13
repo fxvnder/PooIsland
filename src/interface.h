@@ -12,14 +12,16 @@ public:
 
     // beautiful stuff
     static void welcome();
+    void start();
 
     // funcs
-    void start();
-    bool getNumber(int &userInp);
+    static bool getNumber(int &userInp);
+
+    // real deal
     void mainMenu();
     void newGame();
     void gameCycle();
-    void plays(); //void plays(Island& world, file& savegame);
+    void plays();
 };
 
 #endif //POOISLAND_INTERFACE_H

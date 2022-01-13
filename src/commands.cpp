@@ -23,14 +23,18 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // misc vars
     std::ostringstream oss;
 
-    // COMMANDS
+    // == <<<COMMANDS>>> ==
 
+    // !!! GAME COMMANDS !!!
+
+    // EXEC
     if (commandsVec[0] == "exec") { // executes saved file
         if(checkFiletxt(commandsVec[1])){
             readExecFile(commandsVec[2]);
             return 1;
         } else return -1;
 
+    // CONS
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return -2;
         else {
@@ -46,13 +50,14 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             } else return -4;
         }
 
+    // UPGRADE
     } else if (commandsVec[0] == "upgrade") { // upgrade <linha> <coluna>
         if (commandsVec.size() != 3) return -2;
         // comandos
         //interpreter.overload(Island().upgrade(commandsVec).str());
         return 111;
 
-
+    // LIGA
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
         //liga(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
@@ -60,6 +65,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         //interpreter.overload(Island().turnOn(commandsVec).str());
         return 111;
 
+    // DES
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
         //des(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
@@ -67,6 +73,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         //interpreter.overload(Island().turnOff(commandsVec).str());
         return 111;
 
+    // MOVE
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(Island,commandsVec)
         if (commandsVec.size() != 4) return -2;
@@ -74,6 +81,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         //interpreter.overload(Island().move(commandsVec).str());
         return 111;
 
+    // VENDE
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
         //vende(Island,commandsVec)
         if (commandsVec.size() != 3) return -2;
@@ -81,13 +89,15 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         //interpreter.overload(Island().vende(commandsVec).str());
         return 111;
 
+    // CONT
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return -2;
         else {
-            interpreter.overloadedMsg() = Island().cont(commandsVec).str();
+            //interpreter.overloadedMsg() = Island().cont(commandsVec).str();
             return 111;
         }
 
+    // LIST
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1) {
             interpreter.overloadedMsg() = Island().showInfoIsland();
@@ -101,16 +111,12 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         interpreter.overloadedMsg() = Island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
         return 111;
 
+    // NEXT
     } else if (commandsVec[0] == "next") { // next
         if (commandsVec.size() != 1) return -2;
         return 0;
 
-    } else if (commandsVec[0] == "save") { // save <nome>
-        if (commandsVec.size() != 2) return -2;
-        //saveFile(commandsVec[1], savegame);
-        //saveCommands(commandsVec[1], savegame);
-        return -404;
-
+    // SAVECOMMANDS
     } else if (commandsVec[0] == "savecommands") { // savecommands <nome>
         if (commandsVec.size() != 2) return -2;
         //saveFile(commandsVec[1], savegame);
@@ -118,14 +124,23 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             return 4;
         } else return -404;
 
+    // SAVE
+    } else if (commandsVec[0] == "save") { // save <nome>
+        if (commandsVec.size() != 2) return -2;
+        // SAVES GAME IN MEMORY
+        return -404;
+
+    // LOAD
     } else if (commandsVec[0] == "load") { // load <nome>
         if (commandsVec.size() != 2) return -2;
         return -404;
 
+    // APAGA
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return -2;
         return -404;
 
+    // CONFIG
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return -2;
         if(checkFilecfg(commandsVec[1])){
@@ -133,26 +148,37 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             return 0;
         } else return -6;
 
+    // !!! DEBUG COMMANDS !!!
+
+    // DEBCASH
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
         if (commandsVec.size() != 2) return -2;
         return -404;
 
+    // DEBED
     } else if (commandsVec[0] == "debed") { // debed <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return -2;
         return -404;
 
+    // DEKILL
     } else if (commandsVec[0] == "debkill") { // dekill <id>
         if (commandsVec.size() != 2) return -2;
         return -404;
 
+    // !!! MISC. COMMANDS !!!
+
+    // CREDITS
     } else if (commandsVec[0] == "credits") { // credits
         if (commandsVec.size() != 1) return -2;
         return 2;
 
+    // HELP
     } else if (commandsVec[0] == "help") { // exit <id>
         if (commandsVec.size() != 1) return -2;
         return 3;
     }
+
+    // EXIT
     else if (commandsVec[0] == "exit") { // exit <id>
         if (commandsVec.size() != 1) return -2;
         exit(1);
