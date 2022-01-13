@@ -85,7 +85,8 @@ std::string Tile::build(std::string& command){
                 return oss.str();
             }
             building_class = whichBuilding(v_buildings[i]);
-            return "";
+            oss << "SUCCESS:" << std::endl << "building " << command << " in X=" << coords[0] << " Y=" << coords[1] << std::endl;
+            return oss.str();
         }
     }
     oss << "ERROR: Wrong specified type, the existing types of buildings are: ";
@@ -133,7 +134,7 @@ std::string Tile::cont(const std::string& command){
                     workers.push_back(new operative(*this));
                     break;
                 default:
-                    std::cout << "error, no worker type" << std::endl;
+                    std::cout << "ERROR: No worker type." << std::endl;
             }
 
             return "";

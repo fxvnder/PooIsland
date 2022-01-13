@@ -36,15 +36,17 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
 
     // CONS
     } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
-        if (commandsVec.size() != 4) return -2;
+        if (commandsVec.size() != 4) return -2; // checks if too much arguments
         else {
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
-                if (Island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                // checks if out of bounds
+                if (island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
                     return -3;
                 else {
-                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-                    //interpreter.overloadedMsg() = Island().cons(commandsVec).str();
-                    interpreter.overloadedMsg() = Island().tile(l,c).build(commandsVec[1]);
+                    // l = lines, c = columns
+                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[3]);
+                    // sends to interpreter
+                    interpreter.overloadedMsg() = island().tile(l,c).build(commandsVec[1]);
                     return 111;
                 }
             } else return -4;
@@ -54,61 +56,71 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     } else if (commandsVec[0] == "upgrade") { // upgrade <linha> <coluna>
         if (commandsVec.size() != 3) return -2;
         // comandos
-        //interpreter.overload(Island().upgrade(commandsVec).str());
+        //interpreter.overload(island().upgrade(commandsVec).str());
         return 111;
 
     // LIGA
     } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
-        //liga(Island,commandsVec)
+        //liga(island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(Island().turnOn(commandsVec).str());
+        //interpreter.overload(island().turnOn(commandsVec).str());
         return 111;
 
     // DES
     } else if (commandsVec[0] == "des") { // des <linha> <coluna>
-        //des(Island,commandsVec)
+        //des(island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(Island().turnOff(commandsVec).str());
+        //interpreter.overload(island().turnOff(commandsVec).str());
         return 111;
 
     // MOVE
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
-        //move(Island,commandsVec)
+        //move(island,commandsVec)
         if (commandsVec.size() != 4) return -2;
         oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(Island().move(commandsVec).str());
+        //interpreter.overload(island().move(commandsVec).str());
         return 111;
 
     // VENDE
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
-        //vende(Island,commandsVec)
+        //vende(island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(Island().vende(commandsVec).str());
+        //interpreter.overload(island().vende(commandsVec).str());
         return 111;
 
     // CONT
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return -2;
         else {
-            //interpreter.overloadedMsg() = Island().cont(commandsVec).str();
-            return 111;
+            if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
+                // checks if out of bounds
+                if (island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                    return -3;
+                else {
+                    // l = lines, c = columns
+                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[3]);
+                    // sends to interpreter
+                    interpreter.overloadedMsg() = island().tile(l,c).cont(commandsVec[1]);
+                    return 111;
+                }
+            } else return -4;
         }
 
     // LIST
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1) {
-            interpreter.overloadedMsg() = Island().showInfoIsland();
+            interpreter.overloadedMsg() = island().showInfoIsland();
             return 111;
         } if (commandsVec.size() != 3)
             return -2;
         if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
             return -4;
-        if (Island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
+        if (island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return -3;
-        interpreter.overloadedMsg() = Island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
+        interpreter.overloadedMsg() = island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).showInfoTile();
         return 111;
 
     // NEXT

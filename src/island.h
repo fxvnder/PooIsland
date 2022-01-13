@@ -12,7 +12,6 @@
 
 class Island {
 private:
-    int lines = 0, columns = 0;
     poo::vector<poo::vector<Tile*>> vecvec;
     //syntax for arr[l][c] will be arr[l*sizeY+c];
     std::vector<std::string> tile_types = {"pnt", "dsr", "pas", "flr", "pnt", "znZ"};
