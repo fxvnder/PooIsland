@@ -1,8 +1,6 @@
 #include "tile.h"
 #include "program.h"
 #include "utils.h"
-#include <iostream>
-#include <vector>
 
 Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workers(), island_var(island) {
     // here it's saved as coords 1 1 for the tile in vector[0][0]
@@ -78,6 +76,23 @@ std::string Tile::cons(const std::string& command) {
         oss << str << ' ';
     return oss.str();
 }
+std::string Tile::build(std::string& command){
+    std::ostringstream oss;
+    for (int i = 0; i < v_buildings.size(); ++i) {
+        if (command == strToLower(v_buildings[i])){
+            if (building_class != nullptr) {
+                oss << "ERROR: There's a " << command << " here already";
+                return oss.str();
+            }
+            building_class = whichBuilding(v_buildings[i]);
+            return "";
+        }
+    }
+    oss << "ERROR: Wrong specified type, the existing types of buildings are: ";
+    for (const std::string& str : v_buildings)
+        oss << str << ' ';
+    return oss.str();
+}
 Building* Tile::whichBuilding(std::string building){
     Building* p;
     
@@ -92,7 +107,7 @@ Building* Tile::whichBuilding(std::string building){
     } else if (building == "fun"){ //foundry (fundição)
         p = new foundry(*this);
     } else if (building == "sarr"){ //Sarration
-        p = new Sarration(*this);
+        p = new sarration(*this);
     } else {
         std::cout << "Error generating building" << std::endl;
     }
@@ -108,14 +123,14 @@ std::string Tile::cont(const std::string& command){
         if (command == v_types[i]){
 
             switch (i) {
-                case 0: //miner
-                    workers.push_back(new miner);
+                case 0: // miner
+                    workers.push_back(new miner (*this));
                     break;
-                case 1: //len
-                    workers.push_back(new lumberjack);
+                case 1: // len
+                    workers.push_back(new lumberjack(*this));
                     break;
-                case 2: //oper
-                    workers.push_back(new operative);
+                case 2: // oper
+                    workers.push_back(new operative(*this));
                     break;
                 default:
                     std::cout << "error, no worker type" << std::endl;
@@ -134,7 +149,8 @@ std::string Tile::cont(const std::string& command){
 Island& Tile::island(){
     return island_var;
 }
-std::vector<Tile>& Tile::adjacentZones(){
+
+std::vector<Tile> Tile::adjacentZones(){
     // Passar como referencia exige menos do PC
     std::vector<Tile> vec;
     vec.push_back(island().tile(coords[0] - 1, coords[1])); // above

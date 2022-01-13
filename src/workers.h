@@ -3,33 +3,38 @@
 
 #include <iostream>
 
-class worker {
+class Tile;
+
+class Worker {
 private:
-    int indentificador[2], custo;
-public:
 protected:
-    std::string type;
+    int indentificador[2], custo;
+    std::string type_var;
+    Tile & tile;
+public:
+    std::string type();
+    Worker(class Tile & tile);
 };
 
-class operative : public worker {
+class operative : public Worker {
     int custo = 15;
     // 5% probab. de se despedir a partir do dia 10
 public:
-    operative();
+    operative(class Tile &tile);
 };
 
-class lumberjack : public worker {
+class lumberjack : public Worker {
     int custo = 20;
     // trabalha 4 dias e descansa 1
 public:
-    lumberjack();
+    lumberjack(class Tile &tile);
 };
 
-class miner : public worker {
+class miner : public Worker {
     int custo = 10;
     // 10% probab. de se despedir a partir do dia 2
 public:
-    miner();
+    miner(class Tile &tile);
 };
 
 #endif //POOISLAND_WORKERS_H

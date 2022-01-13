@@ -42,7 +42,8 @@ set(PROJECT_SOURCES
         src/buildings.cpp 
         src/buildings.h 
         src/interpreter.cpp 
-        src/interpreter.h)
+        src/interpreter.h
+        src/resources.h src/resources.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PooIsland

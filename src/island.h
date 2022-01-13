@@ -8,15 +8,7 @@
 #include "tile.h"
 #include "utils.h"
 #include "vector.h"
-
-struct resourcesStr {
-    int iron_var; // Ferro
-    int steel_bar_var; // Barra de aço
-    int coal_var; // Carvão
-    int wood_var; // Madeira
-    int wood_plaques_var; // Vigas de Madeira
-    int electricity_var; // Eletricidade
-};
+#include "resources.h"
 
 class Island {
 private:
@@ -39,6 +31,7 @@ public:
     Tile* randomTile(int l, int c);
     void dawn();
     void dusk();
+    resourcesStr & resources();
 };
 
 #endif //POOISLAND_ISLAND_H

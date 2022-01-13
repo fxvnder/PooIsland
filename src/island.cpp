@@ -1,11 +1,9 @@
 #include "island.h"
 #include "tile.h"
-#include "program.h"
 #include "utils.h"
-#include <iostream>
-#include <vector>
+#include "resources.h"
 
-Island::Island(int l, int c) {
+Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0){
     for (int i = 0; i < l; i++) {
         vecvec.add(poo::vector<Tile*>());
         for (int j = 0; j <= c; j++) {
@@ -29,7 +27,7 @@ std::string Island::showSimpleIsland() const {
 std::string Island::showInfoIsland() const {
     std::ostringstream oss;
     // vecvec.size(): lines
-    // vecvec[i].size(): clomun
+    // vecvec[i].size(): column
     if (vecvec.empty()){ // if it's empty, give up
         oss << "ERROR:" << std::endl;
         return oss.str();
@@ -40,30 +38,31 @@ std::string Island::showInfoIsland() const {
         }
     oss << "SUCCESS:" << std::endl;
 
-//Exemplo interface:  ┐┌├ ┬ ─│
-//
-//      1    2    3    4    5
-//    ┌────┬────┬────┬────┬────┐
-//    │flr │pas │pan │flr │mnt │
-//   1│    │elec│    │    │mnF │
-//    │LO  │    │    │    │    │
-//    │2   │    │    │    │M   │
-//    ├────┼────┼────┼────┼────┤
-//    │pas │dsr │mnt │flr │mnt │
-//   2│    │bat │    │    │    │
-//    │    │O   │    │L   │    │
-//    │    │1   │    │1   │    │
-//    ├────┼────┼────┼────┼────┤
-//    │znX │mnt │pnt │dsr │mnt │
-//   3│    │mnC │    │    │    │
-//    │    │M   │    │    │M   │
-//    │    │1   │    │    │1   │
-//    ├────┼────┼────┼────┼────┤
-//    │mnt │pas │znX │pas │flr │
-//   4│    │    │    │    │    │
-//    │    │    │    │OOOO│    │
-//    │    │    │    │5   │    │
-//    └────┴────┴────┴────┴────┘
+    //Exemplo interface:  ┐┌├ ┬ ─│
+    //
+    //      1    2    3    4    5
+    //    ┌────┬────┬────┬────┬────┐
+    //    │flr │pas │pan │flr │mnt │
+    //   1│    │elec│    │    │mnF │
+    //    │LO  │    │    │    │    │
+    //    │2   │    │    │    │M   │
+    //    ├────┼────┼────┼────┼────┤
+    //    │pas │dsr │mnt │flr │mnt │
+    //   2│    │bat │    │    │    │
+    //    │    │O   │    │L   │    │
+    //    │    │1   │    │1   │    │
+    //    ├────┼────┼────┼────┼────┤
+    //    │znX │mnt │pnt │dsr │mnt │
+    //   3│    │mnC │    │    │    │
+    //    │    │M   │    │    │M   │
+    //    │    │1   │    │    │1   │
+    //    ├────┼────┼────┼────┼────┤
+    //    │mnt │pas │znX │pas │flr │
+    //   4│    │    │    │    │    │
+    //    │    │    │    │OOOO│    │
+    //    │    │    │    │5   │    │
+    //    └────┴────┴────┴────┴────┘
+
     for (int j = 1; j <= vecvec.size(); j++){
         if (j==1) { // first iteration
             for (int i = 1; i <= vecvec[0].size(); i++) { // ┌────┬────┬────┬────┬────┐
@@ -252,6 +251,7 @@ Tile &Island::tile(int l, int c) {
 }
 
 bool Island::isOutOfBounds(int l, int c) const{
+    return false;
     --l ; --c ;
     return (l < 0 || l > vecvec.size()-1 || c < 0 || c > vecvec[0].size()-1); // vecvec.size() size of columns (amount of lines)
 }
@@ -262,4 +262,8 @@ void Island::dawn(){
 
 void Island::dusk(){
     std::cout << "It's dusk... ISLAND" << std::endl;
+}
+
+resourcesStr & Island::resources(){
+    return resourcesVar;
 }

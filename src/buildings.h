@@ -48,9 +48,9 @@ public:
     foundry(class Tile &tile);
 };
 
-class Sarration : public Building{
+class sarration : public Building{
 public:
-    Sarration(class Tile &tile);
+    sarration(class Tile &tile);
 };
 
 #endif //POOISLAND_BUILDINGS_H

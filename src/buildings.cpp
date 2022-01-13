@@ -1,9 +1,9 @@
+#include "island.h"
 #include "buildings.h"
 #include "tile.h"
 
 // ===== Class Building ===== //
-Building::Building(Tile &tile) : on(1), tile(tile){ }
-
+Building::Building(Tile &tile) : on(0), tile(tile) { }
 std::string Building::type() {
     return type_var;
 }
@@ -37,6 +37,6 @@ foundry::foundry(class Tile &tile) : Building(tile) {
 }
 
 // ===== Class Sarration ===== //
-Sarration::Sarration(class Tile &tile) : Building(tile) {
+sarration::sarration(class Tile &tile) : Building(tile) {
     type_var = "sarr";
 }

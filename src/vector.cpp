@@ -95,5 +95,5 @@ std::string poo::vector<T>::display() const{
 
 template <class T>
 int poo::vector<T>::size() const{
-    return tam;
+     return tam;
 }

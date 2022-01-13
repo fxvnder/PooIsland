@@ -15,12 +15,8 @@ void interface::plays(){
             getline(std::cin, command);
         } while (command.empty());
         msgCode = game.treatCommand(command, interpreter);
-
-        if (msgCode >= 0) { game.saveCommsVec(command); }
-        //msgCode = 111;
-        //std::cout<< "MSH2:" << msgCode << std::endl;
+        //if (msgCode >= 0) { game.saveCommsVec(command); }
         std::cout << interpreter.predefinedErrors(msgCode) << std::endl;
-        //std::cout<< "MSH2:" << msgCode << std::endl;
     } while (msgCode != 0);
 }
 

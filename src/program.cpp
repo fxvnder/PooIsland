@@ -5,14 +5,7 @@
 #include <cstring>
 #include <fstream>
 
-gameData::gameData(){
-    resourcesVar.iron_var = 0;
-    resourcesVar.steel_bar_var = 0;
-    resourcesVar.coal_var = 0;
-    resourcesVar.wood_var = 0;
-    resourcesVar.electricity_var = 0;
-    resourcesVar.wood_plaques_var = 0;
-}
+gameData::gameData(){ }
 
 Island &gameData::island(){
     return world;
