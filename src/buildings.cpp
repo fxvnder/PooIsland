@@ -7,6 +7,16 @@ Building::Building(Tile &tile) : on(0), tile(tile) { }
 std::string Building::type() {
     return type_var;
 }
+int Building::turnOff(){
+    if (on == 0) return -8;
+    on = 0;
+    return 5;
+}
+int Building::turnOn(){
+    if (on == 0) return -9;
+    on = 1;
+    return 6;
+}
 
 // ===== Class ironFarm ===== //
 ironFarm::ironFarm(class Tile &tile) : Building(tile) {

@@ -39,6 +39,7 @@ std::string Island::showInfoIsland() const {
             oss << "ERROR: NO Y AXIS ON ISLAND FOUND" << std::endl;
             return oss.str();
         }
+
     oss << "SUCCESS:" << std::endl;
 
     //Exemplo interface:  ┐┌├ ┬ ─│
@@ -66,6 +67,7 @@ std::string Island::showInfoIsland() const {
     //    │    │    │    │5   │    │
     //    └────┴────┴────┴────┴────┘
 
+    // FIRST LINE
     for (int j = 1; j <= vecvec.size(); j++){
         if (j==1) { // first iteration
             for (int i = 1; i <= vecvec[0].size(); i++) { // ┌────┬────┬────┬────┬────┐
@@ -83,6 +85,7 @@ std::string Island::showInfoIsland() const {
             }
         }
 
+        // SECOND LINE
         if (j!=1) { // if not first iteration
             for (int i = 1; i <= vecvec[0].size(); i++) { // ├────┼────┼────┼────┼────┤
                 std::string displayvar = vecvec[j - 1][i - 1]->type();
@@ -100,7 +103,7 @@ std::string Island::showInfoIsland() const {
             }
         }
 
-
+        // THIRD LINE -- BIOME TYPE
         for (int i = 1; i <= vecvec[0].size(); i++) { // │flr │pas │pan │flr │mnt │
             std::string displayvar = vecvec[j - 1][i - 1]->type();
             if (i == 1) { // first iteration
@@ -115,8 +118,9 @@ std::string Island::showInfoIsland() const {
             }
         }
 
+        // FOURTH LINE -- BUILDING TYPE
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │elec│    │    │mnF │
-                std::string displayvar = vecvec[j - 1][i - 1]->building();
+                std::string displayvar = vecvec[j - 1][i - 1]->buildingStr();
             if (i == 1) { // first iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "|" << displayvar;
@@ -129,7 +133,37 @@ std::string Island::showInfoIsland() const {
             }
         }
 
+        // FIFTH LINE -- WORKERS
+        for (int i = 1; i <= vecvec[0].size(); i++) { // │    │OOOO│    │    │MMMO│
+            if (i == 1) { // first iteration
+                oss << "|";
+                for (int k = 0; k < TILEDISPSIZE; ++k) {
+                    if (k >= vecvec[j - 1][i - 1]->workers().size())
+                        oss << " ";
+                    else
+                        oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
+                }
+            } else if (i == vecvec[0].size()) { // last iteration
+                oss << "|";
+                for (int k = 0; k < TILEDISPSIZE; ++k) {
+                    if (k >= vecvec[j - 1][i - 1]->workers().size())
+                        oss << " ";
+                    else
+                        oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
+                }
+                oss << "|" << std::endl;
+            } else { // other iteration
+                oss << "|";
+                for (int k = 0; k < TILEDISPSIZE; ++k) {
+                    if (k >= vecvec[j - 1][i - 1]->workers().size())
+                        oss << " ";
+                    else
+                        oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
+                }
+            }
+        }
 
+        // SIXTH LINE
         if (j == vecvec.size()){ // last iteration
             for (int i = 1; i <= vecvec[0].size(); i++){ // └────┴────┴────┴────┴────┘
 
@@ -199,6 +233,37 @@ Tile * Island::randomTile(int l, int c){
     return p;
 }
 
+std::string Island::cont(const std::string& workertype) { // cont <type>
+    std::ostringstream oss;
+    int counter = 0;
+
+    // COUNT PAS
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[i].size(); ++j) {
+            if (vecvec[i][j]->type() == "pas")
+                ++counter;
+        }
+    }
+
+    // RANDOMIZES PAS
+    counter = random(1, counter);
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[i].size(); ++j) {
+            if (vecvec[i][j]->type() == "pas") {
+                --counter;
+                if (counter == 0) {
+                    oss << vecvec[i][j]->cont(workertype);
+                }
+            }
+        }
+    }
+
+    if (oss.str().empty()){
+        oss << "SUCCESS: " << std::endl << "hiring " << workertype << std::endl;
+    } else oss << "ERROR: " << std::endl;
+    return oss.str();
+}
+
 bool Island::existsInIsland(const std::string& type) {
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
@@ -234,45 +299,3 @@ void Island::dusk(){
 resourcesStr & Island::resources(){
     return resourcesVar;
 }
-
-// CONS // CONT ANTIGOS
-
-
-//std::ostringstream Island::cons(std::vector<std::string> commandsVec){ // cons <tipo> <linha> <coluna>
-//    std::ostringstream oss;
-//    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[2]);
-//    oss << vecvec[l-1][c-1]->cons(commandsVec[1]);
-//    if (oss.str().empty()) {
-//        oss << "SUCCESS:" << std::endl << "building " << commandsVec[1] << " in X=" << commandsVec[2] << " Y=" << commandsVec[3] << std::endl;
-//        return oss;
-//    }
-//    oss << "ERROR:" << std::endl;
-//    return oss;
-//}
-//
-//std::ostringstream Island::cont(std::vector<std::string> commandsVec) { // cont <type>
-//    std::ostringstream oss;
-//    int counter = 0;
-//    for (int i = 0; i < vecvec.size(); ++i) {
-//        for (int j = 0; j < vecvec[i].size(); ++j) {
-//            if (vecvec[i][j]->type() == "pas")
-//                ++counter;
-//        }
-//    }
-//    counter = random(1, counter);
-//    for (int i = 0; i < vecvec.size(); ++i) {
-//        for (int j = 0; j < vecvec[i].size(); ++j) {
-//            if (vecvec[i][j]->type() == "pas") {
-//                --counter;
-//                if (counter == 0) {
-//                    oss << vecvec[i][j]->cont(commandsVec[1]);
-//                }
-//            }
-//        }
-//    }
-//    if (oss.str().empty())
-//        oss << "SUCCESS:" << std::endl << "hiring " << commandsVec[1] << std::endl;
-//
-//    oss << "ERROR:" << std::endl;
-//    return oss;
-//}

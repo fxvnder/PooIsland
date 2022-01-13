@@ -12,6 +12,8 @@ std::string Worker::type() {
 operative::operative(class Tile &tile) : Worker(tile){ // oper
     type_var = "oper";
 }
+//char operative::workerChar(){
+//}
 
 // ===== Class miner ===== //
 miner::miner(class Tile &tile) : Worker(tile){ // miner

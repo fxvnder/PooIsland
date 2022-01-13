@@ -15,7 +15,7 @@ private:
     Building* building_class;
     int coords[2];
     // miner len oper
-    std::vector<Worker*> workers;
+    std::vector<Worker*> workersVec;
 protected: // protected so the derivative classes can access it
     std::string typevar;
     Island & island_var;
@@ -24,8 +24,12 @@ public:
     std::string showInfoTile() const;
     std::string cont(const std::string& cmnd);
     std::string type() const;
+    // DISPLAY FUNCS
     std::string& type();
-    std::string building();
+    std::string buildingStr();
+    Building* building();
+    std::vector<Worker*>& workers();
+
     std::vector<std::string> existingTypes() const;
     std::string cons(const std::string& command);
     Island& island();

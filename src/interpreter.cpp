@@ -21,12 +21,17 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (2): return Interpreter::showCredits();
         case (3): return Interpreter::helpMe();
         case (4): return "File saved!";
+        case (5): return "Turned Off";
+        case (6): return "Turned On";
         case (-1): return "Error opening file!";
         case (-2): return "ERROR: Invalid number of arguments. Use 'help' for help.";
         case (-3): return "Target zone coordinates fall outside the Island!";
         case (-4): return "Expected digits";
         case (-5): return "Malformed command, type 'help' for a list of available commands";
         case (-6): return "Wrong filename or file nonexistent";
+        case (-7): return "No building in target Tile";
+        case (-8): return "Building already off";
+        case(-9) : return "Building already on";
         case (-404): return "something wrong happened!";
 
         case (111): //overloaded message

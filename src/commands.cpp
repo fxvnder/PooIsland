@@ -59,21 +59,25 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         //interpreter.overload(island().upgrade(commandsVec).str());
         return 111;
 
+
     // LIGA
-    } else if (commandsVec[0] == "liga") { // liga <linha> <coluna>
-        //liga(island,commandsVec)
+    } else if (commandsVec[0] == "liga") { // des <linha> <coluna>
         if (commandsVec.size() != 3) return -2;
-        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(island().turnOn(commandsVec).str());
-        return 111;
+        if (island().isOutOfBounds(stoi(commandsVec[1]), stoi(commandsVec[2])))
+            return -3;
+        if (island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).building() == nullptr)
+            return -7;
+        return island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).building()->turnOn();
 
     // DES
-    } else if (commandsVec[0] == "des") { // des <linha> <coluna>
-        //des(island,commandsVec)
+    } else if (commandsVec[0] == "des") { // liga <linha> <coluna>
         if (commandsVec.size() != 3) return -2;
-        oss << "desliga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(island().turnOff(commandsVec).str());
-        return 111;
+        if (island().isOutOfBounds(stoi(commandsVec[1]), stoi(commandsVec[2])))
+            return -3;
+        if (island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).building() == nullptr)
+            return -7;
+        return island().tile(stoi(commandsVec[1]),stoi(commandsVec[2])).building()->turnOff();
+
 
     // MOVE
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
@@ -95,18 +99,8 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     } else if (commandsVec[0] == "cont") { // cont <tipo>, contrata trabalhador para a area <area>
         if (commandsVec.size() != 2) return -2;
         else {
-            if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
-                // checks if out of bounds
-                if (island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
-                    return -3;
-                else {
-                    // l = lines, c = columns
-                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[3]);
-                    // sends to interpreter
-                    interpreter.overloadedMsg() = island().tile(l,c).cont(commandsVec[1]);
-                    return 111;
-                }
-            } else return -4;
+            interpreter.overloadedMsg() = island().cont(commandsVec[1]);
+            return 111;
         }
 
     // LIST
@@ -116,7 +110,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             return 111;
         } if (commandsVec.size() != 3)
             return -2;
-        if (!(std::isdigit(commandsVec[1].at(0))  && std::isdigit(commandsVec[2].at(0))))
+        if (!(std::isdigit(commandsVec[1].at(0)) && std::isdigit(commandsVec[2].at(0))))
             return -4;
         if (island().isOutOfBounds(stoi(commandsVec[1]),stoi(commandsVec[2])))
             return -3;

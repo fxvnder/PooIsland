@@ -30,10 +30,7 @@ public:
     void dawn();
     void dusk();
     resourcesStr & resources();
+    std::string cont(const std::string&  workertype);
 };
 
 #endif //POOISLAND_ISLAND_H
-
-//    comandos antigos:
-//std::ostringstream cons(std::vector<std::string> commandsVec);
-//std::ostringstream cont(std::vector<std::string> commandsVec);

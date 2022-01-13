@@ -9,11 +9,13 @@ class Tile;
 class Building {
 private:
 protected:
-    bool on;
+    bool on; // 1 - on | 0 - off
     std::string type_var;
     Tile & tile;
 public:
     std::string type();
+    int turnOff();
+    int turnOn();
     Building(class Tile & tile);
 };
 

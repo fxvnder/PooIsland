@@ -2,7 +2,7 @@
 #include "program.h"
 #include "utils.h"
 
-Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workers(), island_var(island) {
+Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workersVec(), island_var(island) {
     // here it's saved as coords 1 1 for the tile in vector[0][0]
     coords[0] = l;
     coords[1] = c;
@@ -26,22 +26,40 @@ std::string Tile::showInfoTile() const {
     } else {
         building_type = building_class->type();
     }
+
     oss << "SUCCESS:" << std::endl;
 
+    // first line
     oss << "┌";
     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
     oss << "┐" << std::endl;
 
+    // second line - BIOME TYPE
     oss << "|" << typevar;
     for (int i = typevar.size(); i < TILEDISPSIZE; ++i)
         oss << " ";
     oss <<      "|" << std::endl;
 
+    // third line - BUILDING TYPE
     oss << "|" << building_type;
-    for (int i = building_type.size(); i < TILEDISPSIZE; ++i)
+    for (int i = building_type.size(); i < TILEDISPSIZE; ++i) {
         oss << " ";
+    }
+
     oss <<      "|" << std::endl;
 
+    // fourth line - WORKERS
+    oss << "|";
+    for (int k = 0; k < TILEDISPSIZE; ++k) {
+        if (k >= workersVec.size())
+            oss << " ";
+        else
+            oss << workersVec[k]->workerChar();
+    }
+
+    oss << "|" << std::endl;
+
+    // the rest
     oss << "└";
     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
     oss << "┘" << std::endl;
@@ -54,11 +72,30 @@ std::string Tile::type() const{
 std::string& Tile::type(){
     return typevar;
 }
-std::string Tile::building(){
+std::string Tile::buildingStr(){
     //std::cout << building_class->type() << " | " << building_str << std::endl;
     if (building_class == nullptr) return "";
     return building_class->type();
 }
+
+Building* Tile::building(){
+    //std::cout << building_class->type() << " | " << building_str << std::endl;
+    //if (building_class == nullptr) return "";
+    return building_class;
+}
+
+std::vector<Worker*>& Tile::workers(){
+    return workersVec;
+/*
+    std::ostringstream oss;
+    if (workers.empty()) return "";
+    for (int i = 0; i < workers.size(); ++i) { // 4 is the graphical limit
+        oss << workers[i];
+    }
+    return oss.str();
+    */
+}
+
 std::string Tile::cons(const std::string& command) {
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
@@ -125,13 +162,13 @@ std::string Tile::cont(const std::string& command){
 
             switch (i) {
                 case 0: // miner
-                    workers.push_back(new miner (*this));
+                    workersVec.push_back(new miner(*this));
                     break;
                 case 1: // len
-                    workers.push_back(new lumberjack(*this));
+                    workersVec.push_back(new lumberjack(*this));
                     break;
                 case 2: // oper
-                    workers.push_back(new operative(*this));
+                    workersVec.push_back(new operative(*this));
                     break;
                 default:
                     std::cout << "ERROR: No worker type." << std::endl;

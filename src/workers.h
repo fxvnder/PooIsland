@@ -14,6 +14,7 @@ protected:
 public:
     std::string type();
     Worker(class Tile & tile);
+    virtual char workerChar() = 0;
 };
 
 class operative : public Worker {
@@ -21,6 +22,7 @@ class operative : public Worker {
     // 5% probab. de se despedir a partir do dia 10
 public:
     operative(class Tile &tile);
+    virtual char workerChar() override { return 'O'; };
 };
 
 class lumberjack : public Worker {
@@ -28,6 +30,7 @@ class lumberjack : public Worker {
     // trabalha 4 dias e descansa 1
 public:
     lumberjack(class Tile &tile);
+    virtual char workerChar() override { return 'L'; };
 };
 
 class miner : public Worker {
@@ -35,6 +38,7 @@ class miner : public Worker {
     // 10% probab. de se despedir a partir do dia 2
 public:
     miner(class Tile &tile);
+    virtual char workerChar() override { return 'M'; };
 };
 
 #endif //POOISLAND_WORKERS_H
