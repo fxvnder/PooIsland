@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <exception>
 
 namespace poo {
     template <class T> class vector {

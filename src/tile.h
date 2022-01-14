@@ -52,6 +52,7 @@ public:
     Tile* ptrToAdjacentTileWithBuildingOfType(const std::string&) const;
     resourcesStr& resources();
     virtual void dawn();
+    virtual void dusk();
     virtual ~Tile();
 private:
     Building* whichBuilding(std::string command);

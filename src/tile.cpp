@@ -208,7 +208,6 @@ std::vector<Tile> Tile::adjacentZones(){
     vec.push_back(island().tile(coords[0], coords[1] - 1)); // left
     return vec;
 }
-void Tile::dawn() { }
 Tile::~Tile(){
     for (Worker* w : workersVec) {
         delete w;
@@ -285,6 +284,12 @@ Tile* Tile::ptrToAdjacentTileWithBuildingOfType(const std::string& type) const{
 
     return nullptr;
 }
+void Tile::dawn() { }
+void Tile::dusk() {
+    if (building_class != nullptr)
+        building_class->dusk();
+}
+
 
 // ===== Class mountain ===== //
 mountain::mountain(Island &island,int l, int c) : Tile(island,l,c) {

@@ -1,8 +1,6 @@
 // this cpp file is included in the end of vector.h to avid linking issues with the template
 // thus it shan't be added to the compiled files
 #include "vector.h"
-#include <iostream>
-#include <exception>
 
 // Constructor
 template <class T>

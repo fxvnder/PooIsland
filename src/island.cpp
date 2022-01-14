@@ -204,6 +204,7 @@ std::string Island::showInfoIsland() const {
 void Island::changeDim(int l, int c){
 
     roundNum = 0;
+    playerNum = 0;
 
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.add(poo::vector<class Tile*>());
@@ -324,6 +325,9 @@ bool Island::existsInIsland(const std::string& type) {
 int& Island::workerIDCounter(){
     return playerNum;
 }
+const int& Island::workerIDCounter() const{
+    return playerNum;
+}
 
 Tile &Island::tile(int l, int c) {
     --l ; --c ;
@@ -344,10 +348,20 @@ bool Island::isOutOfBounds(int l, int c) const {
 
 void Island::dawn(){
     std::cout << "It's dawn... ISLAND" << std::endl;
+    for (int i = 1; i <= vecvec.size(); i++) {
+        for (int j = 1; j <= vecvec[0].size(); j++){
+            vecvec[i-1][j-1]->dawn();
+        }
+    }
 }
 
 void Island::dusk(){
     std::cout << "It's dusk... ISLAND" << std::endl;
+    for (int i = 1; i <= vecvec.size(); i++) {
+        for (int j = 1; j <= vecvec[0].size(); j++){
+            vecvec[i-1][j-1]->dusk();
+        }
+    }
 }
 
 void Island::incRound(){

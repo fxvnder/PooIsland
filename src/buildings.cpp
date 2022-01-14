@@ -36,6 +36,7 @@ electricityCentral::electricityCentral(class Tile &tile) : Building(tile) {
     tile.resources().money -= 15;
 }
 void electricityCentral::dusk(){
+    std::cout << "we got thehere \n";
     if (tile.atLeastOneWorkerOfType("oper") && tile.atLeastOneAdjacentTileOfType("flr")) {
         Tile * tileptr = tile.ptrToAdjacentTileOfType("flr");
         tileptr->resources().wood -= 1;

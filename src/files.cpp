@@ -1,6 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <string>
 #include "files.h"
 
 bool checkFilecfg(const std::string& filename){ // function to check if file filename exists

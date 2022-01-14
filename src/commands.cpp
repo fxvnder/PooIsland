@@ -1,6 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
 #include "files.h"
 #include "program.h"
 

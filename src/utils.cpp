@@ -1,6 +1,4 @@
 #include "utils.h"
-#include <algorithm>
-#include <random>
 
 int random (int low, int high) {
     if (low > high) return high;

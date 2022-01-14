@@ -1,6 +1,10 @@
 #ifndef POOISLAND_FILES_H
 #define POOISLAND_FILES_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+
 bool checkFiletxt(const std::string& filename);
 bool checkFilecfg(const std::string& filename);
 

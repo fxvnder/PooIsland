@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "files.h"
 #include "tile.h"
@@ -41,6 +42,7 @@ public:
 
     // management players
     int& workerIDCounter();
+    const int& workerIDCounter() const;
 
     void dawn();
     void dusk();
