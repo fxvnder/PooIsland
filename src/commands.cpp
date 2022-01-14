@@ -27,16 +27,9 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
 
     // !!! GAME COMMANDS !!!
 
-    // EXEC
-    if (commandsVec[0] == "exec") { // executes saved file
-        if(checkFiletxt(commandsVec[1])){
-            readExecFile(commandsVec[2]);
-            return 1;
-        } else return -1;
-
     // CONS
-    } else if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
-        if (commandsVec.size() != 4) return -2; // checks if too much arguments
+    if (commandsVec[0] == "cons") { // constroi <tipo> <linha> <coluna>
+        if (commandsVec.size() != 4) return -2; // checks if too many arguments
         else {
             if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
                 // checks if out of bounds
@@ -82,8 +75,21 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // MOVE
     } else if (commandsVec[0] == "move") { // move <id> <linha> <coluna>
         //move(island,commandsVec)
-        if (commandsVec.size() != 4) return -2;
-        oss << "liga " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
+        if (commandsVec.size() != 4) return -2; // checks if too many arguments
+        else {
+            if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
+                // checks if out of bounds
+                if (island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                    return -3;
+                else {
+                    // l = lines, c = columns
+                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[3]);
+                    // sends to interpreter
+                    interpreter.overloadedMsg() = island().move(commandsVec[1], l, c);
+                    return 111;
+                }
+            } else return -4;
+        }
         //interpreter.overload(island().move(commandsVec).str());
         return 111;
 
@@ -122,14 +128,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         if (commandsVec.size() != 1) return -2;
         return 0;
 
-    // SAVECOMMANDS
-    } else if (commandsVec[0] == "savecommands") { // savecommands <nome>
-        if (commandsVec.size() != 2) return -2;
-        //saveFile(commandsVec[1], savegame);
-        if(saveCommands(commandsVec[1])) {
-            return 4;
-        } else return -404;
-
+    // MEMORY STUFF
     // SAVE
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return -2;
@@ -146,6 +145,14 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         if (commandsVec.size() != 2) return -2;
         return -404;
 
+    // FILES STUFF
+    // EXEC
+    } else if (commandsVec[0] == "exec") { // executes saved file
+        if(checkFiletxt(commandsVec[1])){
+            readExecFile(commandsVec[2]);
+            return 1;
+        } else return -1;
+
     // CONFIG
     } else if (commandsVec[0] == "config") { // config <ficheiro>
         if (commandsVec.size() != 2) return -2;
@@ -154,22 +161,53 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             return 0;
         } else return -6;
 
+    // SAVECOMMANDS
+    } else if (commandsVec[0] == "savecommands") { // savecommands <nome>
+        if (commandsVec.size() != 2) return -2;
+        //saveFile(commandsVec[1], savegame);
+        if (saveCommands(commandsVec[1])) {
+            return 4;
+        } else return -404;
+
     // !!! DEBUG COMMANDS !!!
 
     // DEBCASH
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
-        if (commandsVec.size() != 2) return -2;
+        if (commandsVec.size() != 2) return -2; // checks if too many arguments
         return -404;
+
 
     // DEBED
     } else if (commandsVec[0] == "debed") { // debed <tipo> <linha> <coluna>
         if (commandsVec.size() != 4) return -2;
         return -404;
 
-    // DEKILL
+    // DEBKILL
     } else if (commandsVec[0] == "debkill") { // dekill <id>
-        if (commandsVec.size() != 2) return -2;
-        return -404;
+        if (commandsVec.size() != 2) return -2; // checks if too many arguments
+
+        std::ostringstream oss;
+        std::stringstream workerIDstream;
+        int workerIDint, l, c;
+
+        // converts string to ostring
+        workerIDstream << commandsVec[1];
+
+        // converts ostring to int
+        workerIDstream >> workerIDint;
+
+        for (int i = 0; i < world.tiles().size() ; ++i) {
+            for (int j = 0; j < world.tiles()[0].size(); ++j) {
+                for (int k = 0; k < world.tiles()[i][j]->workers().size(); ++k) {
+                    if(world.tiles()[i][j]->workers()[k]->giveIdentificador()[0] == workerIDint + 1) {
+                        l = i; c = j;
+                        interpreter.overloadedMsg() = island().tile(l,c).debkill(workerIDint);
+                        return 111;
+                    }
+                }
+            }
+        }
+        return 0;
 
     // !!! MISC. COMMANDS !!!
 

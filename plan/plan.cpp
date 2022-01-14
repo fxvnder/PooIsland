@@ -70,7 +70,7 @@ interface:
 Representação Ilha:
 	A ilha deve estar toda no ecrã
 	É necessário indicar o conteúdo das várias zonas. Utilize as abreviaturas e códigos indicados:
-		pnt –> Montanha
+		mnt –> Montanha
 		dsr -> Deserto
 		pas -> Pastagem
 		flr -> Floresta
@@ -251,3 +251,4 @@ Durães:
     int tipo  (//Está mal)
  }
  memória dinâmica:
+*/

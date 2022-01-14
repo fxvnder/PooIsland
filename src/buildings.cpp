@@ -3,18 +3,20 @@
 #include "tile.h"
 
 // ===== Class Building ===== //
-Building::Building(Tile &tile) : on(0), tile(tile) { }
+Building::Building(Tile &tile) : on(false), tile(tile) { }
 std::string Building::type() {
     return type_var;
 }
+Building::~Building() {}
+void Building::dusk() {}
 int Building::turnOff(){
     if (on == 0) return -8;
-    on = 0;
+    on = false;
     return 5;
 }
 int Building::turnOn(){
     if (on == 0) return -9;
-    on = 1;
+    on = true;
     return 6;
 }
 
@@ -31,6 +33,18 @@ coalMine::coalMine(class Tile &tile) : Building(tile) {
 // ===== Class electricityCentral ===== //
 electricityCentral::electricityCentral(class Tile &tile) : Building(tile) {
     type_var = "elec";
+    tile.resources().money -= 15;
+}
+void electricityCentral::dusk(){
+    if (tile.atLeastOneWorkerOfType("oper") && tile.atLeastOneAdjacentTileOfType("flr")) {
+        Tile * tileptr = tile.ptrToAdjacentTileOfType("flr");
+        tileptr->resources().wood -= 1;
+        tile.resources().coal += 1;
+        tileptr = tile.ptrToAdjacentTileWithBuildingOfType("bat");
+        if (tileptr != nullptr){
+            tileptr->resources().electricity += 1;
+        }
+    }
 }
 
 // ===== Class battery ===== //

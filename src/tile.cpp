@@ -64,6 +64,19 @@ std::string Tile::showInfoTile() const {
     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
     oss << "┘" << std::endl;
 
+    oss << "Number of workers present in this tile: " << workersVec.size() << std::endl;
+    for (int k = 0; k < workersVec.size(); ++k){
+        oss << workersVec[k]->workerChar() << ":";
+        oss << workersVec[k]->giveIdentificador()[0] << "." << workersVec[k]->giveIdentificador()[1] << " ";
+    }
+    oss << std::endl << "Tile resources: " << std::endl;
+    oss << "Iron: " << resources_var.iron << " - ";
+    oss << "Steel: " << resources_var.steel_bar << " - ";
+    oss << "Coal: " << resources_var.coal << " - ";
+    oss << "Wood: " << resources_var.wood << " - ";
+    oss << "Wood_plaques: " << resources_var.wood_plaques << " - ";
+    oss << "Electricity: " << resources_var.electricity << std::endl;
+
     return oss.str();
 }
 std::string Tile::type() const{
@@ -86,33 +99,28 @@ Building* Tile::building(){
 
 std::vector<Worker*>& Tile::workers(){
     return workersVec;
-/*
-    std::ostringstream oss;
-    if (workers.empty()) return "";
-    for (int i = 0; i < workers.size(); ++i) { // 4 is the graphical limit
-        oss << workers[i];
-    }
-    return oss.str();
-    */
 }
 
-std::string Tile::cons(const std::string& command) {
+std::string Tile::debkill(int workerID){
     std::ostringstream oss;
-    for (int i = 0; i < v_buildings.size(); ++i) {
-        if (command == strToLower(v_buildings[i])){
-            if (building_class != nullptr) {
-                oss << "There's a " << command << " here already";
-                return oss.str();
-            }
-            building_class = whichBuilding(v_buildings[i]);
-            return "";
+    std::stringstream workerIDstream;
+    int workerIDint;
+
+    // converts string to ostring
+    workerIDstream << workerID;
+
+    // converts ostring to int
+    workerIDstream >> workerIDint;
+
+    for (int i = 0; i < workersVec.size(); ++i) {
+        if (workersVec[i]->giveIdentificador()[0] == workerID){
+            workersVec.erase(workersVec.begin()+i-1);
         }
     }
-    oss << "Wrong specified type, the existing types of buildings are: ";
-    for (const std::string& str : v_buildings)
-        oss << str << ' ';
+    oss << "SUCCESS:" << std::endl << "Removed worker " << workerID << " from X=" << coords[0] << " Y=" << coords[1] << std::endl;
     return oss.str();
 }
+
 std::string Tile::build(std::string& command){
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
@@ -122,7 +130,7 @@ std::string Tile::build(std::string& command){
                 return oss.str();
             }
             building_class = whichBuilding(v_buildings[i]);
-            oss << "SUCCESS:" << std::endl << "building " << command << " in X=" << coords[0] << " Y=" << coords[1] << std::endl;
+            oss << "SUCCESS:" << std::endl << "Building " << command << " in X=" << coords[0] << " and Y=" << coords[1] << std::endl;
             return oss.str();
         }
     }
@@ -131,8 +139,9 @@ std::string Tile::build(std::string& command){
         oss << str << ' ';
     return oss.str();
 }
+
 Building* Tile::whichBuilding(std::string building){
-    Building* p;
+    Building *p = nullptr;
     
     if (building == "mnF"){ // IRonFarm
         p = new ironFarm(*this);
@@ -187,7 +196,9 @@ std::string Tile::cont(const std::string& command){
 Island& Tile::island(){
     return island_var;
 }
-
+Island& Tile::island() const{
+    return island_var;
+}
 std::vector<Tile> Tile::adjacentZones(){
     // Passar como referencia exige menos do PC
     std::vector<Tile> vec;
@@ -197,25 +208,118 @@ std::vector<Tile> Tile::adjacentZones(){
     vec.push_back(island().tile(coords[0], coords[1] - 1)); // left
     return vec;
 }
+void Tile::dawn() { }
+Tile::~Tile(){
+    for (Worker* w : workersVec) {
+        delete w;
+    }
+}
+resourcesStr& Tile::resources() {
+    return resources_var;
+}
+bool Tile::atLeastOneWorkerOfType(std::string const & str) const{
+    for (Worker* w : workersVec) { // oper, miner, len
+        if (w->type() == str)
+            return true;
+    }
+    return false;
+}
+Tile* Tile::ptrToAdjacentTileOfType(const std::string& type) const{
+    /*
+    std::vector<Tile> vec;
+    vec.push_back(island().tile(coords[0] - 1, coords[1])); // above
+    vec.push_back(island().tile(coords[0], coords[1] + 1)); // right
+    vec.push_back(island().tile(coords[0] + 1, coords[1])); // below
+    vec.push_back(island().tile(coords[0], coords[1] - 1)); // left
+*/
+    // above
+    if (!island().isOutOfBounds(coords[0] - 1, coords[1]))
+        if (island().tile(coords[0] - 1, coords[1]).type() == type)
+            return &island().tile(coords[0] - 1, coords[1]);
+
+    // right
+    if (!island().isOutOfBounds(coords[0], coords[1] + 1))
+        if (island().tile(coords[0], coords[1] + 1).type() == type)
+            return &island().tile(coords[0], coords[1] + 1);
+
+    // below
+    if (!island().isOutOfBounds(coords[0] + 1, coords[1]))
+        if (island().tile(coords[0] + 1, coords[1]).type() == type)
+            return &island().tile(coords[0] + 1, coords[1]);
+
+    // left
+    if (!island().isOutOfBounds(coords[0], coords[1] - 1))
+        if (island().tile(coords[0], coords[1] - 1).type() == type)
+            return &island().tile(coords[0], coords[1] - 1);
+
+    return nullptr;
+}
+bool Tile::atLeastOneAdjacentTileOfType(const std::string& type) const {
+    if (ptrToAdjacentTileOfType(type) == nullptr) return false;
+    return true;
+}
+Tile* Tile::ptrToAdjacentTileWithBuildingOfType(const std::string& type) const{
+    // above
+    if (!island().isOutOfBounds(coords[0] - 1, coords[1]))
+        if (island().tile(coords[0] - 1, coords[1]).building() != nullptr)
+            if (island().tile(coords[0] - 1, coords[1]).building()->type() == type)
+                return &island().tile(coords[0] - 1, coords[1]);
+
+    // right
+    if (!island().isOutOfBounds(coords[0], coords[1] + 1))
+        if (island().tile(coords[0], coords[1] + 1).building() != nullptr)
+            if (island().tile(coords[0], coords[1] + 1).building()->type() == type)
+                return &island().tile(coords[0], coords[1] + 1);
+
+    // below
+    if (!island().isOutOfBounds(coords[0] + 1, coords[1]))
+        if (island().tile(coords[0] + 1, coords[1]).building() != nullptr)
+            if (island().tile(coords[0] + 1, coords[1]).building()->type() == type)
+                return &island().tile(coords[0] + 1, coords[1]);
+
+    // left
+    if (!island().isOutOfBounds(coords[0], coords[1] - 1))
+        if (island().tile(coords[0], coords[1] - 1).building() != nullptr)
+            if (island().tile(coords[0], coords[1] - 1).type() == type)
+                return &island().tile(coords[0], coords[1] - 1);
+
+    return nullptr;
+}
 
 // ===== Class mountain ===== //
 mountain::mountain(Island &island,int l, int c) : Tile(island,l,c) {
-    typevar = "pnt";
+    typevar = "mnt";
+}
+void mountain::dawn() {
+
 }
 
 // ===== Class desert ===== //
 desert::desert(Island &island,int l, int c) : Tile(island,l,c){
     typevar = "dsr";
 }
+void desert::dawn() {
+
+}
 
 // ===== Class pasture ===== //
 pasture::pasture(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "pas";
 }
+void pasture::dawn() {
+
+}
 
 // ===== Class forest ===== //
-forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(0) {
+forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(random(20,40)) {
     typevar = "flr";
+
+}
+void forest::dawn() {
+    if (building_class != nullptr)
+        if (num_trees > 0) --num_trees;
+    else
+        if (num_trees < 100) ++num_trees;
 }
 int forest::trees() const {
     return num_trees;
@@ -225,8 +329,21 @@ int forest::trees() const {
 swamp::swamp(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "pnt";
 }
+void swamp::dawn() {
+    if (building_class != nullptr)
+        ++daysSinceBuilding;
+    if (daysSinceBuilding == 10){
+        for (Worker* w : workersVec) {
+            delete w;
+        }
+        workersVec.clear();
+    }
+}
 
 // ===== Class zonaX ===== //
 zoneX::zoneX(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "znZ";
+}
+void zoneX::dawn() {
+
 }

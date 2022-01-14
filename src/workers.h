@@ -7,14 +7,16 @@ class Tile;
 
 class Worker {
 private:
+    int custo = 0;
 protected:
-    int indentificador[2], custo;
     std::string type_var;
     Tile & tile;
+    int identificador[2];
 public:
     std::string type();
     Worker(class Tile & tile);
     virtual char workerChar() = 0;
+    int* giveIdentificador();
 };
 
 class operative : public Worker {

@@ -150,6 +150,7 @@ void interface::newGame() {
 
 void interface::gameCycle(){
     do {
+        game.island().incRound();
         std::cout << game.island().showInfoIsland() << std::endl;
         game.dawn();
         plays();

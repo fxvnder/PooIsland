@@ -3,13 +3,20 @@
 #include "tile.h"
 
 // ===== Class Worker ===== //
-Worker::Worker(Tile &tile) : tile(tile) { }
+Worker::Worker(Tile &tile) : tile(tile) { identificador[0] = tile.island().workerIDCounter(), identificador[1] = tile.island().day(); }
 std::string Worker::type() {
     return type_var;
 }
 
+int* Worker::giveIdentificador(){
+    return identificador;
+}
+
 // ===== Class operative ===== //
 operative::operative(class Tile &tile) : Worker(tile){ // oper
+    tile.island().workerIDCounter()++;
+    identificador[0] = tile.island().workerIDCounter();
+    identificador[1] = tile.island().day();
     type_var = "oper";
 }
 //char operative::workerChar(){
@@ -17,10 +24,16 @@ operative::operative(class Tile &tile) : Worker(tile){ // oper
 
 // ===== Class miner ===== //
 miner::miner(class Tile &tile) : Worker(tile){ // miner
+    tile.island().workerIDCounter()++;
+    identificador[0] = tile.island().workerIDCounter();
+    identificador[1] = tile.island().day();
     type_var = "miner";
 }
 
 // ===== Class lumberjack ===== //
 lumberjack::lumberjack(class Tile &tile) : Worker(tile){ // len
+    tile.island().workerIDCounter()++;
+    identificador[0] = tile.island().workerIDCounter();
+    identificador[1] = tile.island().day();
     type_var = "len";
 }

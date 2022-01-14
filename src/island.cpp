@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "resources.h"
 
-Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0){
+Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0,500), roundNum(0), playerNum(0){
     for (int i = 0; i < l; i++) {
         vecvec.add(poo::vector<Tile*>());
         for (int j = 0; j <= c; j++) {
@@ -11,6 +11,14 @@ Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0){
             vecvec[i][j] = randomTile(l,c);
         }
     }
+}
+
+Island::Island(const Island &old) :
+    vecvec(old.vecvec),
+    tile_types(old.tile_types),
+    resourcesVar(old.resourcesVar)
+{
+
 }
 
 std::string Island::showSimpleIsland() const {
@@ -39,8 +47,6 @@ std::string Island::showInfoIsland() const {
             oss << "ERROR: NO Y AXIS ON ISLAND FOUND" << std::endl;
             return oss.str();
         }
-
-    oss << "SUCCESS:" << std::endl;
 
     //Exemplo interface:  ┐┌├ ┬ ─│
     //
@@ -182,11 +188,23 @@ std::string Island::showInfoIsland() const {
         }
     }
 
+    oss << "--- DAY NUMBER " << roundNum << " ---" << std::endl << std::endl;
+    oss << "Cash: " << resourcesVar.money << "€" << std::endl;
+    oss << "Iron: " << resourcesVar.iron << " - ";
+    oss << "Steel: " << resourcesVar.steel_bar << " - ";
+    oss << "Coal: " << resourcesVar.coal << " - ";
+    oss << "Wood: " << resourcesVar.wood << " - ";
+    oss << "Wood_plaques: " << resourcesVar.wood_plaques << " - ";
+    oss << "Electricity: " << resourcesVar.electricity << std::endl;
+
     return oss.str();
 }
 
 
 void Island::changeDim(int l, int c){
+
+    roundNum = 0;
+
     for (int i = 0 ; i < l ; ++i ) {
         vecvec.add(poo::vector<class Tile*>());
         for (int j = 0; j < c; ++j) {
@@ -259,8 +277,36 @@ std::string Island::cont(const std::string& workertype) { // cont <type>
     }
 
     if (oss.str().empty()){
-        oss << "SUCCESS: " << std::endl << "hiring " << workertype << std::endl;
-    } else oss << "ERROR: " << std::endl;
+        oss << "SUCCESS: " << "Hiring " << workertype;
+    } else oss << "ERROR: ";
+    return oss.str();
+}
+
+std::string Island::move(std::string& workerID, int l, int c){
+    std::ostringstream oss;
+    std::stringstream workerIDstream;
+    int workerIDint;
+
+    // converts string to ostring
+    workerIDstream << workerID;
+
+    // converts ostring to int
+    workerIDstream >> workerIDint;
+
+    //std::cout << vecvec[1][3]->workers().size();
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[0].size(); ++j) {
+            for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
+                if (vecvec[i][j]->workers()[k]->giveIdentificador()[0] == workerIDint){
+                    tile(l,c).workers().push_back(vecvec[i][j]->workers()[k]);
+                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k-1);
+                }
+            }
+        }
+    }
+
+    oss << "SUCCESS:" << std::endl << "Moving Worker " << workerID << " to X=" << l << " and Y=" << c << std::endl;
+
     return oss.str();
 }
 
@@ -275,9 +321,17 @@ bool Island::existsInIsland(const std::string& type) {
     return false;
 }
 
+int& Island::workerIDCounter(){
+    return playerNum;
+}
+
 Tile &Island::tile(int l, int c) {
     --l ; --c ;
     return *vecvec[l][c];
+}
+
+poo::vector<poo::vector<Tile*>> &Island::tiles() {
+    return vecvec;
 }
 
 bool Island::isOutOfBounds(int l, int c) const {
@@ -294,6 +348,18 @@ void Island::dawn(){
 
 void Island::dusk(){
     std::cout << "It's dusk... ISLAND" << std::endl;
+}
+
+void Island::incRound(){
+    roundNum++;
+}
+
+int Island::day() const {
+    return roundNum;
+}
+
+int & Island::day() {
+    return roundNum;
 }
 
 resourcesStr & Island::resources(){

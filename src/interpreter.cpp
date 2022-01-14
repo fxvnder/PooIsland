@@ -31,8 +31,9 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (-6): return "Wrong filename or file nonexistent";
         case (-7): return "No building in target Tile";
         case (-8): return "Building already off";
-        case(-9) : return "Building already on";
-        case (-404): return "something wrong happened!";
+        case (-9) : return "Building already on";
+        case (-10) : return "No worker was found with that ID!";
+        case (-404): return "Something wrong happened!";
 
         case (111): //overloaded message
             if (msg.find("ERROR") != std::string::npos) { // first word is "ERROR:"
@@ -42,7 +43,7 @@ std::string Interpreter::predefinedErrors(int& code) {
                 return msg;
             } else {
                 std::ostringstream oss;
-                oss << "(Unable to identify SUCCESS or ERROR)" << msg;
+                oss << "(Unable to identify SUCCESS or ERROR)" << std::endl << msg;
                 return oss.str();
             }
 

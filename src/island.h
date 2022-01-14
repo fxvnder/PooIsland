@@ -12,25 +12,48 @@
 
 class Island {
 private:
+    // vector of vectors that have the tiles
     poo::vector<poo::vector<Tile*>> vecvec;
     //syntax for arr[l][c] will be arr[l*sizeY+c];
-    std::vector<std::string> tile_types = {"pnt", "dsr", "pas", "flr", "pnt", "znZ"};
+    std::vector<std::string> tile_types = {"mnt", "dsr", "pas", "flr", "pnt", "znZ"};
     // montanha, deserto, pastagem, floresta, pantano, zonaX
-
+    // resources
     resourcesStr resourcesVar;
+
+    int roundNum, playerNum;
 public:
-    Island(int l=0, int c=0);
+    Island(int l=0, int c=0); // construtor
+    Island(const Island &old); // const por cópia
+
     std::string showSimpleIsland() const;
     std::string showInfoIsland() const;
+
     void changeDim(int l, int c);
     Tile &tile(int l, int c);
     bool isOutOfBounds(int l, int c) const;
     bool existsInIsland(const std::string& type);
     Tile* randomTile(int l, int c);
+
+    // management rounds
+    void incRound();
+    int day() const;
+    int & day();
+
+    // management players
+    int& workerIDCounter();
+
     void dawn();
     void dusk();
+
+    //resources
     resourcesStr & resources();
-    std::string cont(const std::string&  workertype);
+
+    // comms
+    std::string cont(const std::string& workertype);
+    std::string move(std::string& workerID, int l, int c);
+
+    // tiles
+    poo::vector<poo::vector<Tile*>> &tiles();
 };
 
 #endif //POOISLAND_ISLAND_H

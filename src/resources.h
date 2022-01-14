@@ -8,8 +8,9 @@ struct resourcesStr {
     int wood; // Madeira
     int wood_plaques; // Vigas de Madeira
     int electricity; // Eletricidade
+    int money; // Cash
 
-    resourcesStr(int iron=0, int steel=0, int coal=0, int wood=0, int wood_plaques=0, int electricity=0);
+    resourcesStr(int iron=0, int steel=0, int coal=0, int wood=0, int wood_plaques=0, int electricity=0, int money=0);
 };
 
 #endif //POOISLAND_RESOURCES_H

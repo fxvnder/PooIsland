@@ -17,6 +17,8 @@ public:
     int turnOff();
     int turnOn();
     Building(class Tile & tile);
+    virtual void dusk();
+    virtual ~Building();
 };
 
 //        mnF -> Mina de ferro
@@ -38,6 +40,7 @@ public:
 class electricityCentral : public Building{
 public:
     electricityCentral(class Tile &tile);
+    virtual void dusk() override;
 };
 
 class battery : public Building{
