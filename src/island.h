@@ -53,6 +53,7 @@ public:
     // comms
     std::string cont(const std::string& workertype);
     std::string move(std::string& workerID, int l, int c);
+    std::string debkill(int workerID);
 
     // tiles
     poo::vector<poo::vector<Tile*>> &tiles();

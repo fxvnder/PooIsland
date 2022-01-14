@@ -171,6 +171,8 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // DEBCASH
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
         if (commandsVec.size() != 2) return -2; // checks if too many arguments
+        //if ()
+        island().resources().money
         return -404;
 
 
@@ -180,7 +182,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         return -404;
 
     // DEBKILL
-    } else if (commandsVec[0] == "debkill") { // dekill <id>
+    } else if (commandsVec[0] == "debkill") { // debkill <id>
         if (commandsVec.size() != 2) return -2; // checks if too many arguments
 
         std::ostringstream oss;
@@ -197,8 +199,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
             for (int j = 0; j < world.tiles()[0].size(); ++j) {
                 for (int k = 0; k < world.tiles()[i][j]->workers().size(); ++k) {
                     if(world.tiles()[i][j]->workers()[k]->giveIdentificador()[0] == workerIDint + 1) {
-                        l = i; c = j;
-                        interpreter.overloadedMsg() = island().tile(l,c).debkill(workerIDint);
+                        interpreter.overloadedMsg() = island().debkill(workerIDint);
                         return 111;
                     }
                 }

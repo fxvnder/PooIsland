@@ -114,10 +114,10 @@ std::string Island::showInfoIsland() const {
             std::string displayvar = vecvec[j - 1][i - 1]->type();
             if (i == 1) { // first iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "|" << displayvar;
+                oss << "│" << displayvar;
             } else if (i == vecvec[0].size()) { // last iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "|" << displayvar << "|" << std::endl;
+                oss << "│" << displayvar << "│" << std::endl;
             } else { // other iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "│" << displayvar;
@@ -129,10 +129,10 @@ std::string Island::showInfoIsland() const {
                 std::string displayvar = vecvec[j - 1][i - 1]->buildingStr();
             if (i == 1) { // first iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "|" << displayvar;
+                oss << "│" << displayvar;
             } else if (i == vecvec[0].size()) { // last iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "|" << displayvar << "|" << std::endl;
+                oss << "│" << displayvar << "│" << std::endl;
             } else { // other iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "│" << displayvar;
@@ -141,31 +141,30 @@ std::string Island::showInfoIsland() const {
 
         // FIFTH LINE -- WORKERS
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │OOOO│    │    │MMMO│
-            if (i == 1) { // first iteration
-                oss << "|";
-                for (int k = 0; k < TILEDISPSIZE; ++k) {
+            oss << "│";
+
+            for (int k = 0; k < TILEDISPSIZE; ++k) {
+                if (vecvec[j-1][i-1]->workers().size() * 4 > TILEDISPSIZE){
                     if (k >= vecvec[j - 1][i - 1]->workers().size())
                         oss << " ";
                     else
                         oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
-                }
-            } else if (i == vecvec[0].size()) { // last iteration
-                oss << "|";
-                for (int k = 0; k < TILEDISPSIZE; ++k) {
+                } else {
                     if (k >= vecvec[j - 1][i - 1]->workers().size())
                         oss << " ";
-                    else
-                        oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
+                    else{
+                        std::ostringstream tmposs;
+                        tmposs << vecvec[j - 1][i - 1]->workers()[k]->workerChar()
+                            << vecvec[j - 1][i - 1]->workers()[k]->giveIdentificador()[0]
+                            << "."
+                            << vecvec[j - 1][i - 1]->workers()[k]->giveIdentificador()[1];
+                        k += tmposs.str().size();
+                        oss << tmposs.str();
+                    }
                 }
-                oss << "|" << std::endl;
-            } else { // other iteration
-                oss << "|";
-                for (int k = 0; k < TILEDISPSIZE; ++k) {
-                    if (k >= vecvec[j - 1][i - 1]->workers().size())
-                        oss << " ";
-                    else
-                        oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
-                }
+            }
+            if (i == vecvec[0].size()){
+                oss << "│" << std::endl;
             }
         }
 
@@ -311,6 +310,30 @@ std::string Island::move(std::string& workerID, int l, int c){
     return oss.str();
 }
 
+std::string Island::debkill(int workerID){
+    std::ostringstream oss;
+    bool found = false;
+    int l, c;
+
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[0].size(); ++j) {
+            for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
+                if (vecvec[i][j]->workers()[k]->giveIdentificador()[0] == workerID){
+                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k-1);
+                    found = true;
+                    l = i; c = j;
+                }
+            }
+        }
+    }
+
+    if (found) {
+        oss << "SUCCESS: " << std::endl << "Removed worker " << workerID << " from X=" << l << " Y=" << c << std::endl;
+    } else oss << "ERROR: Worker was not found!" << std::endl;
+
+    return oss.str();
+}
+
 bool Island::existsInIsland(const std::string& type) {
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
@@ -333,6 +356,7 @@ Tile &Island::tile(int l, int c) {
     --l ; --c ;
     return *vecvec[l][c];
 }
+
 
 poo::vector<poo::vector<Tile*>> &Island::tiles() {
     return vecvec;

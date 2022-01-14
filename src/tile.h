@@ -14,13 +14,13 @@ class Tile{
 private:
     std::vector<std::string> v_buildings;
     int coords[2];
-    resourcesStr resources_var;
     // miner len oper
 protected: // protected so the derivative classes can access it
     std::string typevar;
     Island & island_var;
     Building* building_class;
     std::vector<Worker*> workersVec;
+    resourcesStr resources_var;
 public:
     // construidor
     Tile(Island & island, int l, int c);
@@ -42,7 +42,6 @@ public:
     // commands
     std::vector<std::string> existingTypes() const;
     std::string cont(const std::string& cmnd);
-    std::string debkill(int workerID);
 
     std::vector<Tile> adjacentZones();
     std::string build(std::string&); //reference to be more optimized

@@ -101,26 +101,6 @@ std::vector<Worker*>& Tile::workers(){
     return workersVec;
 }
 
-std::string Tile::debkill(int workerID){
-    std::ostringstream oss;
-    std::stringstream workerIDstream;
-    int workerIDint;
-
-    // converts string to ostring
-    workerIDstream << workerID;
-
-    // converts ostring to int
-    workerIDstream >> workerIDint;
-
-    for (int i = 0; i < workersVec.size(); ++i) {
-        if (workersVec[i]->giveIdentificador()[0] == workerID){
-            workersVec.erase(workersVec.begin()+i-1);
-        }
-    }
-    oss << "SUCCESS:" << std::endl << "Removed worker " << workerID << " from X=" << coords[0] << " Y=" << coords[1] << std::endl;
-    return oss.str();
-}
-
 std::string Tile::build(std::string& command){
     std::ostringstream oss;
     for (int i = 0; i < v_buildings.size(); ++i) {
@@ -296,7 +276,6 @@ mountain::mountain(Island &island,int l, int c) : Tile(island,l,c) {
     typevar = "mnt";
 }
 void mountain::dawn() {
-
 }
 
 // ===== Class desert ===== //
@@ -304,7 +283,6 @@ desert::desert(Island &island,int l, int c) : Tile(island,l,c){
     typevar = "dsr";
 }
 void desert::dawn() {
-
 }
 
 // ===== Class pasture ===== //
@@ -321,10 +299,18 @@ forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(random
 
 }
 void forest::dawn() {
+    if (num_trees > 0)
+        for (Worker* pw : workersVec) {
+            if (pw->workerChar()=='L') {
+                resources_var.wood++;
+            }
+        }
     if (building_class != nullptr)
         if (num_trees > 0) --num_trees;
     else
-        if (num_trees < 100) ++num_trees;
+        if (num_trees < 100)
+            if (island().day() % 2 == 0)
+                ++num_trees;
 }
 int forest::trees() const {
     return num_trees;
