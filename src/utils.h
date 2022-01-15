@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <random>
 
-#define TILEDISPSIZE 5
+#define TILEDISPSIZE 10
 
 int random (int low, int high);
 std::string strToLower(std::string str);

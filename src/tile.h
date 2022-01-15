@@ -42,9 +42,9 @@ public:
     // commands
     std::vector<std::string> existingTypes() const;
     std::string cont(const std::string& cmnd);
-
-    std::vector<Tile> adjacentZones();
+    
     std::string build(std::string&); //reference to be more optimized
+    std::string buildNoCost(std::string&);
     bool atLeastOneWorkerOfType(const std::string&) const;
     bool atLeastOneAdjacentTileOfType(const std::string&) const;
     Tile* ptrToAdjacentTileOfType(const std::string&) const;
@@ -54,7 +54,7 @@ public:
     virtual void dusk();
     virtual ~Tile();
 private:
-    Building* whichBuilding(std::string command);
+    Building* whichBuilding(std::string command, bool costmoney);
 };
 
 //        mnt –> Montanha

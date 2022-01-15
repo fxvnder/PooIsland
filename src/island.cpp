@@ -17,9 +17,7 @@ Island::Island(const Island &old) :
     vecvec(old.vecvec),
     tile_types(old.tile_types),
     resourcesVar(old.resourcesVar)
-{
-
-}
+{ }
 
 std::string Island::showSimpleIsland() const {
     std::ostringstream oss;
@@ -117,7 +115,9 @@ std::string Island::showInfoIsland() const {
                 oss << "│" << displayvar;
             } else if (i == vecvec[0].size()) { // last iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "│" << displayvar << "│" << std::endl;
+                oss << "│" << displayvar << "│";
+                if (j==1) oss << " zone type";
+                oss << std::endl;
             } else { // other iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "│" << displayvar;
@@ -126,45 +126,68 @@ std::string Island::showInfoIsland() const {
 
         // FOURTH LINE -- BUILDING TYPE
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │elec│    │    │mnF │
-                std::string displayvar = vecvec[j - 1][i - 1]->buildingStr();
-            if (i == 1) { // first iteration
-                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "│" << displayvar;
-            } else if (i == vecvec[0].size()) { // last iteration
-                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "│" << displayvar << "│" << std::endl;
-            } else { // other iteration
-                while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
-                oss << "│" << displayvar;
+            if (i==1) { }
+            oss << "│" << vecvec[j - 1][i - 1]->buildingStr();
+            for (int k = vecvec[j - 1][i - 1]->buildingStr().size(); k < TILEDISPSIZE; ++k ){
+                oss << " ";
+            }
+            if (i==vecvec[0].size()) {
+                oss << "│";
+                if (j==1) oss << " building type";
+                oss << std::endl;
             }
         }
 
         // FIFTH LINE -- WORKERS
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │OOOO│    │    │MMMO│
+            std::ostringstream tmposs;
+            for ( Worker* pw : vecvec[j - 1][i - 1]->workers() ) {
+                tmposs << pw->workerChar()
+                       << pw->giveIdentificador()[0]
+                       << "."
+                       << pw->giveIdentificador()[1]
+                       << " ";
+            }
             oss << "│";
-
-            for (int k = 0; k < TILEDISPSIZE; ++k) {
-                if (vecvec[j-1][i-1]->workers().size() * 4 > TILEDISPSIZE){
+            if (tmposs.str().size() > TILEDISPSIZE){
+                for (int k = 0; k < TILEDISPSIZE; ++k) {
                     if (k >= vecvec[j - 1][i - 1]->workers().size())
                         oss << " ";
                     else
                         oss << vecvec[j - 1][i - 1]->workers()[k]->workerChar();
-                } else {
-                    if (k >= vecvec[j - 1][i - 1]->workers().size())
-                        oss << " ";
-                    else{
-                        std::ostringstream tmposs;
-                        tmposs << vecvec[j - 1][i - 1]->workers()[k]->workerChar()
-                            << vecvec[j - 1][i - 1]->workers()[k]->giveIdentificador()[0]
-                            << "."
-                            << vecvec[j - 1][i - 1]->workers()[k]->giveIdentificador()[1];
-                        k += tmposs.str().size();
-                        oss << tmposs.str();
-                    }
                 }
+            } else {
+                for (int o = tmposs.str().size(); o < TILEDISPSIZE; o++ ) {
+                    tmposs << " ";
+                }
+                oss << tmposs.str();
             }
             if (i == vecvec[0].size()){
-                oss << "│" << std::endl;
+                oss << "│";
+                if (j==1) oss << " workers";
+                oss << std::endl;
+            }
+        }
+
+        for (int i = 1; i <= vecvec[0].size(); i++) { // │    │WCC │    │SEEE│CCC │
+            if (i==1) { }
+            std::string tmposs = "";
+            // iron I  steel S  coal C  wood W  wood_plaques w  electricity E  money
+            oss << "│";
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().iron && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "I"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().steel_bar && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "S"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().coal && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "C"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().wood && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "W"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().wood_plaques && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "w"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().electricity && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "E"; }
+            for (int k = 0; k < vecvec[j-1][i-1]->resources().wood && tmposs.size() < TILEDISPSIZE; k++ ){ tmposs += "W"; }
+            while ( tmposs.size() < TILEDISPSIZE){ tmposs += " "; }
+
+            oss << tmposs;
+            if (i==vecvec[0].size()) {
+                oss << "│";
+                if (j==1) oss << " zone resources";
+                oss << std::endl;
             }
         }
 

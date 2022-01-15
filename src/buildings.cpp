@@ -33,8 +33,8 @@ coalMine::coalMine(class Tile &tile) : Building(tile) {
 // ===== Class electricityCentral ===== //
 electricityCentral::electricityCentral(class Tile &tile) : Building(tile) {
     type_var = "elec";
-    tile.resources().money -= 15;
 }
+
 void electricityCentral::dusk(){
     std::cout << "we got thehere \n";
     if (tile.atLeastOneWorkerOfType("oper") && tile.atLeastOneAdjacentTileOfType("flr")) {

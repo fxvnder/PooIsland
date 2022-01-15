@@ -109,7 +109,7 @@ std::string Tile::build(std::string& command){
                 oss << "ERROR: There's a " << command << " here already";
                 return oss.str();
             }
-            building_class = whichBuilding(v_buildings[i]);
+            building_class = whichBuilding(v_buildings[i], true);
             oss << "SUCCESS:" << std::endl << "Building " << command << " in X=" << coords[0] << " and Y=" << coords[1] << std::endl;
             return oss.str();
         }
@@ -120,24 +120,118 @@ std::string Tile::build(std::string& command){
     return oss.str();
 }
 
-Building* Tile::whichBuilding(std::string building){
+std::string Tile::buildNoCost(std::string& command){
+    std::ostringstream oss;
+    for (int i = 0; i < v_buildings.size(); ++i) {
+        if (command == strToLower(v_buildings[i])){
+            if (building_class != nullptr) {
+                oss << "ERROR: There's a " << command << " here already";
+                return oss.str();
+            }
+            building_class = whichBuilding(v_buildings[i], false);
+            oss << "SUCCESS:" << std::endl << "Building " << command << " in X=" << coords[0] << " and Y=" << coords[1] << std::endl;
+            return oss.str();
+        }
+    }
+    oss << "ERROR: Wrong specified type, the existing types of buildings are: ";
+    for (const std::string& str : v_buildings)
+        oss << str << ' ';
+    return oss.str();
+}
+
+Building* Tile::whichBuilding(std::string building, bool costmoney){
     Building *p = nullptr;
-    
-    if (building == "mnF"){ // IRonFarm
-        p = new ironFarm(*this);
-    } else if (building == "mnC"){ //coalMine
-        p = new coalMine(*this);
-    } else if (building == "elec"){ //electricityCentral
-        p = new electricityCentral(*this);
-    } else if (building == "bat"){ //battery
-        p = new battery(*this);
-    } else if (building == "fun"){ //foundry (fundição)
-        p = new foundry(*this);
-    } else if (building == "sarr"){ //Sarration
-        p = new sarration(*this);
+    bool success = false;
+
+    // IronFarm
+    if (building == "mnF"){
+        if (!costmoney){
+            p = new ironFarm(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // CoalMine
+    } else if (building == "mnC"){
+//        if(costmoney) {
+//            for (int i = 0; i < 10; ++i) {
+//                if(island().resources().wood_plaques > 0) {
+//                    island().resources().wood_plaques--;
+//                }
+//            }
+//        }
+        if (!costmoney) {
+            p = new coalMine(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // ElectricityCentral
+    } else if (building == "elec"){
+        if(costmoney && island().resources().money >= 15) {
+            island().resources().money -= 15;
+            p = new electricityCentral(*this);
+            success = true;
+        }
+        if(!costmoney){
+            p = new electricityCentral(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // Battery
+    } else if (building == "bat"){
+        if (costmoney && island().resources().money >= 10 && island().resources().wood_plaques >=10){
+            island().resources().money -= 10;
+            island().resources().wood_plaques -= 10;
+            p = new battery(*this);
+            success = true;
+        }
+        if (!costmoney){
+            p = new battery(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // Foundry (fundição)
+    } else if (building == "fun"){
+        if (costmoney && island().resources().money >= 10){
+            island().resources().money -= 10;
+            p = new foundry(*this);
+            success = true;
+        }
+
+        if (!costmoney){
+            p = new foundry(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // Sarration
+    } else if (building == "sarr"){
+        if (!costmoney){
+            p = new sarration(*this);
+            success = true;
+        }
+
+        if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
+
+
+    // Error
     } else {
         std::cout << "Error generating building" << std::endl;
     }
+
     return p;
 }
 std::string Tile::cont(const std::string& command){
@@ -179,15 +273,7 @@ Island& Tile::island(){
 Island& Tile::island() const{
     return island_var;
 }
-std::vector<Tile> Tile::adjacentZones(){
-    // Passar como referencia exige menos do PC
-    std::vector<Tile> vec;
-    vec.push_back(island().tile(coords[0] - 1, coords[1])); // above
-    vec.push_back(island().tile(coords[0], coords[1] + 1)); // right
-    vec.push_back(island().tile(coords[0] + 1, coords[1])); // below
-    vec.push_back(island().tile(coords[0], coords[1] - 1)); // left
-    return vec;
-}
+
 Tile::~Tile(){
     for (Worker* w : workersVec) {
         delete w;

@@ -87,8 +87,6 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
                 }
             } else return -4;
         }
-        //interpreter.overload(island().move(commandsVec).str());
-        return 111;
 
     // VENDE
     } else if (commandsVec[0] == "vende") { // vende <tipo> <quanto> ou vende <linha> <coluna>
@@ -171,15 +169,35 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // DEBCASH
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
         if (commandsVec.size() != 2) return -2; // checks if too many arguments
-        //if ()
-        island().resources().money
+        if (commandsVec[1].find_first_not_of("0123456789")){
+            return -4;
+        } else{
+            std::stringstream cashmoney;
+            int moneyadd = 0;
+            cashmoney >> commandsVec[2];
+            cashmoney << moneyadd;
+            island().resources().money += moneyadd;
+        }
         return -404;
 
 
     // DEBED
     } else if (commandsVec[0] == "debed") { // debed <tipo> <linha> <coluna>
-        if (commandsVec.size() != 4) return -2;
-        return -404;
+        if (commandsVec.size() != 4) return -2; // checks if too many arguments
+        else {
+            if (std::isdigit(commandsVec[2].at(0)) || std::isdigit(commandsVec[3].at(0))) {
+                // checks if out of bounds
+                if (island().isOutOfBounds(stoi(commandsVec[2]), stoi(commandsVec[3])))
+                    return -3;
+                else {
+                    // l = lines, c = columns
+                    int l = stoi(commandsVec[2]) ; int c = stoi(commandsVec[3]);
+                    // sends to interpreter
+                    interpreter.overloadedMsg() = island().tile(l,c).buildNoCost(commandsVec[1]);
+                    return 111;
+                }
+            } else return -4;
+        }
 
     // DEBKILL
     } else if (commandsVec[0] == "debkill") { // debkill <id>
