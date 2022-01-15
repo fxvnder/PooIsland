@@ -22,6 +22,9 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (3): return Interpreter::helpMe();
         case (5): return "Turned Off";
         case (6): return "Turned On";
+        case (7): return "Saved";
+        case (8): return "deleted";
+        case (9): return "loaded";
         case (-1): return "Error opening file!";
         case (-2): return "ERROR: Invalid number of arguments. Use 'help' for help.";
         case (-3): return "Target zone coordinates fall outside the Island!";
@@ -33,6 +36,7 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (-9) : return "Building already on";
         case (-10) : return "No worker was found with that ID!";
         case (-11) : return "File saved!";
+        case (-12) : return "Name of save not found";
         case (-404): return "Something wrong happened!";
 
         case (111): //overloaded message

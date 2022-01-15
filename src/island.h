@@ -10,16 +10,14 @@
 #include "utils.h"
 #include "vector.h"
 #include "resources.h"
+#include "memory"
 
 class Island {
 private:
     std::string timeOfDay(int);
-    // vector of vectors that have the tiles
-    poo::vector<poo::vector<Tile*>> vecvec;
-    //syntax for arr[l][c] will be arr[l*sizeY+c];
+    poo::vector<poo::vector<Tile*>> vecvec; // vector of vectors that have the tiles
     std::vector<std::string> tile_types = {"mnt", "dsr", "pas", "flr", "pnt", "znZ"};
     // montanha, deserto, pastagem, floresta, pantano, zonaX
-    // resources
     resourcesStr resourcesVar;
 
     int roundNum, playerNum;

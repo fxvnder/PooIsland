@@ -27,7 +27,7 @@ std::string Tile::showInfoTile() const {
         building_type = building_class->type();
     }
 
-    oss << "SUCCESS:" << std::endl;
+    oss << "SUCCESS! Showing tile information:" << std::endl;
 
     // first line
     oss << "┌";
@@ -121,7 +121,10 @@ std::string Tile::build(std::string& command){
                 return oss.str();
             }
             building_class = whichBuilding(v_buildings[i], true);
-            oss << "SUCCESS:" << std::endl << "Building " << command << " in X=" << coords[0] << " and Y=" << coords[1] << std::endl;
+            if (building_class == nullptr){
+                oss << "\nERROR: You can't build that." << std::endl;
+            } else oss << "\nSUCCESS:" << std::endl << "Building " << command << " in X=" << coords[0] << " and Y=" << coords[1];
+
             return oss.str();
         }
     }

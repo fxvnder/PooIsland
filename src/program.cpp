@@ -76,6 +76,51 @@ void gameData::saveCommsVec(const std::string& command){
     commandHistory.push_back(command);
 }
 
+int gameData::saveVersion(std::string name){
+    gameVersions.push_back(world);
+    gameVersionsNames.push_back(name);
+    return 7;
+}
+
+int gameData::deleteVersion(std::string name){
+    int i = indexOfSaveWithName(name);
+    if (i < 0) return i;
+    gameVersions.erase(gameVersions.begin()+i);
+    gameVersionsNames.erase(gameVersionsNames.begin()+i);
+    return 8;
+}
+
+int gameData::loadVersion(std::string name){
+    int i = indexOfSaveWithName(name);
+    if (i < 0) return i;
+    world = gameVersions[i];
+    return 9;
+}
+
+std::string gameData::saveScreen(){
+    std::ostringstream oss;
+    oss << "SUCCESS:" << std::endl;
+    for (std::string s : gameVersionsNames) {
+        oss << s << std::endl;
+    }
+    return oss.str();
+}
+
+int gameData::indexOfSaveWithName(std::string name) {
+    int k = 0;
+    bool found = 0;
+    for (k = 0; k < gameVersionsNames.size(); ++k) {
+        if (gameVersionsNames[k] == name) {
+            found = 1;
+            break;
+        }
+    }
+    if (found == 1)
+        return k;
+    else
+        return -12;
+}
+
 // void createLoadedWorld(file loadedFile){
 //     Island world(loadedFile.giveLines(), loadedFile.giveColumns());
 //     std::vector<std::string> oldcommands = loadedFile.getCommands();

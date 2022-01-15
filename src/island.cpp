@@ -13,11 +13,10 @@ Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0,500), roundNum(0), playe
     }
 }
 
-Island::Island(const Island &old) :
-    vecvec(old.vecvec),
-    tile_types(old.tile_types),
-    resourcesVar(old.resourcesVar)
-{ }
+Island::Island(const Island &old) : tile_types(old.tile_types), resourcesVar(old.resourcesVar), roundNum(old.roundNum), playerNum(old.playerNum) {
+    //vecvec(old.vecvec),
+    int i = 0;
+}
 
 std::string Island::showSimpleIsland() const {
     std::ostringstream oss;
@@ -45,6 +44,9 @@ std::string Island::showInfoIsland(double time) {
             oss << "ERROR: NO Y AXIS ON ISLAND FOUND" << std::endl;
             return oss.str();
         }
+
+    oss << "SUCCESS! Showing island information:" << std::endl;
+
 
     //Exemplo interface:  ┐┌├ ┬ ─│
     //
@@ -268,7 +270,6 @@ std::string Island::timeOfDay(int n){
 }
 
 void Island::changeDim(int l, int c){
-
     roundNum = 0;
     playerNum = 0;
 
@@ -387,7 +388,7 @@ std::string Island::debkill(int workerID){
         for (int j = 0; j < vecvec[0].size(); ++j) {
             for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
                 if (vecvec[i][j]->workers()[k]->giveIdentifier()[0] == workerID){
-                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k-1);
+                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k);
                     found = true;
                     l = i; c = j;
                 }

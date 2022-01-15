@@ -1,10 +1,7 @@
-#include <chrono>
-#include <ctime>
 #include "utils.h"
 #include "program.h"
 #include "interface.h"
 #include "interpreter.h"
-#include "program.h"
 
 interface::interface(gameData &game) : game(game){ }
 
@@ -118,29 +115,197 @@ std::string Interpreter::helpMe() {
     return R"(
         >>> HELP <<<
         Welcome to PooIsland. These are the commands to learn how to play the game!
+        --- FOR ADVANCED HELP TYPE "HELP X", BEING X = COMMANDNAME
         >> EXEC <filename> -> executes saved file commands
         >> CONS <type> <line> <column> -> builds <type> in the coordinates
         >> UPGRD <line> <column> -> upgrades building in target tile
-        >> LIGA <line> <column> -> coming soon
-        >> DES <line> <column> -> destroys what's on X,Y
-        >> MOVE <id> <line> <column> -> coming soon
-        >> VENDE <type> <when> -> coming soon
+        >> LIGA <line> <column> -> turns on building on <line> <column>
+        >> DES <line> <column> -> turns off building on <line> <column>
+        >> MOVE <id> <line> <column> -> moves worker with <id> to <line> <column>
+        >> VENDE <type> <quantity> -> sells <quantity> of <type> resource.
         >>>> OR <<<<
-        >> VENDE <line> <column> -> coming soon
+        >> VENDE <line> <column> -> sells whatever is on <line> <column>
         >> CONT <type> -> hires worker from <type>
         >> LIST (optional: <type> <column>) -> lists events/workers/etc.
         >> NEXT -> Skips to next day.
-        >> SAVE -> saves game state to memory
-        >> SAVECOMMANDS -> saves the commands written to a file
-        >> LOAD -> loads game state from memory
+        >> SAVECOMMANDS <filename> -> saves the commands written to a file
+        >> SAVE <savename> -> saves game state to memory
+        >> LOAD <savename> -> loads game state from memory
         >> APAGA <name> -> deletes game state from memory
+        >> SAVESCREEN -> shows saved games
         >> CONFIG <filename> -> opens config saved file
-		>> DEBCASH <value> -> coming soon (debug)
-		>> DEBED <type> <line> <column> -> coming soon (debug)
-		>> DEBKILL <id> -> coming soon (debug)
-        >> HELP -> shows help with commands
+		>> DEBCASH <value> -> adds <value> money (debug)
+		>> DEBED <type> <line> <column> -> adds building of <type> to <line> <column> with no cost (debug)
+		>> DEBKILL <id> -> deletes player with <id> (debug)
+        >> HELP (optional: <command>) -> shows help with commands
         >> EXIT -> ends program
         )";
+}
+
+std::string Interpreter::helpExec(){
+    return R"(
+        >> EXEC FILENAME
+        >> EXECUTES THE COMMANDS INSIDE A FILE.
+    )";
+}
+std::string Interpreter::helpCons(){
+    return R"(
+        >> CONS <TYPE> <LINE> <COLUMN>
+        >> BUILDS BUILDING <TYPE> IN <LINE> <COLUMN>
+        >> BUILDINGS:
+        > MNF = MINA DE FERRO
+Permite obter ferro. Pode ser construída gastando 10 vigas de madeira, em que cada viga pode
+ser substituída por 10 €. Produz 2 Kg de ferro por dia. Pode ser melhorada até ao nível 5 em que cada nível
+aumenta a produção em 1 kg de ferro por dia. Cada nível de melhoramento exige 15 € e 1 viga de madeira
+(não substituível por €). A mina apenas produz se existir um mineiro na zona em que a mina se encontra. Em
+cada dia a mina tem 15% de probabilidade de desabar. A mina de ferro armazena até 100 kg de ferro, mais 10
+Kg por cada nível adicional. Depois disso, pára de produzir.
+        > MNC = MINA DE CARVAO
+Permite obter carvão. Pode ser construída gastando 10 vigas de madeira, em que cada viga
+pode ser substituída por 10 €. Produz 2 Kg de carvão por dia. Pode ser melhorada até ao nível 5 em que cada
+nível aumenta a produção em 1 kg de carvão por dia. Cada nível de melhoramento exige 10 € e 1 viga de
+madeira (não substituível por €). A mina apenas produz se existir um mineiro na zona em que a mina se
+encontra. Em cada dia a mina tem 10% de probabilidade de desabar. A mina de carvão armazena até 100 kg
+de carvão, mais 10 Kg por cada nível adicional. Depois disso, pára de produzir.
+        > ELEC = CENTRAL ELETRICA
+Central elétrica de biomassa: Queima madeira, produzindo carvão e eletricidade. A central elétrica transforma
+1kg de madeira em 1 kg de carvão mais 1 KWh de eletricidade por dia, desde que se encontre um operário na
+zona em que se encontra. A central pode armazenar o carvão produzido até 100 kg de carvão. A eletricidade
+ficará armazenada numa bateria que se encontre numa zona adjacente, caso contrário perde-se. Para
+funcionar, a central elétrica tem que estar numa zona adjacente a uma zona do tipo floresta, sendo a madeira
+obtida a partir da madeira que tenha sido cortada e depositada nessa zona de floresta. Custa 15 €.
+        > BAT = BATERIA
+Bateria: é um edifício que consiste num enorme bloco de lítio que armazena eletricidade. Tem capacidade de
+100 KWh. Custa 10 € e 10 vigas. Adquire automaticamente a energia produzida nas centrais elétricas que
+estejam colocadas em zonas adjacentes. Pode ser melhorado até ao nível 5 por mais 5 € cada nível
+        > FUN = FUNDICAO
+Permite obter aço a partir de ferro e carvão. Para funcionar é necessário que a zona em que se
+encontre seja adjacente a uma zona que tenha uma mina de ferro e a uma mina de carvão ou a uma central
+elétrica (por causa do carvão). Precisa também de ter um operário na sua zona. Custa 10 €.
+        > SARR = SARRACAO
+Serracao.
+    )";
+}
+std::string Interpreter::helpUpgrd(){
+    return R"(
+        >> UPGRD <LINE> <COLUMN>
+        >> UPGRADES BUILDING LOCATED IN <LINE> <COLUMN>
+        >> AVAILABLE FOR:
+        > MINA DE FERRO (UP TO LEVEL 5)
+        > MINA DE CARVAO (UP TO LEVEL 5)
+        > BATERIA (UP TO LEVEL 5)
+    )";
+}
+std::string Interpreter::helpLiga(){
+    return R"(
+        >> LIGA <LINE> <COLUMN>
+        >> TURNS ON BUILDING LOCATED IN <LINE> <COLUMN>
+    )";
+}
+std::string Interpreter::helpDes(){
+    return R"(
+        >> DESLIGA <LINE> <COLUMN>
+        >> TURNS OFF BUILDING LOCATED IN <LINE> <COLUMN>
+    )";
+}
+std::string Interpreter::helpMove(){
+    return R"(
+        >> MOVE <ID> <LINE> <COLUMN>
+        >> MOVES WORKER WITH <WORKER_ID> TO <LINE> <COLUMN>
+    )";
+}
+std::string Interpreter::helpVende(){
+    return R"(
+        >> VENDE <TYPE> <QUANTITY>
+        OR
+        >> VENDE <LINE> <COLUMN>
+
+        >> SELLS <QUANTITY> OF <TYPE> RESOURCE.
+        OR
+        >> SELLS WHATEVER IS ON <LINE> <COLUMN>
+
+    )";
+}
+std::string Interpreter::helpCont(){
+    return R"(
+        >> CONT <TYPE>
+        >> HIRES WORKER FROM <TYPE>
+    )";
+}
+std::string Interpreter::helpList(){
+    return R"(
+        >> LIST
+        OR
+        >> LIST <TYPE> <COLUMN>
+
+        >> LISTS THE ENTIRE ISLAND
+        OR
+        >> LISTS A SPECIFIC TILE
+    )";
+}
+std::string Interpreter::helpNext(){
+    return R"(
+        >> NEXT
+        >> SKIPS TO THE NEXT DAY.
+    )";
+}
+std::string Interpreter::helpSave(){
+    return R"(
+        >> SAVE <savename>
+        >> SAVES GAME STATE TO MEMORY
+    )";
+}
+std::string Interpreter::helpSavecommands(){
+    return R"(
+        >> SAVECOMMANDS <filename>
+        >> SAVES COMMAND HISTORY INTO <filename>
+        >> CAN BE OPENED WITH EXEC <filename>
+    )";
+}
+std::string Interpreter::helpLoad(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpApaga(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpSavescreen(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpConfig(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpDebcash(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpDebed(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpDebkill(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpHelp(){
+    return R"(
+        >> STUFF
+    )";
+}
+std::string Interpreter::helpExit(){
+    return R"(
+        >> STUFF
+    )";
 }
 
 void interface::newGame() {

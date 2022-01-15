@@ -13,8 +13,34 @@ public:
     void overload(std::string);
     std::string& overloadedMsg();
     std::string predefinedErrors(int& code);
-    static std::string helpMe();
+
+    // commands
     static std::string showCredits();
+
+    // help
+    static std::string helpMe();
+
+    static std::string helpExec();
+    static std::string helpCons();
+    static std::string helpUpgrd();
+    static std::string helpLiga();
+    static std::string helpDes();
+    static std::string helpMove();
+    static std::string helpVende();
+    static std::string helpCont();
+    static std::string helpList();
+    static std::string helpNext();
+    static std::string helpSave();
+    static std::string helpSavecommands();
+    static std::string helpLoad();
+    static std::string helpApaga();
+    static std::string helpSavescreen();
+    static std::string helpConfig();
+    static std::string helpDebcash();
+    static std::string helpDebed();
+    static std::string helpDebkill();
+    static std::string helpHelp();
+    static std::string helpExit();
 };
 
 

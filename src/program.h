@@ -15,10 +15,12 @@
 class gameData {
 private:
     Island world;
-    //std::vector<std::string> resources;
-    //std::vector<int> resources_quantities;
 
     resourcesStr resourcesVar;
+
+    std::vector<Island> gameVersions;
+    std::vector<std::string> gameVersionsNames;
+    int indexOfSaveWithName(std::string);
 
     // vector that contains command strings
     std::vector<std::string> commandHistory;
@@ -49,6 +51,11 @@ public:
 
     // manages the commands
     int treatCommand(std::string& commands, Interpreter&, double);
+
+    int saveVersion(std::string name);
+    int deleteVersion(std::string name);
+    int loadVersion(std::string name);
+    std::string saveScreen();
 };
 
 #endif //POOISLAND_PROGRAM_H

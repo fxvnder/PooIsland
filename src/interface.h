@@ -2,6 +2,7 @@
 #define POOISLAND_INTERFACE_H
 
 #include <iostream>
+#include <chrono>
 #include "program.h"
 
 class interface {

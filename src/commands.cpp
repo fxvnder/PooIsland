@@ -128,17 +128,22 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return -2;
         // SAVES GAME IN MEMORY
-        return -404;
+        return saveVersion(commandsVec[1]);;
 
     // LOAD
     } else if (commandsVec[0] == "load") { // load <nome>
         if (commandsVec.size() != 2) return -2;
-        return -404;
+        return loadVersion(commandsVec[1]);;
 
     // APAGA
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return -2;
-        return -404;
+        return deleteVersion(commandsVec[1]);;
+
+    } else if (commandsVec[0] == "savescreen") { // saveScreen
+        if (commandsVec.size() != 1) return -2;
+        interpreter.overloadedMsg() = saveScreen();
+        return 111;
 
     // FILES STUFF
     // EXEC
@@ -235,8 +240,13 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
 
     // HELP
     } else if (commandsVec[0] == "help") { // exit <id>
-        if (commandsVec.size() != 1) return -2;
-        return 3;
+        if (commandsVec.size() == 1){
+            return 3;
+        }
+        if (commandsVec.size() == 2){
+            return 3;
+        }
+        return -2;
     }
 
     // EXIT
