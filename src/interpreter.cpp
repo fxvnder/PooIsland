@@ -20,7 +20,6 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (1): return "File opened with success!";
         case (2): return Interpreter::showCredits();
         case (3): return Interpreter::helpMe();
-        case (4): return "File saved!";
         case (5): return "Turned Off";
         case (6): return "Turned On";
         case (-1): return "Error opening file!";
@@ -33,6 +32,7 @@ std::string Interpreter::predefinedErrors(int& code) {
         case (-8): return "Building already off";
         case (-9) : return "Building already on";
         case (-10) : return "No worker was found with that ID!";
+        case (-11) : return "File saved!";
         case (-404): return "Something wrong happened!";
 
         case (111): //overloaded message

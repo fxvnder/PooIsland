@@ -1,3 +1,6 @@
+#include <chrono>
+#include <ctime>
+#include "program.h"
 #include "interface.h"
 #include "interpreter.h"
 #include "program.h"
@@ -8,6 +11,7 @@ void interface::plays(){
     std::string command;
     Interpreter interpreter;
     int msgCode;
+    auto start = std::chrono::system_clock::now();
     do {
         command.clear();
         do { // to prevent sending an empty string to treatCommand
@@ -17,6 +21,15 @@ void interface::plays(){
         msgCode = game.treatCommand(command, interpreter);
         if (msgCode >= 0) { game.saveCommsVec(command); }
         std::cout << interpreter.predefinedErrors(msgCode) << std::endl;
+
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::cout << elapsed_seconds.count() << std::endl;
+        if (elapsed_seconds.count() > 90){
+            msgCode = 0; // after making commands for over 1 minute and 30 seconds, a new day will automatically start
+            std::cout << "The day has ended!" << std::endl;
+        }
+        //std::cout << game.timeOfDay(elapsed_seconds.count());
     } while (msgCode != 0);
 }
 

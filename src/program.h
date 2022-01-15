@@ -25,9 +25,11 @@ private:
     
 public:
     gameData();
-    
+
+    std::string timeOfDay(int);
+
     void createNewWorld(int *dim);
-    
+
     void dawn();
     void dusk();
     bool over();
@@ -37,8 +39,8 @@ public:
     std::string interpreter(int errorCode);
 
     // files
-    void readConfigFile(const std::string& filename);
-    void readExecFile(const std::string& filename);
+    void readConfigFile(const std::string filename);
+    void readExecFile(std::string filename);
 
     // saves commands in vector
     void saveCommsVec(const std::string& command);

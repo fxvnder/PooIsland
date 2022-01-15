@@ -30,7 +30,7 @@ std::string Island::showSimpleIsland() const {
     return oss.str();
 }
 
-std::string Island::showInfoIsland() const {
+std::string Island::showInfoIsland() {
     std::ostringstream oss;
     //std::cout << vecvec.size() << vecvec[0].size() << std::endl;
 
@@ -81,7 +81,9 @@ std::string Island::showInfoIsland() const {
                 } else if (i == vecvec[0].size()) { // last iteration
                     oss << "┬";
                     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
-                    oss << "┐" << std::endl;
+                    oss << "┐";
+                    if (j==1) oss << " Description:";
+                    oss << std::endl;
                 } else { // other iteration
                     oss << "┬";
                     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
@@ -116,7 +118,7 @@ std::string Island::showInfoIsland() const {
             } else if (i == vecvec[0].size()) { // last iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
                 oss << "│" << displayvar << "│";
-                if (j==1) oss << " zone type";
+                if (j==1) oss << " < zone type";
                 oss << std::endl;
             } else { // other iteration
                 while (displayvar.size() < TILEDISPSIZE) { displayvar += ' '; }
@@ -133,7 +135,7 @@ std::string Island::showInfoIsland() const {
             }
             if (i==vecvec[0].size()) {
                 oss << "│";
-                if (j==1) oss << " building type";
+                if (j==1) oss << " < building type";
                 oss << std::endl;
             }
         }
@@ -141,11 +143,11 @@ std::string Island::showInfoIsland() const {
         // FIFTH LINE -- WORKERS
         for (int i = 1; i <= vecvec[0].size(); i++) { // │    │OOOO│    │    │MMMO│
             std::ostringstream tmposs;
-            for ( Worker* pw : vecvec[j - 1][i - 1]->workers() ) {
+            for (Worker* pw : vecvec[j - 1][i - 1]->workers()) {
                 tmposs << pw->workerChar()
-                       << pw->giveIdentificador()[0]
+                       << pw->giveIdentifier()[0]
                        << "."
-                       << pw->giveIdentificador()[1]
+                       << pw->giveIdentifier()[1]
                        << " ";
             }
             oss << "│";
@@ -164,7 +166,7 @@ std::string Island::showInfoIsland() const {
             }
             if (i == vecvec[0].size()){
                 oss << "│";
-                if (j==1) oss << " workers";
+                if (j==1) oss << " < workers";
                 oss << std::endl;
             }
         }
@@ -180,13 +182,12 @@ std::string Island::showInfoIsland() const {
             for (int k = 0; k < vecvec[j-1][i-1]->resources().wood && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "W"; }
             for (int k = 0; k < vecvec[j-1][i-1]->resources().wood_plaques && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "w"; }
             for (int k = 0; k < vecvec[j-1][i-1]->resources().electricity && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "E"; }
-            for (int k = 0; k < vecvec[j-1][i-1]->resources().wood && tmposs.size() < TILEDISPSIZE; k++ ){ tmposs += "W"; }
             while ( tmposs.size() < TILEDISPSIZE){ tmposs += " "; }
 
             oss << tmposs;
             if (i==vecvec[0].size()) {
                 oss << "│";
-                if (j==1) oss << " zone resources";
+                if (j==1) oss << " < zone resources";
                 oss << std::endl;
             }
         }
@@ -210,7 +211,10 @@ std::string Island::showInfoIsland() const {
         }
     }
 
+    updateGlobalResources();
+
     oss << "--- DAY NUMBER " << roundNum << " ---" << std::endl << std::endl;
+    oss << "Island Resources:" << std::endl;
     oss << "Cash: " << resourcesVar.money << "€" << std::endl;
     oss << "Iron: " << resourcesVar.iron << " - ";
     oss << "Steel: " << resourcesVar.steel_bar << " - ";
@@ -221,7 +225,24 @@ std::string Island::showInfoIsland() const {
 
     return oss.str();
 }
-
+void Island::updateGlobalResources(){
+    resourcesVar.iron = 0;
+    resourcesVar.steel_bar = 0;
+    resourcesVar.coal = 0;
+    resourcesVar.wood = 0;
+    resourcesVar.wood_plaques = 0;
+    resourcesVar.electricity = 0;
+    for (int y = 1; y <= vecvec.size(); ++y) { // lines
+        for (int x = 1; x <= vecvec[0].size(); ++x) { // columns
+            resourcesVar.iron += tile(y,x).resources().iron;
+            resourcesVar.steel_bar += tile(y,x).resources().steel_bar;
+            resourcesVar.coal += tile(y,x).resources().coal;
+            resourcesVar.wood += tile(y,x).resources().wood;
+            resourcesVar.wood_plaques += tile(y,x).resources().wood_plaques;
+            resourcesVar.electricity += tile(y,x).resources().electricity;
+        }
+    }
+}
 
 void Island::changeDim(int l, int c){
 
@@ -320,9 +341,10 @@ std::string Island::move(std::string& workerID, int l, int c){
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[0].size(); ++j) {
             for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
-                if (vecvec[i][j]->workers()[k]->giveIdentificador()[0] == workerIDint){
+                if (vecvec[i][j]->workers()[k]->giveIdentifier()[0] == workerIDint){
                     tile(l,c).workers().push_back(vecvec[i][j]->workers()[k]);
-                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k-1);
+                    tile(l,c).workers()[k] = vecvec[i][j]->workers()[k];
+                    vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k);
                 }
             }
         }
@@ -341,7 +363,7 @@ std::string Island::debkill(int workerID){
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[0].size(); ++j) {
             for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
-                if (vecvec[i][j]->workers()[k]->giveIdentificador()[0] == workerID){
+                if (vecvec[i][j]->workers()[k]->giveIdentifier()[0] == workerID){
                     vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k-1);
                     found = true;
                     l = i; c = j;

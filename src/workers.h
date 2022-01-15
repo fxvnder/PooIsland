@@ -11,12 +11,12 @@ private:
 protected:
     std::string type_var;
     Tile & tile;
-    int identificador[2];
+    int identifier[2];
 public:
     std::string type();
     Worker(class Tile & tile);
     virtual char workerChar() = 0;
-    int* giveIdentificador();
+    int* giveIdentifier();
 };
 
 class operative : public Worker {

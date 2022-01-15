@@ -56,10 +56,21 @@ std::string Tile::showInfoTile() const {
         else
             oss << workersVec[k]->workerChar();
     }
-
     oss << "|" << std::endl;
 
-    // the rest
+    // fourth line - RESOURCES
+    oss << "|";
+    std::string tmposs = "";
+    // iron I  steel S  coal C  wood W  wood_plaques w  electricity E  money
+    for (int k = 0; k < resources_var.iron && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "I"; }
+    for (int k = 0; k < resources_var.steel_bar && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "S"; }
+    for (int k = 0; k < resources_var.coal && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "C"; }
+    for (int k = 0; k < resources_var.wood && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "W"; }
+    for (int k = 0; k < resources_var.wood_plaques && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "w"; }
+    for (int k = 0; k < resources_var.electricity && tmposs.size() < TILEDISPSIZE; ++k ){ tmposs += "E"; }
+    while ( tmposs.size() < TILEDISPSIZE){ tmposs += " "; }
+    oss << tmposs << "|" << std::endl;
+
     oss << "└";
     for (int k = 0; k < TILEDISPSIZE; ++k) { oss << "─"; }
     oss << "┘" << std::endl;
@@ -67,7 +78,7 @@ std::string Tile::showInfoTile() const {
     oss << "Number of workers present in this tile: " << workersVec.size() << std::endl;
     for (int k = 0; k < workersVec.size(); ++k){
         oss << workersVec[k]->workerChar() << ":";
-        oss << workersVec[k]->giveIdentificador()[0] << "." << workersVec[k]->giveIdentificador()[1] << " ";
+        oss << workersVec[k]->giveIdentifier()[0] << "." << workersVec[k]->giveIdentifier()[1] << " ";
     }
     oss << std::endl << "Tile resources: " << std::endl;
     oss << "Iron: " << resources_var.iron << " - ";
@@ -155,13 +166,18 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
 
     // CoalMine
     } else if (building == "mnC"){
-//        if(costmoney) {
-//            for (int i = 0; i < 10; ++i) {
-//                if(island().resources().wood_plaques > 0) {
-//                    island().resources().wood_plaques--;
-//                }
-//            }
-//        }
+        if(costmoney) {
+            if (island().resources().money > 10){
+                island().resources().money-= 10;
+                p = new coalMine(*this);
+            } else {
+                for (int i = 0; i < 10; ++i) {
+                    if(island().resources().wood_plaques > 0) {
+                        island().resources().wood_plaques--;
+                    }
+                }
+            }
+        }
         if (!costmoney) {
             p = new coalMine(*this);
             success = true;

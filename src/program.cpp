@@ -6,6 +6,26 @@ Island &gameData::island(){
     return world;
 }
 
+std::string timeOfDay(int n){
+    std::ostringstream oss;
+    int day = n / (24 * 3600);
+
+    n = n % (24 * 3600);
+    int hour = n / 3600;
+
+    n %= 3600;
+    int minutes = n / 60 ;
+
+    n %= 60;
+    int seconds = n;
+
+    oss << day << " " << "days " << hour
+         << " " << "hours " << minutes << " "
+         << "minutes " << seconds << " "
+         << "seconds "  << std::endl;
+    return oss.str();
+}
+
 void gameData::createNewWorld(int * dim){
     world.changeDim(dim[0], dim[1]);
     //file savegame;
@@ -29,15 +49,15 @@ bool gameData::over(){
 
 // STUFF WITH FILES
 
-void gameData::readConfigFile(const std::string& filename){
+void gameData::readConfigFile(const std::string filename){
     // to be done
 }
 
-void gameData::readExecFile(const std::string& filename){
+void gameData::readExecFile(std::string filename){
     int commandnum = 1;
     int msg;
     std::string lineContent;
-    std::ifstream fileSaved(filename + ".cfg");
+    std::ifstream fileSaved(filename + ".txt");
     Interpreter interpreter;
 
     if (fileSaved.is_open()) {
@@ -51,6 +71,7 @@ void gameData::readExecFile(const std::string& filename){
             }
         }
         fileSaved.close();
+    std::cout << "SUCCESS!" << std::endl;
     } else {
         std::cout << "ERROR: " << strerror(errno) << std::endl;
     }

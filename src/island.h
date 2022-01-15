@@ -27,7 +27,8 @@ public:
     Island(const Island &old); // const por cópia
 
     std::string showSimpleIsland() const;
-    std::string showInfoIsland() const;
+    std::string showInfoIsland();
+    void updateGlobalResources();
 
     void changeDim(int l, int c);
     Tile &tile(int l, int c);

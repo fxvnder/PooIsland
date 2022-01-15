@@ -143,8 +143,9 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // FILES STUFF
     // EXEC
     } else if (commandsVec[0] == "exec") { // executes saved file
+        if (commandsVec.size() != 2) return -2;
         if(checkFiletxt(commandsVec[1])){
-            readExecFile(commandsVec[2]);
+            readExecFile(commandsVec[1]);
             return 1;
         } else return -1;
 
@@ -161,7 +162,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         if (commandsVec.size() != 2) return -2;
         //saveFile(commandsVec[1], savegame);
         if (saveCommands(commandsVec[1])) {
-            return 4;
+            return -11;
         } else return -404;
 
     // !!! DEBUG COMMANDS !!!
@@ -216,7 +217,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
         for (int i = 0; i < world.tiles().size() ; ++i) {
             for (int j = 0; j < world.tiles()[0].size(); ++j) {
                 for (int k = 0; k < world.tiles()[i][j]->workers().size(); ++k) {
-                    if(world.tiles()[i][j]->workers()[k]->giveIdentificador()[0] == workerIDint + 1) {
+                    if(world.tiles()[i][j]->workers()[k]->giveIdentifier()[0] == workerIDint + 1) {
                         interpreter.overloadedMsg() = island().debkill(workerIDint);
                         return 111;
                     }
