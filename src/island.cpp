@@ -15,7 +15,50 @@ Island::Island(int l, int c) : resourcesVar(0,0,0,0,0,0,500), roundNum(0), playe
 
 Island::Island(const Island &old) : tile_types(old.tile_types), resourcesVar(old.resourcesVar), roundNum(old.roundNum), playerNum(old.playerNum) {
     //vecvec(old.vecvec),
-    int i = 0;
+    for (int i = 0 ; i < old.vecvec.size() ; ++i ) {
+        vecvec.add(poo::vector<class Tile*>());
+        for (int j = 0; j < old.vecvec[0].size(); ++j) {
+            vecvec[i].add();
+            vecvec[i][j] = theRightTileDup(*old.vecvec[i][j],i,j);
+        }
+    }
+}
+
+Tile* Island::theRightTileDup(Tile boy,int l,int c){
+    Tile *p = nullptr;
+    bool found = false;
+    int k;
+    for (k = 0 ; k < tile_types.size() ; ++k) {
+        if (tile_types[k] == boy.type()) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) return p;
+
+    switch (k) {
+        case (0):
+            p = new mountain(*this, l, c);
+            break;
+        case (1):
+            p = new desert(*this, l, c);
+            break;
+        case (2):
+            p = new pasture(*this, l, c);
+            break;
+        case (3):
+            p = new forest(*this, l, c);
+            break;
+        case (4):
+            p = new swamp(*this, l, c);
+            break;
+        case (5):
+            p = new zoneX(*this, l, c);
+            break;
+        default:
+            std::cout << "Error generating zone" << std::endl;
+    }
+    return p;
 }
 
 std::string Island::showSimpleIsland() const {

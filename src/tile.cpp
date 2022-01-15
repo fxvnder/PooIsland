@@ -170,14 +170,34 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
     // CoalMine
     } else if (building == "mnC"){
         if(costmoney) {
-            if (island().resources().money > 10){
-                island().resources().money-= 10;
+            // if theres enough wood plaques
+            if (island().resources().wood_plaques >= 10){
+                island().resources().wood_plaques -= 10;
                 p = new coalMine(*this);
+
+            // if not enough wood plaques
             } else {
+                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques;
+                bool canpurchase = false;
                 for (int i = 0; i < 10; ++i) {
-                    if(island().resources().wood_plaques > 0) {
-                        island().resources().wood_plaques--;
+                    if (howmuchwood > 0){
+                        howmuchwood--;
+                        moneyneeded-=10;
+                    } else {
+                        if(island().resources().money >= moneyneeded) canpurchase = true;
                     }
+                }
+
+                if (canpurchase) {
+                    for (int i = 0; i < 10; ++i) {
+                        if (howmuchwood > 0){
+                            howmuchwood--;
+                            moneyneeded-=10;
+                        } else {
+                            if(island().resources().money >= moneyneeded) canpurchase = true;
+                        }
+                    }
+                    p = new coalMine(*this);
                 }
             }
         }

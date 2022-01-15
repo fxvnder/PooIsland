@@ -244,7 +244,28 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
             return 3;
         }
         if (commandsVec.size() == 2){
-            return 3;
+            if (commandsVec[1] == "exec") return 10;
+            if (commandsVec[1] == "apaga") return 11;
+            if (commandsVec[1] == "config") return 12;
+            if (commandsVec[1] == "cons") return 13;
+            if (commandsVec[1] == "cont") return 14;
+            if (commandsVec[1] == "debcash") return 15;
+            if (commandsVec[1] == "debed") return 16;
+            if (commandsVec[1] == "debkill") return 17;
+            if (commandsVec[1] == "des") return 18;
+            if (commandsVec[1] == "exit") return 19;
+            if (commandsVec[1] == "help") return 20;
+            if (commandsVec[1] == "liga") return 21;
+            if (commandsVec[1] == "list") return 22;
+            if (commandsVec[1] == "load") return 23;
+            if (commandsVec[1] == "move") return 24;
+            if (commandsVec[1] == "save") return 26;
+            if (commandsVec[1] == "next") return 25;
+            if (commandsVec[1] == "savecommands") return 27;
+            if (commandsVec[1] == "savescreen") return 28;
+            if (commandsVec[1] == "upgrd") return 29;
+            if (commandsVec[1] == "vende") return 30;
+            return -5;
         }
         return -2;
     }

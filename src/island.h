@@ -15,6 +15,7 @@
 class Island {
 private:
     std::string timeOfDay(int);
+    // poo::vector<poo::vector<std::unique_ptr<Tile>>> vecvec; // vector of vectors that have the tiles
     poo::vector<poo::vector<Tile*>> vecvec; // vector of vectors that have the tiles
     std::vector<std::string> tile_types = {"mnt", "dsr", "pas", "flr", "pnt", "znZ"};
     // montanha, deserto, pastagem, floresta, pantano, zonaX
@@ -34,6 +35,7 @@ public:
     bool isOutOfBounds(int l, int c) const;
     bool existsInIsland(const std::string& type);
     Tile* randomTile(int l, int c);
+    Tile* theRightTileDup(Tile,int,int);
 
     // management rounds
     void incRound();
