@@ -6,24 +6,8 @@ Island &gameData::island(){
     return world;
 }
 
-std::string timeOfDay(int n){
-    std::ostringstream oss;
-    int day = n / (24 * 3600);
-
-    n = n % (24 * 3600);
-    int hour = n / 3600;
-
-    n %= 3600;
-    int minutes = n / 60 ;
-
-    n %= 60;
-    int seconds = n;
-
-    oss << day << " " << "days " << hour
-         << " " << "hours " << minutes << " "
-         << "minutes " << seconds << " "
-         << "seconds "  << std::endl;
-    return oss.str();
+double & gameData::elapsed_seconds(){
+    return elapsed_seconds_var;
 }
 
 void gameData::createNewWorld(int * dim){
@@ -65,7 +49,7 @@ void gameData::readExecFile(std::string filename){
             std::cout << "\nCommand #" << commandnum << ":" << std::endl;
             std::cout << lineContent << "\n" << std::endl; // prints out everything
             if (!lineContent.empty()) {
-                msg = treatCommand(lineContent,interpreter);
+                msg = treatCommand(lineContent,interpreter,0);
                 std::cout << msg << std::endl;
                 commandnum++;
             }

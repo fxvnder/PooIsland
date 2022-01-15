@@ -1,7 +1,7 @@
 #include "files.h"
 #include "program.h"
 
-int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
+int gameData::treatCommand(std::string& commands, Interpreter& interpreter, double elapsed_seconds) {
 
     // convert string to lowercase
     commands = strToLower(commands);
@@ -107,7 +107,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter) {
     // LIST
     } else if (commandsVec[0] == "list") { // list <linha> <coluna>, lista eventos, trabalhadores, etc.
         if (commandsVec.size() == 1) {
-            interpreter.overloadedMsg() = island().showInfoIsland();
+            interpreter.overloadedMsg() = island().showInfoIsland(elapsed_seconds);
             return 111;
         } if (commandsVec.size() != 3)
             return -2;

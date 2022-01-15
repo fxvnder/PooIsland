@@ -1,5 +1,6 @@
 #include <chrono>
 #include <ctime>
+#include "utils.h"
 #include "program.h"
 #include "interface.h"
 #include "interpreter.h"
@@ -18,18 +19,19 @@ void interface::plays(){
             std::cout << "\nInsert a command. For help type 'help'\n> ";
             getline(std::cin, command);
         } while (command.empty());
-        msgCode = game.treatCommand(command, interpreter);
-        if (msgCode >= 0) { game.saveCommsVec(command); }
-        std::cout << interpreter.predefinedErrors(msgCode) << std::endl;
 
+        // see time it took since start of plays
         auto end = std::chrono::system_clock::now();
         std::chrono::duration<double> elapsed_seconds = end-start;
-        std::cout << elapsed_seconds.count() << std::endl;
-        if (elapsed_seconds.count() > 90){
-            msgCode = 0; // after making commands for over 1 minute and 30 seconds, a new day will automatically start
+
+        msgCode = game.treatCommand(command, interpreter, elapsed_seconds.count());
+        if (msgCode >= 0) { game.saveCommsVec(command); } // if successful command, record it
+        std::cout << interpreter.predefinedErrors(msgCode) << std::endl;
+
+        if (elapsed_seconds.count() > DAYTIME){
+            msgCode = 0; // after making commands for over DAYTIME seconds, a new day will automatically start
             std::cout << "The day has ended!" << std::endl;
         }
-        //std::cout << game.timeOfDay(elapsed_seconds.count());
     } while (msgCode != 0);
 }
 
@@ -164,7 +166,7 @@ void interface::newGame() {
 void interface::gameCycle(){
     do {
         game.island().incRound();
-        std::cout << game.island().showInfoIsland() << std::endl;
+        std::cout << game.island().showInfoIsland(0) << std::endl;
         game.dawn();
         plays();
         game.dusk();

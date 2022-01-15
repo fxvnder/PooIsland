@@ -13,6 +13,7 @@
 
 class Island {
 private:
+    std::string timeOfDay(int);
     // vector of vectors that have the tiles
     poo::vector<poo::vector<Tile*>> vecvec;
     //syntax for arr[l][c] will be arr[l*sizeY+c];
@@ -27,7 +28,7 @@ public:
     Island(const Island &old); // const por cópia
 
     std::string showSimpleIsland() const;
-    std::string showInfoIsland();
+    std::string showInfoIsland(double time);
     void updateGlobalResources();
 
     void changeDim(int l, int c);

@@ -22,11 +22,11 @@ private:
 
     // vector that contains command strings
     std::vector<std::string> commandHistory;
-    
+    double elapsed_seconds_var;
 public:
     gameData();
 
-    std::string timeOfDay(int);
+    double & elapsed_seconds();
 
     void createNewWorld(int *dim);
 
@@ -48,7 +48,7 @@ public:
     bool saveCommands(const std::string& filename);
 
     // manages the commands
-    int treatCommand(std::string& commands, Interpreter&);
+    int treatCommand(std::string& commands, Interpreter&, double);
 };
 
 #endif //POOISLAND_PROGRAM_H

@@ -30,7 +30,7 @@ std::string Island::showSimpleIsland() const {
     return oss.str();
 }
 
-std::string Island::showInfoIsland() {
+std::string Island::showInfoIsland(double time) {
     std::ostringstream oss;
     //std::cout << vecvec.size() << vecvec[0].size() << std::endl;
 
@@ -213,7 +213,9 @@ std::string Island::showInfoIsland() {
 
     updateGlobalResources();
 
-    oss << "--- DAY NUMBER " << roundNum << " ---" << std::endl << std::endl;
+    oss << "--- DAY NUMBER " << roundNum << " ---" << std::endl;
+    oss << "Time of day: " << timeOfDay(round(86400*time/DAYTIME)) << std::endl << std::endl;
+
     oss << "Island Resources:" << std::endl;
     oss << "Cash: " << resourcesVar.money << "€" << std::endl;
     oss << "Iron: " << resourcesVar.iron << " - ";
@@ -242,6 +244,27 @@ void Island::updateGlobalResources(){
             resourcesVar.electricity += tile(y,x).resources().electricity;
         }
     }
+}
+std::string Island::timeOfDay(int n){
+    std::ostringstream oss;
+    // DAYTIME
+    int hourTime = DAYTIME / 24;
+    int secondTime = hourTime / 60;
+
+    n = n % (24 * 3600);
+    int hour = n / 3600;
+
+    n %= 3600;
+    int minutes = n / 60 ;
+
+    n %= 60;
+    int seconds = n;
+
+    oss << hour
+        << " " << "hours " << minutes << " "
+        << "minutes " << seconds << " "
+        << "seconds "  << std::endl;
+    return oss.str();
 }
 
 void Island::changeDim(int l, int c){
