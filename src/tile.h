@@ -12,6 +12,7 @@ class Island;
 
 class Tile{
 private:
+    Building* whatBuilding(Building*);
     std::vector<std::string> v_buildings;
     int coords[2];
     // miner len oper
@@ -21,9 +22,11 @@ protected: // protected so the derivative classes can access it
     Building* building_class;
     std::vector<Worker*> workersVec;
     resourcesStr resources_var;
+    std::vector<std::string> workertypes;
 public:
-    // construidor
+    // constructor
     Tile(Island & island, int l, int c);
+    Tile(const Tile &old); // const por cópia
 
     // aceder ao island
     Island& island();
@@ -31,6 +34,7 @@ public:
 
     // vetor dos trabalhadores
     std::vector<Worker*>& workers();
+    Worker* theRightWorker(Worker*);
 
     // DISPLAY FUNCS
     std::string& type();
@@ -53,6 +57,8 @@ public:
     virtual void dawn();
     virtual void dusk();
     virtual ~Tile();
+    Tile & operator=(Tile old);
+    Tile & dup(Tile *old,Island & islande);
 private:
     Building* whichBuilding(std::string command, bool costmoney);
 };

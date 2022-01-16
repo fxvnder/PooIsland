@@ -19,12 +19,13 @@ Island::Island(const Island &old) : tile_types(old.tile_types), resourcesVar(old
         vecvec.add(poo::vector<class Tile*>());
         for (int j = 0; j < old.vecvec[0].size(); ++j) {
             vecvec[i].add();
-            vecvec[i][j] = theRightTileDup(*old.vecvec[i][j],i,j);
+            vecvec[i][j] = theRightTileDup(*old.vecvec[i][j], i , j);
+            vecvec[i][j]->dup(old.vecvec[i][j], *this) ;
         }
     }
 }
 
-Tile* Island::theRightTileDup(Tile boy,int l,int c){
+Tile* Island::theRightTileDup(Tile boy, int l, int c){
     Tile *p = nullptr;
     bool found = false;
     int k;
@@ -495,7 +496,53 @@ void Island::dusk(){
     std::cout << "It's dusk... ISLAND" << std::endl;
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
+
+            // checks workers conditions
+            for (int k = 0; k < tile(i,j).workers().size(); ++k) {
+
+                // for oper
+                if(tile(i,j).workers()[k]->workerChar() == 'O'){
+                    bool isHeGonnaQuit = false;
+                    if(day() >= 10){
+                        if(random(0,100) <= 5){
+                            isHeGonnaQuit = true;
+                        }
+                    }
+                    if(isHeGonnaQuit){
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                    }
+
+                // for lenhador
+                } else if (tile(i,j).workers()[k]->workerChar() == 'L'){
+                    bool isHeGonnaQuit = false;
+                    if(day() % 5 == 0) {
+                        tile(i,j).workers()[k]->togglerestday(true);
+                    } else tile(i,j).workers()[k]->togglerestday(false);
+
+                    if(random(0,100) <= 1){
+                        isHeGonnaQuit = true;
+                    }
+
+                    if(isHeGonnaQuit){
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                    }
+
+                // for miner
+                } else if (tile(i,j).workers()[k]->workerChar() == 'M'){
+                    bool isHeGonnaQuit = false;
+                    if(day() >= 2){
+                        if(random(0,100) <= 10){
+                            isHeGonnaQuit = true;
+                        }
+                    }
+                    if(isHeGonnaQuit){
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                    }
+                }
+
+            // does dusk on X, Y
             vecvec[i-1][j-1]->dusk();
+            }
         }
     }
 }

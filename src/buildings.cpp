@@ -7,6 +7,26 @@ Building::Building(Tile &tile) : on(false), tile(tile) { }
 std::string Building::type() {
     return type_var;
 }
+Building::Building(const Building &old)  // const por cópia
+:   on(old.on),
+    type_var(old.type_var),
+    tile(tile) {} ;
+
+Building & Building::operator=( /*const*/ Building /*&*/ old) { // idioma swap
+    // este objeto old vai morrer aqui
+    std::swap (on, old.on);
+    std::swap (type_var, old.type_var);
+    //std::swap (tile, old.tile);
+    return *this; // pensar no quê que (a = b) retorna, para casos do tipo a = (b = c)
+}
+Building & Building::dup(Building*old, Tile & tilezz){
+    on = old->on;
+    type_var = old->type_var;
+    tile = tilezz;
+
+    return *this;
+}
+
 Building::~Building() {}
 void Building::dusk() {}
 int Building::turnOff(){

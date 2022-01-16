@@ -6,8 +6,6 @@
 class Tile;
 
 class Worker {
-private:
-    int custo = 0;
 protected:
     std::string type_var;
     Tile & tile;
@@ -16,31 +14,47 @@ public:
     std::string type();
     Worker(class Tile & tile);
     virtual char workerChar() = 0;
+    virtual ~Worker(){};
     int* giveIdentifier();
+    //Worker(const Worker &old); // const por cópia
+    //Worker & operator=( /*const*/ Worker /*&*/ old);
+    virtual bool checkrestday() = 0;
+    virtual void togglerestday(bool rest) = 0;
+    Worker & dup(Worker *old, Tile & tile);
 };
 
 class operative : public Worker {
-    int custo = 15;
+    //int givesUp[2];
     // 5% probab. de se despedir a partir do dia 10
 public:
     operative(class Tile &tile);
-    virtual char workerChar() override { return 'O'; };
+    ~operative();
+    char workerChar() override;
+    bool checkrestday() override { return false; }
+    void togglerestday(bool rest) override { }
 };
 
 class lumberjack : public Worker {
-    int custo = 20;
     // trabalha 4 dias e descansa 1
+    //bool isHeResting;
+    bool restday;
 public:
     lumberjack(class Tile &tile);
-    virtual char workerChar() override { return 'L'; };
+    ~lumberjack();
+    char workerChar() override;
+    bool checkrestday() override { return restday; };
+    void togglerestday(bool rest) override { if (rest) restday = true; else restday = false; };
 };
 
 class miner : public Worker {
-    int custo = 10;
+    //int givesUp[2];
     // 10% probab. de se despedir a partir do dia 2
 public:
     miner(class Tile &tile);
-    virtual char workerChar() override { return 'M'; };
+    ~miner();
+    char workerChar() override;
+    bool checkrestday() override { return false; }
+    void togglerestday(bool rest) override { }
 };
 
 #endif //POOISLAND_WORKERS_H

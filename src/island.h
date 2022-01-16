@@ -24,7 +24,7 @@ private:
     int roundNum, playerNum;
 public:
     Island(int l=0, int c=0); // construtor
-    Island(const Island &old); // const por cópia
+    Island(const Island &old); // copy const
 
     std::string showSimpleIsland() const;
     std::string showInfoIsland(double time);

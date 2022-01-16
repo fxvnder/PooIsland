@@ -19,7 +19,11 @@ public:
     Building(class Tile & tile);
     virtual void dusk();
     virtual ~Building();
+    Building(const Building &old); // const por cópia
+    Building & operator=(Building old);
+    Building & dup(Building *old, Tile & tile);
 };
+
 
 //        mnF -> Mina de ferro
 //        mnC -> Mina de carvão

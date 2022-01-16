@@ -15,7 +15,156 @@ Tile::Tile(Island & island, int l, int c) : building_class(nullptr), workersVec(
     v_buildings.push_back("bat");
     v_buildings.push_back("fun");
     v_buildings.push_back("sarr");
+
+    workertypes.push_back("oper");
+    workertypes.push_back("miner");
+    workertypes.push_back("len");
 }
+
+Tile::Tile(const Tile &old)  // const por cópia
+:   v_buildings(old.v_buildings),
+    typevar(old.typevar),
+    island_var(island_var),
+    //building_class(old.building_class),
+    //workersVec(old.workersVec),
+    resources_var(old.resources_var){
+
+    coords[0] = old.coords[0];
+    coords[1] = old.coords[1];
+
+    // building
+    if (old.building_class == nullptr)
+        building_class = nullptr;
+    else{
+        building_class = whatBuilding(old.building_class);
+        *building_class = *old.building_class;
+    }
+
+    //workers
+    for (int i = 0; i < old.workersVec.size(); ++i) {
+        workersVec.push_back(nullptr);
+        workersVec[i] = theRightWorker(old.workersVec[i]);
+        //*workersVec[i] = *old.workersVec[i];
+    }
+
+}
+
+Worker* Tile::theRightWorker(Worker *wok){
+    Worker *p = nullptr;
+    bool found = false;
+    int k;
+    for (k = 0 ; k < workertypes.size() ; ++k) {
+        if (workertypes[k] == wok->type()) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) return p;
+
+    switch (k) {
+        case (0):
+            p = new operative(*this);
+            break;
+        case (1):
+            p = new miner(*this);
+            break;
+        case (2):
+            p = new lumberjack(*this);
+            break;
+        default:
+            std::cout << "Error generating zone" << std::endl;
+    }
+    return p;
+}
+
+Building* Tile::whatBuilding(Building* pboya){
+    Building *p = nullptr;
+    bool found = false;
+    int k;
+    for (k = 0 ; k < v_buildings.size() ; ++k) {
+        if (v_buildings[k] == pboya->type()) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) return p;
+
+    switch (k) {
+        case (0):
+            p = new ironFarm(*this);
+            break;
+        case (1):
+            p = new coalMine(*this);
+            break;
+        case (2):
+            p = new electricityCentral(*this);
+            break;
+        case (3):
+            p = new battery(*this);
+            break;
+        case (4):
+            p = new foundry(*this);
+            break;
+        case (5):
+            p = new sarration(*this);
+            break;
+        default:
+            std::cout << "Error generating building" << std::endl;
+    }
+    return p;
+}
+Tile & Tile::operator=( /*const*/ Tile /*&*/ old) { // idioma swap
+    // este objeto outro vai morrer aqui
+    std::swap (v_buildings, old.v_buildings);
+    std::swap (coords[0], old.coords[0]);
+    std::swap (coords[1], old.coords[1]);
+    std::swap (typevar, old.typevar);
+    std::swap (typevar, old.typevar);
+    return *this; // pensar no quê que (a = b) retorna, para casos do tipo a = (b = c)
+}
+
+Tile & Tile::dup(Tile* old, Island & islande) {
+    /*
+}
+    :   v_buildings(old.v_buildings),
+            typevar(old.typevar),
+            island_var(island_var),
+            //building_class(old.building_class),
+            //workersVec(old.workersVec),
+            resources_var(old.resources_var){
+*/
+        coords[0] = old->coords[0];
+        coords[1] = old->coords[1];
+
+        // building
+        if (old->building_class == nullptr)
+            building_class = nullptr;
+        else{
+            building_class = whatBuilding(old->building_class);
+            building_class->dup(old->building_class, *this);
+        }
+
+        //workers
+        for (int i = 0; i < old->workersVec.size(); ++i) {
+            workersVec.push_back(nullptr);
+            workersVec[i] = theRightWorker(old->workersVec[i]);
+            workersVec[i]->dup(old->workersVec[i], *this);
+        }
+    return *this;
+    }
+
+/*
+// default copy constructor
+// Ginasio::Ginasio (const Ginasio & old) :
+//     bob(old.bob),
+//     gymname(old.gymname) { }
+
+Ginasio::Ginasio (const Ginasio & old) :
+        bob(*this, old.cliente_v().HisName()),
+        gymname(old.gymname) { }
+        */
+
+
 std::string Tile::showInfoTile() const {
     std::ostringstream oss;
     std::string tmp;
@@ -159,13 +308,47 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
 
     // IronFarm
     if (building == "mnF"){
-        if (!costmoney){
+        if(costmoney) {
+            // if theres enough wood plaques
+            if (island().resources().wood_plaques >= 10){
+                island().resources().wood_plaques -= 10;
+                p = new ironFarm(*this);
+                success = true;
+
+                // if not enough wood plaques
+            } else {
+                // vars
+                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
+                bool canpurchase = false;
+
+                // checks if purchase is possible
+                for (int i = 0; i < 10; ++i) {
+                    if (howmuchwood > 0) {
+                        howmuchwood--;
+                        woodavailable++;
+                        moneyneeded -= 10;
+                    }
+                }
+
+                // check if theres enough money to cover for the wood plaques
+                if(island().resources().money >= moneyneeded) canpurchase = true;
+
+                // if there's enough resources to purchase
+                if (canpurchase) {
+                    island().resources().wood_plaques -= woodavailable;
+                    island().resources().money -= moneyneeded;
+                    p = new ironFarm(*this);
+                    success = true;
+                }
+            }
+        }
+
+        if (!costmoney) {
             p = new ironFarm(*this);
             success = true;
         }
 
         if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
-
 
     // CoalMine
     } else if (building == "mnC"){
@@ -174,40 +357,42 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
             if (island().resources().wood_plaques >= 10){
                 island().resources().wood_plaques -= 10;
                 p = new coalMine(*this);
+                success = true;
 
             // if not enough wood plaques
             } else {
-                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques;
+                // vars
+                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
                 bool canpurchase = false;
+
+                // checks if purchase is possible
                 for (int i = 0; i < 10; ++i) {
-                    if (howmuchwood > 0){
+                    if (howmuchwood > 0) {
                         howmuchwood--;
-                        moneyneeded-=10;
-                    } else {
-                        if(island().resources().money >= moneyneeded) canpurchase = true;
+                        woodavailable++;
+                        moneyneeded -= 10;
                     }
                 }
 
+                // check if theres enough money to cover for the wood plaques
+                if(island().resources().money >= moneyneeded) canpurchase = true;
+
+                // if there's enough resources to purchase
                 if (canpurchase) {
-                    for (int i = 0; i < 10; ++i) {
-                        if (howmuchwood > 0){
-                            howmuchwood--;
-                            moneyneeded-=10;
-                        } else {
-                            if(island().resources().money >= moneyneeded) canpurchase = true;
-                        }
-                    }
+                    island().resources().wood_plaques -= woodavailable;
+                    island().resources().money -= moneyneeded;
                     p = new coalMine(*this);
+                    success = true;
                 }
             }
         }
+
         if (!costmoney) {
             p = new coalMine(*this);
             success = true;
         }
 
         if(!success) { std::cout << "ERROR: You don't have enough resources!"; }
-
 
     // ElectricityCentral
     } else if (building == "elec"){
@@ -257,7 +442,13 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
 
 
     // Sarration
-    } else if (building == "sarr"){
+    } else if (building == "serr"){
+        if (costmoney && island().resources().money >= 10) {
+            island().resources().money -= 10;
+            p = new sarration(*this);
+            success = true;
+        }
+
         if (!costmoney){
             p = new sarration(*this);
             success = true;
@@ -426,7 +617,7 @@ forest::forest(Island &island,int l, int c) : Tile(island,l,c), num_trees(random
 void forest::dawn() {
     if (num_trees > 0)
         for (Worker* pw : workersVec) {
-            if (pw->workerChar()=='L') {
+            if (pw->workerChar()=='L' && !pw->checkrestday()) {
                 resources_var.wood++;
             }
         }
