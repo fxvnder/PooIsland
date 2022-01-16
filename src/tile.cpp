@@ -318,7 +318,7 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
                 // if not enough wood plaques
             } else {
                 // vars
-                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
+                double moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
                 bool canpurchase = false;
 
                 // checks if purchase is possible
@@ -362,7 +362,7 @@ Building* Tile::whichBuilding(std::string building, bool costmoney){
             // if not enough wood plaques
             } else {
                 // vars
-                int moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
+                double moneyneeded = 100, howmuchwood = island().resources().wood_plaques, woodavailable = 0;
                 bool canpurchase = false;
 
                 // checks if purchase is possible

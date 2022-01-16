@@ -93,7 +93,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
         //vende(island,commandsVec)
         if (commandsVec.size() != 3) return -2;
         oss << "vende " << " in X=" << commandsVec[1] << " Y=" << commandsVec[2] << std::endl;
-        //interpreter.overload(island().vende(commandsVec).str());
+        interpreter.overloadedMsg() = island().vende(commandsVec[1], commandsVec[2]);
         return 111;
 
     // CONT
@@ -128,17 +128,18 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
     } else if (commandsVec[0] == "save") { // save <nome>
         if (commandsVec.size() != 2) return -2;
         // SAVES GAME IN MEMORY
-        return saveVersion(commandsVec[1]);;
+        return saveVersion(commandsVec[1]);
 
     // LOAD
     } else if (commandsVec[0] == "load") { // load <nome>
         if (commandsVec.size() != 2) return -2;
-        return loadVersion(commandsVec[1]);;
+        // LOADS GAME IN MEMORY
+        return loadVersion(commandsVec[1]);
 
     // APAGA
     } else if (commandsVec[0] == "apaga") { // apaga <nome>
         if (commandsVec.size() != 2) return -2;
-        return deleteVersion(commandsVec[1]);;
+        return deleteVersion(commandsVec[1]);
 
     } else if (commandsVec[0] == "savescreen") { // saveScreen
         if (commandsVec.size() != 1) return -2;
@@ -175,17 +176,22 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
     // DEBCASH
     } else if (commandsVec[0] == "debcash") { // debcash <valor>
         if (commandsVec.size() != 2) return -2; // checks if too many arguments
-        if (commandsVec[1].find_first_not_of("0123456789")){
-            return -4;
-        } else{
-            std::stringstream cashmoney;
-            int moneyadd = 0;
-            cashmoney >> commandsVec[2];
-            cashmoney << moneyadd;
-            island().resources().money += moneyadd;
-        }
-        return -404;
+        bool isNumber = false;
 
+        for (char const &c : commandsVec[1]) {
+            if (std::isdigit(c) == 0) { isNumber = true; } else isNumber = false;
+        }
+
+        if (isNumber){
+            return -4;
+        } else {
+            std::stringstream cashmoney;
+            double moneyadd = 0;
+            cashmoney << commandsVec[1];
+            cashmoney >> moneyadd;
+            island().resources().money += moneyadd;
+            return 0;
+        }
 
     // DEBED
     } else if (commandsVec[0] == "debed") { // debed <tipo> <linha> <coluna>
@@ -211,7 +217,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
 
         std::ostringstream oss;
         std::stringstream workerIDstream;
-        int workerIDint, l, c;
+        int workerIDint;
 
         // converts string to ostring
         workerIDstream << commandsVec[1];

@@ -427,7 +427,76 @@ std::string Island::cont(const std::string& workertype) { // cont <type>
     return oss.str();
 }
 
+std::string Island::vende(const std::string& input1, const std::string& input2){
+    bool type = false; // true <line> <column> // false <type> <quantity>
+    std::ostringstream oss;
+    // iron = 1, steel = 2, coal = 1, wood = 1, wood_plaques = 2, electricity = 1.5
+    double sellvalue[6] {1, 2, 1, 1, 2, 1.5};
+
+    // VERIFIES IF INPUT1 IS A NUMBER OR TEXT
+    // IF ITS A NUMBER IT WILL DO VENDE <LINE> <COLUMN> = TYPE TRUE
+    // IF NOT IT WILL DO VENDE <TYPE> <QUANTITY> = TYPE FALSE
+
+    for (char const &c : input1){
+        if (std::isdigit(c) != 0){
+            type = true;
+        } else type = false;
+    }
+
+    for (char const &c : input2){
+        if (std::isdigit(c) == 0) {
+            oss << "ERROR: Invalid input." << std::endl;
+            return oss.str();
+        }
+    }
+
+    // VALID INPUT
+    if(type){
+        // convert to int
+        std::stringstream input1str(input1);
+        std::stringstream input2str(input2);
+        int inp1 = 0;
+        int inp2 = 0;
+        input1str >> inp1;
+        input2str >> inp2;
+
+        // line column
+
+        // sells resources
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().iron; k++){
+            vecvec[inp1-1][inp2-1]->resources().iron--;
+            vecvec[inp1-1][inp2-1]->resources().money++;
+        }
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().steel_bar; k++){
+            vecvec[inp1-1][inp2-1]->resources().steel_bar--;
+            vecvec[inp1-1][inp2-1]->resources().money+=2;
+        }
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().coal; k++){
+            vecvec[inp1-1][inp2-1]->resources().coal--;
+            vecvec[inp1-1][inp2-1]->resources().money++;
+        }
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().wood; k++){
+            vecvec[inp1-1][inp2-1]->resources().wood--;
+            vecvec[inp1-1][inp2-1]->resources().money++;
+        }
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().wood_plaques; k++){
+            vecvec[inp1-1][inp2-1]->resources().wood_plaques--;
+            vecvec[inp1-1][inp2-1]->resources().money+=2;
+        }
+        for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().electricity; k++){
+            vecvec[inp1-1][inp2-1]->resources().electricity--;
+            vecvec[inp1-1][inp2-1]->resources().money+=1.5;
+        }
+
+    } else {
+        // type quantity
+    }
+
+    return oss.str();
+}
+
 std::string Island::move(std::string& workerID, int l, int c){
+    bool found = false;
     std::ostringstream oss;
     std::stringstream workerIDstream;
     int workerIDint;
@@ -446,12 +515,15 @@ std::string Island::move(std::string& workerID, int l, int c){
                     tile(l,c).workers().push_back(vecvec[i][j]->workers()[k]);
                     tile(l,c).workers()[k] = vecvec[i][j]->workers()[k];
                     vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k);
+                    found = true;
                 }
             }
         }
     }
 
-    oss << "SUCCESS:" << std::endl << "Moving Worker " << workerID << " to X=" << l << " and Y=" << c << std::endl;
+    if (found) {
+        oss << "SUCCESS:" << std::endl << "Moving Worker " << workerID << " to X=" << l << " and Y=" << c << std::endl;
+    } else { oss << "ERROR: Worker with ID " << workerID << " not found!" << std::endl; }
 
     return oss.str();
 }

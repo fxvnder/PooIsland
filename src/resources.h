@@ -2,15 +2,15 @@
 #define POOISLAND_RESOURCES_H
 
 struct resourcesStr {
-    int iron; // Ferro
-    int steel_bar; // Barra de aço
-    int coal; // Carvão
-    int wood; // Madeira
-    int wood_plaques; // Vigas de Madeira
-    int electricity; // Eletricidade
-    int money; // Cash
+    double iron; // Ferro
+    double steel_bar; // Barra de aço
+    double coal; // Carvão
+    double wood; // Madeira
+    double wood_plaques; // Vigas de Madeira
+    double electricity; // Eletricidade
+    double money; // Cash
 
-    resourcesStr(int iron=0, int steel=0, int coal=0, int wood=0, int wood_plaques=0, int electricity=0, int money=0);
+    resourcesStr(double iron = 0, double steel = 0, double coal = 0, double wood = 0, double wood_plaques = 0, double electricity = 0, double money = 0);
 };
 
 #endif //POOISLAND_RESOURCES_H

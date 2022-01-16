@@ -57,6 +57,7 @@ public:
     std::string cont(const std::string& workertype);
     std::string move(std::string& workerID, int l, int c);
     std::string debkill(int workerID, bool quit);
+    std::string vende(const std::string& input1, const std::string& input2);
 
     // tiles
     poo::vector<poo::vector<Tile*>> &tiles();

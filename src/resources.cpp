@@ -1,6 +1,6 @@
 #include "resources.h"
 
-resourcesStr::resourcesStr(int iron, int steel, int coal, int wood, int wood_plaques, int electricity, int money)
+resourcesStr::resourcesStr(double iron, double steel, double coal, double wood, double wood_plaques, double electricity, double money)
 :   iron(iron),
     steel_bar(steel),
     coal(coal),
@@ -9,3 +9,8 @@ resourcesStr::resourcesStr(int iron, int steel, int coal, int wood, int wood_pla
     electricity(electricity),
     money(money)
 { }
+
+
+
+
+
