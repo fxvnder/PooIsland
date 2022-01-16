@@ -223,7 +223,7 @@ int gameData::treatCommand(std::string& commands, Interpreter& interpreter, doub
             for (int j = 0; j < world.tiles()[0].size(); ++j) {
                 for (int k = 0; k < world.tiles()[i][j]->workers().size(); ++k) {
                     if(world.tiles()[i][j]->workers()[k]->giveIdentifier()[0] == workerIDint + 1) {
-                        interpreter.overloadedMsg() = island().debkill(workerIDint);
+                        interpreter.overloadedMsg() = island().debkill(workerIDint, false);
                         return 111;
                     }
                 }

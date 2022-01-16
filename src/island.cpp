@@ -62,6 +62,32 @@ Tile* Island::theRightTileDup(Tile boy, int l, int c){
     return p;
 }
 
+std::vector<int> Island::workerNums(){
+    std::vector<int> workerNumsVec;
+    int opers = 0, miners = 0, lumbs = 0;
+
+    for (int i = 0; i < vecvec.size(); ++i) {
+        for (int j = 0; j < vecvec[0].size(); ++j) {
+            for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
+                if(vecvec[i][j]->workers()[k]->type() == "oper"){
+                    opers++;
+                } else if (vecvec[i][j]->workers()[k]->type() == "miner") {
+                    miners++;
+                } else if (vecvec[i][j]->workers()[k]->type() == "len") {
+                    lumbs++;
+                }
+            }
+        }
+    }
+
+    workerNumsVec.push_back(opers);
+    workerNumsVec.push_back(miners);
+    workerNumsVec.push_back(lumbs);
+
+    return workerNumsVec;
+}
+
+
 std::string Island::showSimpleIsland() const {
     std::ostringstream oss;
     for (int i = 0; i < vecvec.size(); i++){
@@ -260,7 +286,7 @@ std::string Island::showInfoIsland(double time) {
     updateGlobalResources();
 
     oss << "--- DAY NUMBER " << roundNum << " ---" << std::endl;
-    oss << "Time of day: " << timeOfDay(round(86400*time/DAYTIME)) << std::endl << std::endl;
+    oss << "Time of day: " << timeOfDay(round(86400*time/DAYTIME)) << std::endl;
 
     oss << "Island Resources:" << std::endl;
     oss << "Cash: " << resourcesVar.money << "€" << std::endl;
@@ -269,10 +295,17 @@ std::string Island::showInfoIsland(double time) {
     oss << "Coal: " << resourcesVar.coal << " - ";
     oss << "Wood: " << resourcesVar.wood << " - ";
     oss << "Wood_plaques: " << resourcesVar.wood_plaques << " - ";
-    oss << "Electricity: " << resourcesVar.electricity << std::endl;
+    oss << "Electricity: " << resourcesVar.electricity << std::endl << std::endl;
+
+    oss << "Island Workers:" << std::endl;
+    oss << "Operators: " << workerNums()[0] << " - ";
+    oss << "Miners: " << workerNums()[1] << " - ";
+    oss << "Lumberjacks: " << workerNums()[2];
+
 
     return oss.str();
 }
+
 void Island::updateGlobalResources(){
     resourcesVar.iron = 0;
     resourcesVar.steel_bar = 0;
@@ -423,15 +456,17 @@ std::string Island::move(std::string& workerID, int l, int c){
     return oss.str();
 }
 
-std::string Island::debkill(int workerID){
+std::string Island::debkill(int workerID, bool quit){
     std::ostringstream oss;
     bool found = false;
     int l, c;
+    std::string typeW;
 
     for (int i = 0; i < vecvec.size(); ++i) {
         for (int j = 0; j < vecvec[0].size(); ++j) {
             for (int k = 0; k < vecvec[i][j]->workers().size(); ++k) {
                 if (vecvec[i][j]->workers()[k]->giveIdentifier()[0] == workerID){
+                    typeW = vecvec[i][j]->workers()[k]->type();
                     vecvec[i][j]->workers().erase(vecvec[i][j]->workers().begin()+k);
                     found = true;
                     l = i; c = j;
@@ -440,8 +475,14 @@ std::string Island::debkill(int workerID){
         }
     }
 
+    if (quit) {
+        std::cout << "\nThe " << typeW << " with the ID " << workerID << " from X=" << l+1 << " and Y=" << c+1 << " has quit his job." << std::endl;
+        oss << "SUCCESS";
+        return oss.str();
+    }
+
     if (found) {
-        oss << "SUCCESS: " << std::endl << "Removed worker " << workerID << " from X=" << l << " Y=" << c << std::endl;
+        oss << "SUCCESS: " << std::endl << "Removed worker " << workerID << " from X=" << l+1 << " Y=" << c+1 << std::endl;
     } else oss << "ERROR: Worker was not found!" << std::endl;
 
     return oss.str();
@@ -484,7 +525,6 @@ bool Island::isOutOfBounds(int l, int c) const {
 }
 
 void Island::dawn(){
-    std::cout << "It's dawn... ISLAND" << std::endl;
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
             vecvec[i-1][j-1]->dawn();
@@ -493,7 +533,6 @@ void Island::dawn(){
 }
 
 void Island::dusk(){
-    std::cout << "It's dusk... ISLAND" << std::endl;
     for (int i = 1; i <= vecvec.size(); i++) {
         for (int j = 1; j <= vecvec[0].size(); j++){
 
@@ -509,7 +548,7 @@ void Island::dusk(){
                         }
                     }
                     if(isHeGonnaQuit){
-                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0], true);
                     }
 
                 // for lenhador
@@ -524,7 +563,7 @@ void Island::dusk(){
                     }
 
                     if(isHeGonnaQuit){
-                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0], true);
                     }
 
                 // for miner
@@ -536,7 +575,7 @@ void Island::dusk(){
                         }
                     }
                     if(isHeGonnaQuit){
-                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0]);
+                        debkill(tile(i,j).workers()[k]->giveIdentifier()[0], true);
                     }
                 }
 

@@ -45,6 +45,7 @@ public:
     // management players
     int& workerIDCounter();
     const int& workerIDCounter() const;
+    std::vector<int> workerNums();
 
     void dawn();
     void dusk();
@@ -55,7 +56,7 @@ public:
     // comms
     std::string cont(const std::string& workertype);
     std::string move(std::string& workerID, int l, int c);
-    std::string debkill(int workerID);
+    std::string debkill(int workerID, bool quit);
 
     // tiles
     poo::vector<poo::vector<Tile*>> &tiles();

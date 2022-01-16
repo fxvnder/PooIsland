@@ -19,12 +19,12 @@ void gameData::createNewWorld(int * dim){
 
 void gameData::dawn(){
     island().dawn();
-    std::cout << "It's dawn..." << std::endl;
+    std::cout << "\nIt's dawn..." << std::endl;
 }
 
 void gameData::dusk(){
     island().dusk();
-    std::cout << "It's dusk..." << std::endl;
+    std::cout << "\nIt's dusk..." << std::endl;
 }
 
 bool gameData::over(){

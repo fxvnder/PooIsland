@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <random>
 
-#define TILEDISPSIZE 20
+#define TILEDISPSIZE 10
 #define DAYTIME 130 // seconds
 
 int random (int low, int high);
