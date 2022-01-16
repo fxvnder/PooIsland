@@ -34,6 +34,7 @@ public:
 class ironFarm : public Building{
 public:
     ironFarm(class Tile &tile);
+    void dusk() override;
 };
 
 class coalMine : public Building{
@@ -44,7 +45,7 @@ public:
 class electricityCentral : public Building{
 public:
     electricityCentral(class Tile &tile);
-    virtual void dusk() override;
+    void dusk() override;
 };
 
 class battery : public Building{

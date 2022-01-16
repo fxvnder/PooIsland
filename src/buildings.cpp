@@ -44,6 +44,9 @@ int Building::turnOn(){
 ironFarm::ironFarm(class Tile &tile) : Building(tile) {
     type_var = "mnF";
 }
+void ironFarm::dusk(){
+
+}
 
 // ===== Class coalMine ===== //
 coalMine::coalMine(class Tile &tile) : Building(tile) {
