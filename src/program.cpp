@@ -34,7 +34,50 @@ bool gameData::over(){
 // STUFF WITH FILES
 
 void gameData::readConfigFile(const std::string filename){
-    // to be done
+    std::string lineContent;
+    std::ifstream fileSaved(filename + ".cfg");
+    Interpreter interpreter;
+    std::vector<std::string> commandsVec;
+    std::string separateWords;
+
+    std::cout << "\nWARNING: THIS COMMAND IS NOT WORKING PROPERLY, SO THIS IS ONLY SHOWING THAT I'M CAPABLE OF READING FILES\n" << std::endl;
+
+    if (fileSaved.is_open()) {
+        while (getline(fileSaved, lineContent)) {
+            if (!lineContent.empty()) {
+                std::stringstream strStream(lineContent);
+                while (strStream >> separateWords) {
+                    commandsVec.push_back(separateWords); // separates the words in a vector
+                }
+
+                if (commandsVec[0] == "mnc"){
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "mnf") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "mnc") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "elec") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "bat") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "miner"){
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "oper") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else if (commandsVec[0] == "len") {
+                    std::cout << "The cost of " << commandsVec[0] << " is now " << commandsVec[1] << std::endl;
+                } else {
+                    std::cout << "ERROR: Unknown building or worker type!" << std::endl;
+                }
+            }
+        }
+
+        fileSaved.close();
+
+        std::cout << "SUCCESS!" << std::endl;
+    } else {
+        std::cout << "ERROR: " << strerror(errno) << std::endl;
+    }
 }
 
 void gameData::readExecFile(std::string filename){
