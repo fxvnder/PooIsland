@@ -439,18 +439,12 @@ std::string Island::cont(const std::string& workertype) { // cont <type>
                 if (vecvec[i][j]->type() == "pas") {
                     --counter;
                     if (counter == 0) {
-                        if(workertype == "oper" && resources().money < 15){
-                            doWeHaveMoney = false;
-                            oss << "ERROR: No money!" << std::endl;
-                            return oss.str();
-                        } else if (workertype == "miner" && resources().money < 10) {
-                            doWeHaveMoney = false;
-                            oss << "ERROR: No money!" << std::endl;
-                            return oss.str();
-                        } else if (workertype == "len" && resources().money < 20) {
-                            doWeHaveMoney = false;
-                            oss << "ERROR: No money!" << std::endl;
-                            return oss.str();
+                        if(workertype == "oper"){
+                            resourcesVar.money -= 15;
+                        } else if (workertype == "miner") {
+                            resourcesVar.money -= 10;
+                        } else if (workertype == "len") {
+                            resourcesVar.money -= 20;
                         } else doWeHaveMoney = true;
                         oss << vecvec[i][j]->cont(workertype);
                     }
