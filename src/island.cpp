@@ -25,6 +25,14 @@ Island::Island(const Island &old) : tile_types(old.tile_types), resourcesVar(old
     }
 }
 
+Island::~Island() { // destructor
+    for (int i = 0 ; i < vecvec.size() ; ++i ) {
+        for (int j = 0; j < vecvec[0].size(); ++j) {
+            delete vecvec[i][j];
+        }
+    }
+}
+
 Tile* Island::theRightTileDup(Tile boy, int l, int c){
     Tile *p = nullptr;
     bool found = false;
@@ -397,25 +405,55 @@ Tile * Island::randomTile(int l, int c){
 }
 
 std::string Island::cont(const std::string& workertype) { // cont <type>
+    bool doWeHaveMoney = false;
     std::ostringstream oss;
     int counter = 0;
 
-    // COUNT PAS
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j]->type() == "pas")
-                ++counter;
-        }
-    }
+    if(workertype == "oper" && resources().money < 15){
+        doWeHaveMoney = false;
+        oss << "ERROR: No money!" << std::endl;
+        return oss.str();
+    } else if (workertype == "miner" && resources().money < 10) {
+        doWeHaveMoney = false;
+        oss << "ERROR: No money!" << std::endl;
+        return oss.str();
+    } else if (workertype == "len" && resources().money < 20) {
+        doWeHaveMoney = false;
+        oss << "ERROR: No money!" << std::endl;
+        return oss.str();
+    } else doWeHaveMoney = true;
 
-    // RANDOMIZES PAS
-    counter = random(1, counter);
-    for (int i = 0; i < vecvec.size(); ++i) {
-        for (int j = 0; j < vecvec[i].size(); ++j) {
-            if (vecvec[i][j]->type() == "pas") {
-                --counter;
-                if (counter == 0) {
-                    oss << vecvec[i][j]->cont(workertype);
+    if (doWeHaveMoney) {
+        // COUNT PAS
+        for (int i = 0; i < vecvec.size(); ++i) {
+            for (int j = 0; j < vecvec[i].size(); ++j) {
+                if (vecvec[i][j]->type() == "pas")
+                    ++counter;
+            }
+        }
+
+        // RANDOMIZES PAS
+        counter = random(1, counter);
+        for (int i = 0; i < vecvec.size(); ++i) {
+            for (int j = 0; j < vecvec[i].size(); ++j) {
+                if (vecvec[i][j]->type() == "pas") {
+                    --counter;
+                    if (counter == 0) {
+                        if(workertype == "oper" && resources().money < 15){
+                            doWeHaveMoney = false;
+                            oss << "ERROR: No money!" << std::endl;
+                            return oss.str();
+                        } else if (workertype == "miner" && resources().money < 10) {
+                            doWeHaveMoney = false;
+                            oss << "ERROR: No money!" << std::endl;
+                            return oss.str();
+                        } else if (workertype == "len" && resources().money < 20) {
+                            doWeHaveMoney = false;
+                            oss << "ERROR: No money!" << std::endl;
+                            return oss.str();
+                        } else doWeHaveMoney = true;
+                        oss << vecvec[i][j]->cont(workertype);
+                    }
                 }
             }
         }
@@ -452,6 +490,7 @@ std::string Island::vende(const std::string& input1, const std::string& input2){
 
     // VALID INPUT
     if(type){
+        // line column
         // convert to int
         std::stringstream input1str(input1);
         std::stringstream input2str(input2);
@@ -459,8 +498,6 @@ std::string Island::vende(const std::string& input1, const std::string& input2){
         int inp2 = 0;
         input1str >> inp1;
         input2str >> inp2;
-
-        // line column
 
         // sells resources
         for (int k = 0; k < vecvec[inp1-1][inp2-1]->resources().iron; k++){
@@ -490,6 +527,34 @@ std::string Island::vende(const std::string& input1, const std::string& input2){
 
     } else {
         // type quantity
+
+        // convert to int
+        std::stringstream input2str(input2);
+        int inp2 = 0;
+        input2str >> inp2;
+
+        if(input1 == "iron" && resourcesVar.iron >= inp2){
+            resourcesVar.iron--;
+            resourcesVar.money++;
+        } else if (input1 == "steel" && resourcesVar.steel_bar >= inp2){
+            resourcesVar.steel_bar--;
+            resourcesVar.money+=2;
+        } else if (input1 == "coal" && resourcesVar.coal >= inp2){
+            resourcesVar.coal--;
+            resourcesVar.money++;
+        } else if (input1 == "wood" && resourcesVar.wood >= inp2){
+            resourcesVar.wood--;
+            resourcesVar.money++;
+        } else if (input1 == "woodplaques" && resourcesVar.wood_plaques >= inp2){
+            resourcesVar.wood_plaques--;
+            resourcesVar.money+=2;
+        } else if (input1 == "electricity" && resourcesVar.electricity >= inp2){
+            resourcesVar.electricity--;
+            resourcesVar.money+=1.5;
+        } else {
+            oss << "\nERROR: Valid types: iron, steel, coal, wood, woodplaques, electricity" << std::endl;
+        }
+
     }
 
     return oss.str();

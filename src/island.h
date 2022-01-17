@@ -25,6 +25,7 @@ private:
 public:
     Island(int l=0, int c=0); // construtor
     Island(const Island &old); // copy const
+    ~Island(); // destructor
 
     std::string showSimpleIsland() const;
     std::string showInfoIsland(double time);

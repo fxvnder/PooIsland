@@ -19,6 +19,7 @@ public:
     Building(class Tile & tile);
     virtual void dusk();
     virtual ~Building();
+    virtual std::string upgrade();
     Building(const Building &old); // const por cópia
     Building & operator=(Building old);
     Building & dup(Building *old, Tile & tile);
@@ -32,35 +33,43 @@ public:
 //        fun -> Fundição
 
 class ironFarm : public Building{
+    int level;
+    int maxiron;
 public:
     ironFarm(class Tile &tile);
     void dusk() override;
+    std::string upgrade();
 };
 
 class coalMine : public Building{
 public:
     coalMine(class Tile &tile);
+    std::string upgrade();
 };
 
 class electricityCentral : public Building{
 public:
     electricityCentral(class Tile &tile);
+    std::string upgrade();
     void dusk() override;
 };
 
 class battery : public Building{
 public:
     battery(class Tile &tile);
+    std::string upgrade();
 };
 
 class foundry : public Building{
 public:
     foundry(class Tile &tile);
+    std::string upgrade();
 };
 
 class sarration : public Building{
 public:
     sarration(class Tile &tile);
+    std::string upgrade();
 };
 
 #endif //POOISLAND_BUILDINGS_H

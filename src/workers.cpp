@@ -7,21 +7,6 @@ Worker::Worker(Tile &tile) : tile(tile) {
     identifier[0] = tile.island().workerIDCounter();
     identifier[1] = tile.island().day();
 }
-/*
-Worker::Worker(const Worker &old) // const por cópia
-:   type_var(old.type_var),
-    tile(old.tile) {
-    identifier[0] = old.identifier[0];
-    identifier[1] = old.identifier[1];
-}*/
-
-//Worker & Worker::operator=( /*const*/ Worker /*&*/ old) { // idioma swap
-//    // este objeto outro vai morrer aqui
-//    std::swap (type_var, old.type_var);
-//    std::swap (identifier[0], old.identifier[0]);
-//    std::swap (identifier[1], old.identifier[1]);
-//    return *this; // pensar no quê que (a = b) retorna, para casos do tipo a = (b = c)
-//}
 
 Worker & Worker::dup(Worker *old, Tile & tilezz){
     type_var=old->type_var;

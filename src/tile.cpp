@@ -124,15 +124,6 @@ Tile & Tile::operator=( /*const*/ Tile /*&*/ old) { // idioma swap
 }
 
 Tile & Tile::dup(Tile* old, Island & islande) {
-    /*
-}
-    :   v_buildings(old.v_buildings),
-            typevar(old.typevar),
-            island_var(island_var),
-            //building_class(old.building_class),
-            //workersVec(old.workersVec),
-            resources_var(old.resources_var){
-*/
         coords[0] = old->coords[0];
         coords[1] = old->coords[1];
 
@@ -266,6 +257,9 @@ std::string Tile::build(std::string& command){
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == strToLower(v_buildings[i])){
             if (building_class != nullptr) {
+                if (strToLower(building_class->type()) == command){
+                    return building_class->upgrade();
+                }
                 oss << "ERROR: There's a " << command << " here already";
                 return oss.str();
             }
@@ -288,6 +282,9 @@ std::string Tile::buildNoCost(std::string& command){
     for (int i = 0; i < v_buildings.size(); ++i) {
         if (command == strToLower(v_buildings[i])){
             if (building_class != nullptr) {
+                if (building_class->type() == command){
+                    return building_class->upgrade();
+                }
                 oss << "ERROR: There's a " << command << " here already";
                 return oss.str();
             }
@@ -508,6 +505,7 @@ Tile::~Tile(){
     for (Worker* w : workersVec) {
         delete w;
     }
+    if (building_class != nullptr) delete building_class;
 }
 resourcesStr& Tile::resources() {
     return resources_var;

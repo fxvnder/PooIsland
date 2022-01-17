@@ -39,24 +39,40 @@ int Building::turnOn(){
     on = true;
     return 6;
 }
+std::string Building::upgrade(){ return "not upgradable"; };
 
 // ===== Class ironFarm ===== //
 ironFarm::ironFarm(class Tile &tile) : Building(tile) {
     type_var = "mnF";
+    level = 1;
+    maxiron = 100;
 }
 void ironFarm::dusk(){
-
+    std::cout << "iron dusk: " <<tile.resources().iron << "  " << maxiron;
+    if(tile.resources().iron <= maxiron-2){
+        tile.resources().iron += 2;
+    }
+}
+std::string ironFarm::upgrade(){
+    if (level < 5){
+        level += 1;
+        maxiron += 100;
+        return "SUCCESS: upgraded!";
+    } else
+        return "ERROR: already at max level";
 }
 
 // ===== Class coalMine ===== //
 coalMine::coalMine(class Tile &tile) : Building(tile) {
     type_var = "mnC";
 }
+std::string coalMine::upgrade(){ return "ERROR: not upgradable"; };
 
 // ===== Class electricityCentral ===== //
 electricityCentral::electricityCentral(class Tile &tile) : Building(tile) {
     type_var = "elec";
 }
+std::string electricityCentral::upgrade(){ return "ERROR: not upgradable"; };
 
 void electricityCentral::dusk(){
     std::cout << "we got thehere \n";
@@ -75,6 +91,7 @@ void electricityCentral::dusk(){
 battery::battery(class Tile &tile) : Building(tile) {
     type_var = "bat";
 }
+std::string battery::upgrade(){ return "not upgradable"; };
 
 // ===== Class foundry ===== //
 //Fundição. Permite obter aço a partir de ferro e carvão. Para funcionar é necessário que a zona em que se
@@ -83,8 +100,10 @@ battery::battery(class Tile &tile) : Building(tile) {
 foundry::foundry(class Tile &tile) : Building(tile) {
     type_var = "fun";
 }
+std::string foundry::upgrade(){ return "not upgradable"; };
 
 // ===== Class Sarration ===== //
 sarration::sarration(class Tile &tile) : Building(tile) {
     type_var = "sarr";
 }
+std::string sarration::upgrade(){ return "not upgradable"; };
