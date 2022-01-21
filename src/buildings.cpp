@@ -50,7 +50,7 @@ ironFarm::ironFarm(class Tile &tile) : Building(tile) {
 void ironFarm::dusk(){
     std::cout << "iron dusk: " <<tile.resources().iron << "  " << maxiron;
     if(tile.resources().iron <= maxiron-2){
-        tile.resources().iron += 2;
+        tile.resources().iron += 2 + level;
     }
 }
 std::string ironFarm::upgrade(){
