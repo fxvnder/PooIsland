@@ -7,7 +7,7 @@
 #include <random>
 
 #define TILEDISPSIZE 10
-#define DAYTIME 130 // seconds
+#define DAYTIME 120 // seconds
 
 int random (int low, int high);
 std::string strToLower(std::string str);
